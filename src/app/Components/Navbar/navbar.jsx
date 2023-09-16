@@ -1,52 +1,28 @@
+"use client"
 import Link from "next/link";
 import React from "react";
 
 export default function Navbar() {
   const menuItems = (
     <>
-      <li tabIndex={0}>
-        <details>
-          <summary className="bg-white hover:bg-base-100 px-3 py-2 mx-2 hover:shadow-xl">
-            Departments
-          </summary>
-          <ul className="p-2">
-            <li>
-              <Link
-                href=""
-                className="bg-white hover:bg-base-100 px-3 py-2 mx-2"
-              >
-                Submenu 1
-              </Link>
-            </li>
-            <li>
-              <Link
-                href=""
-                className="bg-white hover:bg-base-100 px-3 py-2 mx-2"
-              >
-                Submenu 2
-              </Link>
-            </li>
-          </ul>
-        </details>
-      </li>
       <li>
         <Link
           href=""
-          className="bg-white hover:bg-base-100 px-3 py-2 mx-2 hover:shadow-xl"
+          className="bg-white text-black hover:bg-base-100 px-3 py-2 mx-2 shadow-md hover:shadow-xl"
         >
           Disease Information
         </Link>
       </li>
       <li tabIndex={0}>
         <details>
-          <summary className="bg-white hover:bg-base-100 px-3 py-2 mx-2 hover:shadow-xl">
+          <summary className="bg-white text-black hover:bg-base-100 px-3 py-2 mx-2 shadow-md hover:shadow-xl">
             Patient Care
           </summary>
           <ul className="p-2">
             <li>
               <Link
                 href=""
-                className="bg-white hover:bg-base-100 px-3 py-2 mx-2"
+                className="bg-white text-black hover:bg-base-100 px-3 py-2 mx-2"
               >
                 Submenu 1
               </Link>
@@ -54,7 +30,7 @@ export default function Navbar() {
             <li>
               <Link
                 href=""
-                className="bg-white hover:bg-base-100 px-3 py-2 mx-2"
+                className="bg-white text-black hover:bg-base-100 px-3 py-2 mx-2"
               >
                 Submenu 2
               </Link>
@@ -65,7 +41,7 @@ export default function Navbar() {
       <li>
         <Link
           href=""
-          className="bg-white hover:bg-base-100 px-3 py-2 mx-2 hover:shadow-xl"
+          className="bg-white text-black hover:bg-base-100 px-3 py-2 mx-2 shadow-md hover:shadow-xl"
         >
           Vaccination Program
         </Link>
@@ -73,7 +49,7 @@ export default function Navbar() {
       <li>
         <Link
           href=""
-          className="bg-white hover:bg-base-100 px-3 py-2 mx-2 hover:shadow-xl"
+          className="bg-white text-black hover:bg-base-100 px-3 py-2 mx-2 shadow-md hover:shadow-xl"
         >
           Apply for insurance
         </Link>
@@ -81,7 +57,7 @@ export default function Navbar() {
       <li>
         <Link
           href=""
-          className="bg-white hover:bg-base-100 px-3 py-2 mx-2 hover:shadow-xl"
+          className="bg-white text-black hover:bg-base-100 px-3 py-2 mx-2 shadow-md hover:shadow-xl"
         >
           Our Exillencies
         </Link>
@@ -89,7 +65,7 @@ export default function Navbar() {
       <li>
         <Link
           href=""
-          className="bg-white hover:bg-base-100 px-3 py-2 mx-2 hover:shadow-xl"
+          className="bg-white text-black hover:bg-base-100 px-3 py-2 mx-2 shadow-md hover:shadow-xl"
         >
           Contact Us
         </Link>
@@ -123,15 +99,15 @@ export default function Navbar() {
             {menuItems}
           </ul>
         </div>
-        <Link href="" className="bg-primary normal-case text-xl px-4">
-          PHP
+        <Link href="" className="bg-primary text-white normal-case px-4">
+          <p className="text-2xl font-bold italic">PHP <span className="text-xs">Hospital</span></p>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-        <Link href={""} className="btn-primary px-3 py-2 rounded-xl">
+        <Link href={"/SignIn"} className="btn-primary px-3 py-2 rounded-xl bg-white hover:bg-base-100">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
