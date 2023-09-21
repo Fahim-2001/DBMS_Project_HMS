@@ -6,11 +6,13 @@ const cryptr = new Cryptr('myTotallySecretKey', {
 });
 import { NextResponse } from "next/server";
 
+// All User Info API
 export async function GET(req,res){
     try {
         const connection = await pool.getConnection();
         const [data] = await connection.query('SELECT * FROM users');
         connection.release();
+        
         const users = JSON.stringify(data);
         // console.log(users);
         return NextResponse.json(users, {status:200});
@@ -19,6 +21,7 @@ export async function GET(req,res){
     }
 }
 
+// Post a user api
 export async function POST(req){
     try {
         const user = await req.json();
@@ -27,6 +30,7 @@ export async function POST(req){
         
         const connection = await pool.getConnection();
         await connection.query('INSERT INTO users(fullname,email,password) VALUES(?,?,?)',[user.name, user.email, hashedPass]);
+        connection.release();
         
         return NextResponse.json({message : "User Registered!"}, {status : 201});
     } catch (error) {
