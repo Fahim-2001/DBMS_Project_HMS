@@ -8,8 +8,21 @@ export const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(null);
   const [confirmedPassword, setConfirmedPassword] = useState(null);
+  const [imageSrc, setImageSrc] = useState("");
   const [error, setError] = useState("");
 
+  // Function which triggers on every selection and display the instant change in UI.
+  function handleOnChange(changeEvent) {
+    const reader = new FileReader();
+
+    reader.onload = function(onLoadEvent) {
+      setImageSrc(onLoadEvent.target.result);
+    }
+
+    reader.readAsDataURL(changeEvent.target.files[0]);
+  }
+
+  // Function which complete all actions in Form.
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -21,14 +34,39 @@ export const SignUpForm = () => {
     }
 
     try {
+      // Digging out image file object from the form elements.
+      const fileInput = Array.from(form.elements).find(
+        ({ name }) => name === "file"
+      );
+      const imageFile = fileInput.files[0];
+
+      // Processing the imageFile into FormData to send in cloudinary
+      const formData = new FormData();
+      formData.set("file", imageFile);
+
+      // Form data set to cloudinary unsigned preset to prevent unsigned error into regarding preset 'phphospital-user-uploads'
+      formData.append("upload_preset", "phphospital-user-uploads");
+
+      // POSTing formdata to the cloudinary
+      const data = await fetch(
+        "https://api.cloudinary.com/v1_1/dqvsc6e7e/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      ).then((res) => res.json());
+      setImageSrc(data.secure_url);
+
+      // User information
       const user = {
         name: fullname,
         email: email,
         password: password,
+        userImage: data.secure_url,
       };
 
       // Api call to get existing user with same email
-      const existUserRes = await fetch('api/userExist', {
+      const existUserRes = await fetch("api/userExist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,22 +76,28 @@ export const SignUpForm = () => {
       const existingEmail = await existUserRes.json();
 
       // Existing Email check
-      if(existingEmail == email){
+      if (existingEmail == email) {
         setError("Email Exists!");
         return;
       }
 
+      // Password Check
+      if (password != confirmedPassword) {
+        setError("Confirme Password not matched!");
+        return;
+      }
+
       // Api call to send user information into the db
-      const res = await fetch('api/register',{
-          method:"POST",
-          headers:{
-              "Content-Type":"application/json",
-          },
-          body: JSON.stringify(user),
+      const res = await fetch("api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
       });
 
       if (res.ok) {
-        form.reset();
+        // form.reset();
         setError("");
       } else {
         console.log("User registration failed! ");
@@ -113,6 +157,27 @@ export const SignUpForm = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
+          </div>
+
+          {imageSrc && <img src={imageSrc} alt="User Profile Picture" className="h-24 w-24"/>}
+
+          <div>
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Image
+            </label>
+            <div className="mt-2">
+              <input
+                id="image"
+                name="file"
+                type="file"
+                className="block file-input file-input-primary file-input-sm w-full"
+                onChange={handleOnChange}
+              />
+            </div>
+            <span className="text-xs">Please provide image less than 1MB.</span>
           </div>
 
           <div>

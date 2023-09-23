@@ -4,11 +4,13 @@ const cryptr = new Cryptr('myTotallySecretKey', {
     encoding :'base64',
     saltLength:1,
 });
+import { format } from "mysql2";
 import { NextResponse } from "next/server";
 
 // All User Info API
 export async function GET(req,res){
     try {
+        // Retrieving Data from database
         const connection = await pool.getConnection();
         const [data] = await connection.query('SELECT * FROM users');
         connection.release();
@@ -25,11 +27,12 @@ export async function GET(req,res){
 export async function POST(req){
     try {
         const user = await req.json();
-        console.log(user);
+        // console.log(user)
         const hashedPass = cryptr.encrypt(user.password);
         
+        // Sending Data to Database
         const connection = await pool.getConnection();
-        await connection.query('INSERT INTO users(fullname,email,password) VALUES(?,?,?)',[user.name, user.email, hashedPass]);
+        await connection.query('INSERT INTO users(fullname,email,password, userImg) VALUES(?,?,?,?)',[user.name, user.email, hashedPass,user.userImage]);
         connection.release();
         
         return NextResponse.json({message : "User Registered!"}, {status : 201});
