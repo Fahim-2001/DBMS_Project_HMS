@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 export const SignUpForm = () => {
   const [fullname, setFullname] = useState("");
@@ -10,6 +12,8 @@ export const SignUpForm = () => {
   const [confirmedPassword, setConfirmedPassword] = useState(null);
   const [imageSrc, setImageSrc] = useState("");
   const [error, setError] = useState("");
+
+  const router = useRouter();
 
   // Function which triggers on every selection and display the instant change in UI.
   function handleOnChange(changeEvent) {
@@ -97,8 +101,20 @@ export const SignUpForm = () => {
       });
 
       if (res.ok) {
-        // form.reset();
+        form.reset();
+        setImageSrc("");
         setError("");
+        toast.success('Registration Successful!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+          router.push('/');
       } else {
         console.log("User registration failed! ");
       }
@@ -236,7 +252,7 @@ export const SignUpForm = () => {
                 href={"/SignIn"}
                 className="font-semibold text-primary hover:text-secondary"
               >
-                Sign Up
+                Sign In
               </Link>
             </p>
           </div>
