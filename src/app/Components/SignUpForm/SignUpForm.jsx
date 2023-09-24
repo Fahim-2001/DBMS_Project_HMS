@@ -1,5 +1,6 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -19,9 +20,9 @@ export const SignUpForm = () => {
   function handleOnChange(changeEvent) {
     const reader = new FileReader();
 
-    reader.onload = function(onLoadEvent) {
+    reader.onload = function (onLoadEvent) {
       setImageSrc(onLoadEvent.target.result);
-    }
+    };
 
     reader.readAsDataURL(changeEvent.target.files[0]);
   }
@@ -104,7 +105,12 @@ export const SignUpForm = () => {
         form.reset();
         setImageSrc("");
         setError("");
-        toast.success('Registration Successful!', {
+        await signIn("credentials", {
+          email: email,
+          password: password,
+          redirect: true,
+        });
+        toast.success("Registration Successful!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -113,11 +119,21 @@ export const SignUpForm = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
-          router.push('/');
+        });
       } else {
-        console.log("User registration failed! ");
+        toast.warning("Registration Successful!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return;
       }
+      router.replace("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -175,7 +191,13 @@ export const SignUpForm = () => {
             </div>
           </div>
 
-          {imageSrc && <img src={imageSrc} alt="User Profile Picture" className="h-24 w-24"/>}
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt="User Profile Picture"
+              className="h-24 w-24"
+            />
+          )}
 
           <div>
             <label

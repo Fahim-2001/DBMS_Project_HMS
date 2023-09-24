@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 const connection = await pool.getConnection();
 
-const authOption = {
+export const authOption = {
   session: {
     strategy: "jwt",
   },
@@ -22,7 +22,6 @@ const authOption = {
         );
         connection.release();
         const user = data[0];
-        console.log(user);
 
         // Verification of email and password.
         if (credentials.email != user.email) {
@@ -40,6 +39,7 @@ const authOption = {
         if (!isMatched) {
           throw new Error("Invalid Password");
         }
+
         return {
           name: user.fullname,
           email: user.email,
@@ -50,6 +50,7 @@ const authOption = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/signin",
+    signUp: "/signup",
   },
 };
 
