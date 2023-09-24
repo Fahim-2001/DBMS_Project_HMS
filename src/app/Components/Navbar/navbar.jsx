@@ -107,7 +107,7 @@ export default function Navbar() {
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-        <Link href={"/SignIn"} className="btn-primary px-3 py-2 rounded-xl bg-white hover:bg-base-100">
+        <Link href={"/signin"} className="btn-primary px-3 py-2 rounded-xl bg-white hover:bg-base-100">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

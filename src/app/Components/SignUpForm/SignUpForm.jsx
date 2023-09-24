@@ -249,7 +249,7 @@ export const SignUpForm = () => {
             <p className="text-sm py-2 text-right">
               Already have an account?{" "}
               <Link
-                href={"/SignIn"}
+                href={"/signin"}
                 className="font-semibold text-primary hover:text-secondary"
               >
                 Sign In

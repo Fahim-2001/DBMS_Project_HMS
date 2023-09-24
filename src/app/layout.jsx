@@ -24,10 +24,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head></head>
       <body className={inter.className}>
-        <Navbar></Navbar>
-        <AuthProvider>{children}</AuthProvider>
-        <Footer></Footer>
-        <ToastContainer />
+        <AuthProvider>
+          <Navbar></Navbar>
+          {children}
+          <Footer></Footer>
+          <ToastContainer />
+        </AuthProvider>
       </body>
     </html>
   );

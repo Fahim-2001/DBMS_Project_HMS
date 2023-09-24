@@ -1,10 +1,5 @@
 const { default: pool } = require("@/app/utils/db");
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr('myTotallySecretKey', {
-    encoding :'base64',
-    saltLength:1,
-});
-import { format } from "mysql2";
+import bcrypt from 'bcryptjs';
 import { NextResponse } from "next/server";
 
 // All User Info API
@@ -27,12 +22,12 @@ export async function GET(req,res){
 export async function POST(req){
     try {
         const user = await req.json();
-        // console.log(user)
-        const hashedPass = cryptr.encrypt(user.password);
         
+        const hpass = await bcrypt.hash(user.password, 10);
+
         // Sending Data to Database
         const connection = await pool.getConnection();
-        await connection.query('INSERT INTO users(fullname,email,password, userImg) VALUES(?,?,?,?)',[user.name, user.email, hashedPass,user.userImage]);
+        await connection.query('INSERT INTO users(fullname,email,password, userImg) VALUES(?,?,?,?)',[user.name, user.email, hpass,user.userImage]);
         connection.release();
         
         return NextResponse.json({message : "User Registered!"}, {status : 201});
