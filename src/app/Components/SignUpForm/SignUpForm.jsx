@@ -11,22 +11,11 @@ export const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(null);
   const [confirmedPassword, setConfirmedPassword] = useState(null);
-  const [imageSrc, setImageSrc] = useState("");
+  const [gender, setGender] = useState("");
   const [error, setError] = useState("");
 
   const router = useRouter();
-
-  // Function which triggers on every selection and display the instant change in UI.
-  function handleOnChange(changeEvent) {
-    const reader = new FileReader();
-
-    reader.onload = function (onLoadEvent) {
-      setImageSrc(onLoadEvent.target.result);
-    };
-
-    reader.readAsDataURL(changeEvent.target.files[0]);
-  }
-
+  console.log(gender);
   // Function which complete all actions in Form.
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,49 +28,27 @@ export const SignUpForm = () => {
     }
 
     try {
-      // Digging out image file object from the form elements.
-      const fileInput = Array.from(form.elements).find(
-        ({ name }) => name === "file"
-      );
-      const imageFile = fileInput.files[0];
-
-      // Processing the imageFile into FormData to send in cloudinary
-      const formData = new FormData();
-      formData.set("file", imageFile);
-
-      // Form data set to cloudinary unsigned preset to prevent unsigned error into regarding preset 'phphospital-user-uploads'
-      formData.append("upload_preset", "phphospital-user-uploads");
-
-      // POSTing formdata to the cloudinary
-      const data = await fetch(
-        "https://api.cloudinary.com/v1_1/dqvsc6e7e/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      ).then((res) => res.json());
-      setImageSrc(data.secure_url);
-
       // User information
       const user = {
         name: fullname,
         email: email,
         password: password,
-        userImage: data.secure_url,
+        userRole: "user",
+        gender: gender,
       };
 
       // Api call to get existing user with same email
-      const existUserRes = await fetch("api/userExist", {
+      const existUserResponse = await fetch("api/userExist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(email),
       });
-      const existingEmail = await existUserRes.json();
+      const existingUser = await existUserResponse.json();
 
       // Existing Email check
-      if (existingEmail == email) {
+      if (existingUser.email == email) {
         setError("Email Exists!");
         return;
       }
@@ -103,16 +70,16 @@ export const SignUpForm = () => {
 
       if (res.ok) {
         form.reset();
-        setImageSrc("");
         setError("");
         await signIn("credentials", {
           email: email,
           password: password,
           redirect: true,
         });
+
         toast.success("Registration Successful!", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 10000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -121,7 +88,7 @@ export const SignUpForm = () => {
           theme: "light",
         });
       } else {
-        toast.warning("Registration Successful!", {
+        toast.warning("Registration unuccessful!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -133,7 +100,6 @@ export const SignUpForm = () => {
         });
         return;
       }
-      router.replace("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -183,41 +149,46 @@ export const SignUpForm = () => {
                 id="email"
                 name="email"
                 type="email"
-                autoComplete="email"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400  sm:text-sm sm:leading-6"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
-
-          {imageSrc && (
-            <img
-              src={imageSrc}
-              alt="User Profile Picture"
-              className="h-24 w-24"
-            />
-          )}
-
-          <div>
+          <fieldset>
             <label
-              htmlFor="image"
+              htmlFor="gender"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              Image
+              Gender
             </label>
-            <div className="mt-2">
-              <input
-                id="image"
-                name="file"
-                type="file"
-                className="block file-input file-input-primary file-input-sm w-full"
-                onChange={handleOnChange}
-              />
+            <div className="flex justify-evenly">
+              <div className="flex">
+                <input
+                  name="gender"
+                  id="male"
+                  type="radio"
+                  value="male"
+                  required
+                  className="mr-2"
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                <span>Male</span>
+              </div>
+              <div className="flex">
+                <input
+                  name="gender"
+                  id="female"
+                  type="radio"
+                  value="female"
+                  required
+                  className="mr-2"
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                <span>Female</span>
+              </div>
             </div>
-            <span className="text-xs">Please provide image less than 1MB.</span>
-          </div>
-
+          </fieldset>
           <div>
             <div className="flex items-center justify-between">
               <label

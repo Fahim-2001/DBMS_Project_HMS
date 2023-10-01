@@ -9,6 +9,7 @@ const SignIn = async() => {
   const session = await getServerSession(authOption);
 
   if(session) redirect("/");
+
   
   return (
     <div>

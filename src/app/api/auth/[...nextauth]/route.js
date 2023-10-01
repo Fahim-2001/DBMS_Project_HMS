@@ -35,7 +35,7 @@ export const authOption = {
           credentials.password,
           user.password
         );
-        console.log(isMatched);
+
         if (!isMatched) {
           throw new Error("Invalid Password");
         }

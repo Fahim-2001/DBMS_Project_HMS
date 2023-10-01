@@ -22,12 +22,14 @@ export async function GET(req,res){
 export async function POST(req){
     try {
         const user = await req.json();
+
+        // console.log(user)
         
         const hpass = await bcrypt.hash(user.password, 10);
 
         // Sending Data to Database
         const connection = await pool.getConnection();
-        await connection.query('INSERT INTO users(fullname,email,password, userImg) VALUES(?,?,?,?)',[user.name, user.email, hpass,user.userImage]);
+        await connection.query('INSERT INTO users(fullname,email,password,userRole,gender) VALUES(?,?,?,?,?)',[user.name, user.email, hpass,user.userRole, user.gender]);
         connection.release();
         
         return NextResponse.json({message : "User Registered!"}, {status : 201});

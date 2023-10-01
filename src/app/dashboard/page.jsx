@@ -1,12 +1,9 @@
-import React from "react";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import React from 'react'
 
 const Dashboard = () => {
   return (
-    <PrivateRoute>
-      <div>Welcome to Dashboard</div>
-    </PrivateRoute>
-  );
-};
+    <div>This is Dashboard</div>
+  )
+}
 
-export default Dashboard;
+export default Dashboard
