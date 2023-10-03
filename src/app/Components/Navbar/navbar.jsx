@@ -8,9 +8,9 @@ import React, { useContext } from "react";
 export default function Navbar() {
   const session = useSession();
   // console.log(session?.data?.user);
-  const userData = useContext(UserDataContext);
+  const {userData} = useContext(UserDataContext);
   // console.log(userData);
-  
+
   const menuItems = (
     <>
       <li>
@@ -121,22 +121,26 @@ export default function Navbar() {
           <>
             {
               <p className="mx-2 text-md font-semibold font-serif text-white ">
-                {userData.fullname}
+                {userData.fullname || session?.data?.user?.name}
               </p>
             }
-            <details className="dropdown dropdown-end">
-              <summary className="avatar">
-                <div className="w-9 mt-2 rounded-full">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
-                    alt=""
-                  />
-                </div>
-              </summary>
-              <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 mr-3">
-                {userData?.userRole === "super-admin" && (<li>
-                  <Link href={"/dashboard"}>Dashboard</Link>
-                </li>)}
+
+            <div className="dropdown dropdown-bottom dropdown-end">
+              <label tabIndex={0} className="my-1 avatar w-10">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
+                  alt=""
+                />
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                {userData?.userRole === "super-admin" && (
+                  <li>
+                    <Link href={"/dashboard"}>Dashboard</Link>
+                  </li>
+                )}
                 <li>
                   <Link href={"/"}>Profile</Link>
                 </li>
@@ -144,7 +148,7 @@ export default function Navbar() {
                   <p> {"[->"} Sign Out </p>
                 </li>
               </ul>
-            </details>
+            </div>
           </>
         ) : (
           <Link

@@ -15,7 +15,6 @@ export const SignUpForm = () => {
   const [error, setError] = useState("");
 
   const router = useRouter();
-  console.log(gender);
   // Function which complete all actions in Form.
   const handleSubmit = async (e) => {
     e.preventDefault();

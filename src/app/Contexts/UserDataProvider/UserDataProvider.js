@@ -4,6 +4,7 @@ import React, { createContext, useEffect, useState } from "react";
 
 export const UserDataContext = createContext();
 const UserDataProvider = ({ children }) => {
+  const [isLoading, setLoading] = useState(true);
   const [userData, setUserData] = useState({});
   const session = useSession();
   const email = session?.data?.user?.email;
@@ -18,18 +19,22 @@ const UserDataProvider = ({ children }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(email),
-        },{cache : 'no-store'});
+        });
         const res = await existUser.json();
 
         setUserData(res);
+        setLoading(false);
       }
 
       getData();
     }
   }, [email]);
-  //   console.log(userData);
+
+  const values = {
+    userData
+  }
   return (
-    <UserDataContext.Provider value={userData}>
+    <UserDataContext.Provider value={values}>
       {children}
     </UserDataContext.Provider>
   );
