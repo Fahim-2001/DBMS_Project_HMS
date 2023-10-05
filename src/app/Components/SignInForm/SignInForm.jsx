@@ -1,15 +1,14 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(null);
   const [error, setError] = useState("");
-  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,20 +17,22 @@ const SignInForm = () => {
       const res = await signIn("credentials", {
         email: email,
         password: password,
-        redirect: false,
+        redirect:true
       });
 
       if (res.error) {
-        if(res.error == "Cannot read properties of undefined (reading 'email')"){
+        if (
+          res.error == "Cannot read properties of undefined (reading 'email')"
+        ) {
           setError("Invalid Email");
-        }else{
+        } else {
           setError(res.error);
         }
         return;
       }
 
       setError("");
-      router.replace('/');
+      
     } catch (error) {
       console.log(error.message);
     }
@@ -98,7 +99,7 @@ const SignInForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {error && (<p className="text-red-500 text-xs">{error}</p>)}
+            {error && <p className="text-red-500 text-xs">{error}</p>}
           </div>
           <div>
             <button

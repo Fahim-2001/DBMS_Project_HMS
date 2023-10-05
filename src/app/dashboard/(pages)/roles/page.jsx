@@ -1,17 +1,21 @@
-import { allUsersData } from "@/app/Contexts/AllUsers/AllUsers";
-import React from "react";
+"use client"
+// import { allUsersData } from "@/app/Contexts/AllUsersInfoProvider/AllUsers";
+import React, { useContext } from "react";
 import RoleUpdate from "../../DashboardComponents/RoleUpdate/RoleUpdate";
+import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 
-export const metadata = {
-  title: "Roles - Dashboard",
-};
+
 const Roles = () => {
-  const users = JSON.parse(allUsersData);
+  // const users = JSON.parse(allUsersData);
+
+  const {users} = useContext(UserDataContext)
+  // console.log(users);
   return (
     <div className="overflow-x-auto">
+      {/* <AllUsersInfoProvider/> */}
       <div className="flex justify-between text-xs font-semibold mr-3">
         <p>Role Table</p>
-        <p>User Count :{users.length}</p>
+        <p>User Count :{users?.length}</p>
       </div>
       <table className="table table-xs">
         <thead>
@@ -26,7 +30,7 @@ const Roles = () => {
         </thead>
         <tbody>
           {users?.map((user) => (
-            <tr id={user?.id}>
+            <tr key={user?.id}>
               <th>{user?.id}</th>
               <td>{user?.fullname}</td>
               <td>{user?.email}</td>

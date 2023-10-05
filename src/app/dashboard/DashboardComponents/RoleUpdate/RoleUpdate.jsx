@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
+
 const RoleUpdate = ({ user }) => {
   const [role, setRole] = useState("");
-  
 
   const updateRole = async () => {
     const newRole = {
@@ -20,10 +20,12 @@ const RoleUpdate = ({ user }) => {
         },
         body: JSON.stringify(newRole),
       });
+      
+      
       if (response.ok) {
         toast.success("Successfully updated role!", {
           position: "top-right",
-          autoClose: 10000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -31,11 +33,10 @@ const RoleUpdate = ({ user }) => {
           progress: undefined,
           theme: "light",
         });
-       
       }else{
         toast.warning("Role update failed!", {
           position: "top-right",
-          autoClose: 10000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -64,6 +65,7 @@ const RoleUpdate = ({ user }) => {
       >
         Update
       </button>
+      {/* {error&& (<p>{error}</p>)} */}
     </div>
   );
 };

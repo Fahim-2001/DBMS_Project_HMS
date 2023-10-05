@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./providers";
 import UserDataProvider from "./Contexts/UserDataProvider/UserDataProvider";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

@@ -1,17 +1,20 @@
 import pool from "@/app/utils/db";
 import { NextResponse } from "next/server";
 
-export async function GET(req, res){
+// Get User by email.
+export async function GET(req){
     try {
-        const email= await req.query.email;
-        console.log("Incoming Email :", email);
+        const url = new URL(req.url);
+        const email = url.searchParams.get("email");
+
+        // console.log(email);
 
         const connection = await pool.getConnection();
         const userData = await connection.query(`SELECT * FROM users WHERE email = '${email}'`)
         connection.release();
 
         let user=userData[0][0];
-        console.log("Outgoing email :",user);
+        // console.log(user);
         
         return NextResponse.json(user, {message : "User Exist"}, {status : 201});
     } catch (error) {

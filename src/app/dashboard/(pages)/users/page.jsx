@@ -1,18 +1,15 @@
-import React from "react";
-import { allUsersData } from "@/app/Contexts/AllUsers/AllUsers";
+"use client"
+import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
+import React, { useContext } from "react";
 
-export const metadata = {
-  title: "Users - Dashboard",
-};
-const Users = async () => {
-  const users = JSON.parse(allUsersData);
-
-  
+const Users = () => {
+  const {users} = useContext(UserDataContext)
   return (
     <div className="overflow-x-auto">
-      <div className='flex justify-between text-xs font-semibold mr-3'>
-      <p >Users Table</p>
-      <p>Total Count :{users.length}</p>
+      {/* {data} */}
+      <div className="flex justify-between text-xs font-semibold mr-3">
+        <p>Users Table</p>
+        <p>Total Count :{users.length}</p>
       </div>
       <table className="table table-xs">
         <thead>
@@ -27,7 +24,7 @@ const Users = async () => {
         </thead>
         <tbody>
           {users?.map((user) => (
-            <tr id={user?.id}>
+            <tr key={user?.id}>
               <th>{user?.id}</th>
               <td>{user?.fullname}</td>
               <td>{user?.email}</td>

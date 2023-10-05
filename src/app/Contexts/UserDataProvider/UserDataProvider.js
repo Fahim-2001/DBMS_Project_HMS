@@ -1,38 +1,35 @@
 "use client";
 import { useSession } from "next-auth/react";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext } from "react";
+import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
 export const UserDataContext = createContext();
 const UserDataProvider = ({ children }) => {
-  const [isLoading, setLoading] = useState(true);
-  const [userData, setUserData] = useState({});
   const session = useSession();
   const email = session?.data?.user?.email;
 
-  // Useffect to fetch data every time.
-  useEffect(() => {
-    if (email) {
-      async function getData() {
-        const existUser = await fetch("api/userExist", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(email),
-        });
-        const res = await existUser.json();
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  // Single user fetching By email.
+  const {
+    data: singleUser,
+    error,
+    isLoading,
+  } = useSWRImmutable(
+    `http://localhost:3000/api/userExist?email=${email}`,
+    fetcher
+  );
+  // console.log(singleUser);
 
-        setUserData(res);
-        setLoading(false);
-      }
-
-      getData();
-    }
-  }, [email]);
+  // All user fetch
+  const { data: users } = useSWR("http://localhost:3000/api/users", fetcher, {refreshInterval:50});
+  // console.log(users);
 
   const values = {
-    userData
-  }
+    singleUser,
+    users,
+  };
+
   return (
     <UserDataContext.Provider value={values}>
       {children}

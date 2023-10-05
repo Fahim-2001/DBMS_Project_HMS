@@ -8,8 +8,8 @@ import React, { useContext } from "react";
 export default function Navbar() {
   const session = useSession();
   // console.log(session?.data?.user);
-  const {userData} = useContext(UserDataContext);
-  // console.log(userData);
+  const {singleUser} = useContext(UserDataContext);
+  // console.log(data);
 
   const menuItems = (
     <>
@@ -121,7 +121,7 @@ export default function Navbar() {
           <>
             {
               <p className="mx-2 text-md font-semibold font-serif text-white ">
-                {userData.fullname || session?.data?.user?.name}
+                {singleUser?.fullname || session?.data?.user?.name}
               </p>
             }
 
@@ -136,7 +136,7 @@ export default function Navbar() {
                 tabIndex={0}
                 className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
               >
-                {userData?.userRole === "super-admin" && (
+                {singleUser?.userRole === "super-admin" && (
                   <li>
                     <Link href={"/dashboard"}>Dashboard</Link>
                   </li>
