@@ -1,83 +1,65 @@
-"use client"
+"use client";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const AddDoctor = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [speciality, setSpeciality] = useState("");
-  const [department, setDepartment] = useState("");
-  const [error, setError] = useState("");
-
-  const handleSubmit =(e)=>{
-    e.preventDefault();
-    if(!fullName || !email || !speciality || !department ){
-      setError("Please fill all the fields!");
-      return;
-    }
-    const doc = {
-      fullName,
-      email,
-      speciality,
-      department
-    }
-    console.log(doc);
-    setError("")
-  }
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => console.log(data);
 
   return (
     <div>
       <p className="text-xs font-semibold mb-2">Add Doctor</p>
-      <form method="post" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          <div className="text-xs mb-2">
-            <label htmlFor="name" className="mr-2">
-              Full Name:
-            </label>
+      <form className="text-xs" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-wrap">
+          <div className="my-1">
+            <label className="mr-1">First Name</label><br />
             <input
-              name="name"
-              type="text"
-              className="border border-primary w-3/5"
-              onChange={(e)=>setFullName(e.target.value)}
+              className="border border-primary mr-2"
+              {...register("firstname")}
             />
           </div>
-          <div className="text-xs mb-2">
-            <label htmlFor="email" className="mr-2">
-              Email:
-            </label>
+          <div className="my-1">
+            <label className="mr-1">Last Name</label><br />
             <input
-              name="email"
-              type="email"
-              className="border border-primary w-3/5"
-              onChange={(e)=>setEmail(e.target.value)}
+              className="border border-primary mr-2"
+              {...register("lastname")}
             />
           </div>
-          <div className="text-xs mb-2">
-            <label htmlFor="speciality" className="mr-2">
-              Speciality:
-            </label>
+          <div className="my-1">
+            <label className="mr-1">Email Address</label><br />
             <input
-              name="speciality"
-              type="text"
-              className="border border-primary w-3/5"
-              onChange={(e)=>setSpeciality(e.target.value)}
+              className="border border-primary mr-2"
+              {...register("email")}
             />
           </div>
-          <div className="text-xs mb-2">
-            <label htmlFor="department" className="mr-2">
-              Department:
-            </label>
+          <div className="my-1">
+            <label className="mr-1">Phone Number</label><br />
             <input
-              name="department"
-              type="text"
-              className="border border-primary w-3/5"
-              onChange={(e)=>setDepartment(e.target.value)}
+              className="border border-primary mr-2"
+              {...register("phonenumber")}
             />
+          </div>
+          <div className="my-1">
+            <label className="mr-1">Speciality</label><br />
+            <input
+              className="border border-primary mr-2"
+              {...register("speciality")}
+            />
+          </div>
+          <div className="my-1">
+            <label className="mr-1">Gender </label><br />
+            <select
+              className="border border-primary mr-2 px-[4px]"
+              {...register("gender")}
+            >
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+            </select>
           </div>
         </div>
-        <div className="flex md:justify-between my-2 mx-0 lg:mx-6">
-        <p className="text-xs text-red-600">{error}</p>
-        <button type="submit" className="bg-primary hover:bg-secondary text-xs text-white font-semibold px-[8px] py-[3px] rounded-xl">Add Doctor</button>
-        </div>
+        <button className="mx-1 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">
+          Submit
+        </button>
       </form>
     </div>
   );
