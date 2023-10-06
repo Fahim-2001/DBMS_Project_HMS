@@ -21,13 +21,8 @@ const UserDataProvider = ({ children }) => {
   );
   // console.log(singleUser);
 
-  // All user fetch
-  const { data: users } = useSWR("http://localhost:3000/api/users", fetcher, {refreshInterval:50});
-  // console.log(users);
-
   const values = {
     singleUser,
-    users,
   };
 
   return (

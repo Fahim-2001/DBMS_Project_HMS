@@ -1,15 +1,18 @@
-"use client"
-// import { allUsersData } from "@/app/Contexts/AllUsersInfoProvider/AllUsers";
-import React, { useContext } from "react";
+import React from "react";
 import RoleUpdate from "../../DashboardComponents/RoleUpdate/RoleUpdate";
-import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 
+export const metadata ={
+  title: "Roles - PHP Hospital"
+}
 
-const Roles = () => {
-  // const users = JSON.parse(allUsersData);
+const Roles = async() => {
+  
+  // Calling all users.
+  const users = await fetch(
+    "http://localhost:3000/api/users",{cache:'no-store'}
+  ).then((res) => res.json());
 
-  const {users} = useContext(UserDataContext)
-  // console.log(users);
+  // console.log("Role Page",users);
   return (
     <div className="overflow-x-auto">
       {/* <AllUsersInfoProvider/> */}

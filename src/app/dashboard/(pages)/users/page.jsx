@@ -1,9 +1,16 @@
-"use client"
-import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
-import React, { useContext } from "react";
+import React from "react";
+import DeleteUser from "../../DashboardComponents/DeleteUser/DeleteUser";
 
-const Users = () => {
-  const {users} = useContext(UserDataContext)
+export const metadata ={
+  title: "Users - PHP Hospital"
+}
+const Users = async () => {
+  // Calling all users data
+  const users = await fetch(
+    "http://localhost:3000/api/users",{cache:'no-store'}
+  ).then((res) => res.json());
+
+  // console.log("Users Page: ",users)
   return (
     <div className="overflow-x-auto">
       {/* {data} */}
@@ -31,6 +38,7 @@ const Users = () => {
               <td>{user?.gender}</td>
               <td>{user?.createdAt}</td>
               <td>{user?.userRole}</td>
+              <td><DeleteUser user={user}/></td>
             </tr>
           ))}
         </tbody>

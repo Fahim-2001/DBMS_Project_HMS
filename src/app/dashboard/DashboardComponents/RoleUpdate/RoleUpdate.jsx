@@ -1,17 +1,20 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 
 const RoleUpdate = ({ user }) => {
   const [role, setRole] = useState("");
+  const router = useRouter();
 
   const updateRole = async () => {
     const newRole = {
       email: user?.email,
       userRole: role,
     };
-    // console.log(newRole);
+    
+    // Update Role POST method
     try {
       const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
@@ -20,7 +23,7 @@ const RoleUpdate = ({ user }) => {
         },
         body: JSON.stringify(newRole),
       });
-      
+      router.refresh();
       
       if (response.ok) {
         toast.success("Successfully updated role!", {
@@ -65,7 +68,6 @@ const RoleUpdate = ({ user }) => {
       >
         Update
       </button>
-      {/* {error&& (<p>{error}</p>)} */}
     </div>
   );
 };

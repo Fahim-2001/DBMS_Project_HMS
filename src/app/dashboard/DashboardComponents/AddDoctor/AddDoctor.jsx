@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 const AddDoctor = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => console.log(data.firstname);
 
   return (
     <div>

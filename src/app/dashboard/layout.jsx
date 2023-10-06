@@ -3,6 +3,9 @@ import ProtectedRoute from "../Components/ProtectedRoute/ProtectedRoute";
 import SideNavbar from "./DashboardComponents/SideNavbar/SideNavbar";
 import Loading from "../Components/Loading/Loading";
 
+export const metadata={
+  title: "Dashboard - PHP Hospital"
+}
 const DashboardLayout = ({ children }) => {
   return (
     <ProtectedRoute>

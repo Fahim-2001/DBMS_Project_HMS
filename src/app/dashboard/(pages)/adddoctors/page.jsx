@@ -2,7 +2,7 @@ import React from 'react'
 import AddDoctor from '../../DashboardComponents/AddDoctor/AddDoctor'
 
 export const metadata = {
-  title: "Add Doctors - Dashboard",
+  title: "Add Doctors - PHP Hospital",
 };
 const AddDoctors = () => {
   return (

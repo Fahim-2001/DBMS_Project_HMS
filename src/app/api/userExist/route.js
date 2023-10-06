@@ -14,7 +14,7 @@ export async function GET(req){
         connection.release();
 
         let user=userData[0][0];
-        // console.log(user);
+        // console.log(user);`
         
         return NextResponse.json(user, {message : "User Exist"}, {status : 201});
     } catch (error) {
