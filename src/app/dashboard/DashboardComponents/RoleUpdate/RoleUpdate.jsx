@@ -58,6 +58,7 @@ const RoleUpdate = ({ user }) => {
     <div className="flex">
       <select onChange={(e) => setRole(e.target.value)}>
         <option defaultValue={user?.userRole}>{user?.userRole}</option>
+        <option value="super-admin">super-admin</option>
         <option value="admin">admin</option>
         <option value="moderator">moderator</option>
         <option value="user">user</option>

@@ -8,7 +8,7 @@ import React, { useContext } from "react";
 export default function Navbar() {
   const session = useSession();
   // console.log(session?.data?.user);
-  const {singleUser} = useContext(UserDataContext);
+  const { singleUser } = useContext(UserDataContext);
   // console.log(data);
 
   const menuItems = (
@@ -120,23 +120,41 @@ export default function Navbar() {
         {session?.data?.user ? (
           <>
             {
-              <p className="mx-2 text-md font-semibold font-serif text-white ">
-                {singleUser?.fullname || session?.data?.user?.name}
-              </p>
+              <div>
+                <p className="mx-2 text-md font-semibold font-serif text-white ">
+                  {singleUser?.fullname || session?.data?.user?.name}
+                </p>
+                {singleUser?.userRole !== "user" && (
+                  <p className="text-white text-xs text-right">
+                    {singleUser?.userRole}
+                  </p>
+                )}
+              </div>
             }
 
             <div className="dropdown dropdown-bottom dropdown-end">
               <label tabIndex={0} className="my-1 avatar w-10">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
-                  alt=""
-                />
+                {singleUser?.picture ? (
+                  <img
+                    src={singleUser?.picture}
+                    alt=""
+                    className="rounded-[50%]"
+                  />
+                ) : (
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
+                    alt=""
+                  />
+                )}
               </label>
               <ul
                 tabIndex={0}
                 className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
               >
-                {singleUser?.userRole === "super-admin" && (
+                {(singleUser?.userRole === "super-admin" ||
+                  singleUser?.userRole === "admin" ||
+                  singleUser?.userRole === "moderator"||
+                  singleUser?.userRole === "doctor") && (
                   <li>
                     <Link href={"/dashboard"}>Dashboard</Link>
                   </li>
@@ -153,10 +171,23 @@ export default function Navbar() {
         ) : (
           <Link
             href={"/signin"}
-            className="btn-primary px-2 py-2 rounded-md bg-white hover:bg-base-100"
+            className="btn-primary px-2 py-2 rounded-[50%] bg-white hover:bg-gray-200"
             title="Log In"
           >
-            <p>{"->]"}</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6 "
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+              />
+            </svg>
           </Link>
         )}
       </div>

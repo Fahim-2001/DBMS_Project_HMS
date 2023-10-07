@@ -1,9 +1,11 @@
 "use client";
+import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useContext } from "react";
 import { toast } from "react-toastify";
 
 const DeleteUser = ({ user }) => {
+  const {singleUser} = useContext(UserDataContext)
   const router = useRouter();
   const deleteUser = async (email) => {
     try {
@@ -42,12 +44,12 @@ const DeleteUser = ({ user }) => {
   };
   return (
     <div>
-      <button
+      {singleUser?.userRole !== 'doctor' && <button
         className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
         onClick={()=>deleteUser(user?.email)}
       >
         Delete
-      </button>
+      </button>}
     </div>
   );
 };

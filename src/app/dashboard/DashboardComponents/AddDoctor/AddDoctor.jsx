@@ -1,53 +1,159 @@
 "use client";
-import React, { useState } from "react";
+import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
+import { generate } from "generate-password";
+import { useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const AddDoctor = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data.firstname);
+  const router = useRouter()
+  const {singleUser} = useContext(UserDataContext)
+
+  const onSubmit = async (doctor) => {
+    try {
+      // // Digging out image file object from the form elements.
+      const fileInput = doctor?.profile_picture[0];
+
+      // // Processing the imageFile into FormData to send in cloudinary
+      const formData = new FormData();
+      formData.set("file", fileInput);
+
+      // Form data set to cloudinary unsigned preset to prevent unsigned error into regarding preset 'phphospital-user-uploads'
+      formData.append("upload_preset", "phphospital-user-uploads");
+
+      // POST method : formdata to the cloudinary
+      const data = await fetch(
+        "https://api.cloudinary.com/v1_1/dqvsc6e7e/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      ).then((res) => res.json());
+
+      // Doctor generation
+      doctor.profile_picture = data.secure_url;
+      const password = generate({
+        length: 8,
+        numbers: true,
+      });
+      doctor["role"] = "doctor";
+      doctor["password"] = password;
+
+      // POST Method : to doctors api
+      const response = await fetch("http://localhost:3000/api/doctors", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(doctor),
+      });
+
+      // Generation as a normal user
+      const user = {
+        name: doctor?.firstname + " " + doctor.lastname,
+        email: doctor?.email,
+        password: doctor?.password,
+        userRole: doctor?.role,
+        gender: doctor?.gender,
+        picture: doctor?.profile_picture
+      };
+      console.log(user)
+
+      // POST Method : to registers api
+      const response2 = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      router.refresh();
+
+      if (response.ok && response2.ok) {
+        toast.success("Doctor registered!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.warning("Doctor registration failed!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
-    <div>
+    (singleUser?.userRole !=='doctor' && <div>
       <p className="text-xs font-semibold mb-2">Add Doctor</p>
       <form className="text-xs" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-wrap">
           <div className="my-1">
-            <label className="mr-1">First Name</label><br />
+            <label className="mr-1">First Name</label>
+            <br />
             <input
+              required
               className="border border-primary mr-2"
               {...register("firstname")}
             />
           </div>
           <div className="my-1">
-            <label className="mr-1">Last Name</label><br />
+            <label className="mr-1">Last Name</label>
+            <br />
             <input
+              required
               className="border border-primary mr-2"
               {...register("lastname")}
             />
           </div>
           <div className="my-1">
-            <label className="mr-1">Email Address</label><br />
+            <label className="mr-1">Email Address</label>
+            <br />
             <input
+              required
               className="border border-primary mr-2"
               {...register("email")}
             />
           </div>
           <div className="my-1">
-            <label className="mr-1">Phone Number</label><br />
+            <label className="mr-1">Phone Number</label>
+            <br />
             <input
+              placeholder="+88016890*****"
+              required
               className="border border-primary mr-2"
-              {...register("phonenumber")}
+              type="tel"
+              {...register("phone_number")}
             />
           </div>
           <div className="my-1">
-            <label className="mr-1">Speciality</label><br />
+            <label className="mr-1">Speciality</label>
+            <br />
             <input
+              required
               className="border border-primary mr-2"
               {...register("speciality")}
             />
           </div>
           <div className="my-1">
-            <label className="mr-1">Gender </label><br />
+            <label className="mr-1">Gender </label>
+            <br />
             <select
               className="border border-primary mr-2 px-[4px]"
               {...register("gender")}
@@ -56,12 +162,23 @@ const AddDoctor = () => {
               <option value="male">Male</option>
             </select>
           </div>
+          <div className="my-1">
+            <label className="mr-1">Profile Picture</label>
+            <br />
+            <input
+              type="file"
+              name="picture"
+              className="file-input file-input-bordered file-input-xs file-input-primary w-full max-w-xs text-xs"
+              {...register("profile_picture")}
+            />
+          </div>
         </div>
         <button className="mx-1 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">
-          Submit
+          Add Doctor
         </button>
       </form>
-    </div>
+      <hr className="my-3"/>
+    </div>)
   );
 };
 
