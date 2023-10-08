@@ -8,11 +8,11 @@ const ProtectedRoute = ({ children }) => {
   const session = useSession();
   const user = useContext(UserDataContext);
 
-  if (!session?.data?.user && user.role!='super-admin') {
-    return redirect('/signin');
+  if (session?.data?.user) {
+    return children;
   }
 
-  return children;
+  return redirect('/signin');
 };
 
 export default ProtectedRoute;

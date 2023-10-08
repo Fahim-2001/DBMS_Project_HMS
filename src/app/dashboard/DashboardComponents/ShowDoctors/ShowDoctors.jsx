@@ -21,6 +21,7 @@ const ShowDoctors = async () => {
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>
+            <th>Speciality</th>
             <th>Registered In</th>
             <th>Role</th>
           </tr>
@@ -32,6 +33,7 @@ const ShowDoctors = async () => {
               <td>{doctor?.first_name}</td>
               <td>{doctor?.email}</td>
               <td>{doctor?.gender}</td>
+              <td>{doctor?.speciality}</td>
               <td>{doctor?.createdAt}</td>
               <td>{doctor?.role}</td>
               <td>
@@ -46,6 +48,7 @@ const ShowDoctors = async () => {
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>
+            <th>Speciality</th>
             <th>Registered In</th>
             <th>Role</th>
           </tr>

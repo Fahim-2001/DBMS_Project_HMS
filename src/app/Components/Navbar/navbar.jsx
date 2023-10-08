@@ -9,7 +9,7 @@ export default function Navbar() {
   const session = useSession();
   // console.log(session?.data?.user);
   const { singleUser } = useContext(UserDataContext);
-  // console.log(data);
+  // console.log(singleUser);
 
   const menuItems = (
     <>
@@ -133,27 +133,20 @@ export default function Navbar() {
             }
 
             <div className="dropdown dropdown-bottom dropdown-end">
-              <label tabIndex={0} className="my-1 avatar w-10">
-                {singleUser?.picture ? (
-                  <img
-                    src={singleUser?.picture}
-                    alt=""
-                    className="rounded-[50%]"
-                  />
-                ) : (
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
-                    alt=""
-                  />
-                )}
-              </label>
+              <div tabIndex={0} className="avatar placeholder">
+                <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
+                  {
+                    singleUser?.picture ? <img src={singleUser?.picture} alt="Picture of user" /> : <img src={singleUser?.gender=="male" ? "https://cdn-icons-png.flaticon.com/512/5556/5556468.png" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KPUL8FzWe7WpCqb0fIy6Q2uBRhtydqEFeg&usqp=CAU" }/>
+                  }
+                </div>
+              </div>
               <ul
                 tabIndex={0}
                 className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
               >
                 {(singleUser?.userRole === "super-admin" ||
                   singleUser?.userRole === "admin" ||
-                  singleUser?.userRole === "moderator"||
+                  singleUser?.userRole === "moderator" ||
                   singleUser?.userRole === "doctor") && (
                   <li>
                     <Link href={"/dashboard"}>Dashboard</Link>

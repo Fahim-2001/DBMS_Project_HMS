@@ -1,6 +1,7 @@
 export const data = [
   {
     "id": 1,
+    "routename":"emergencymedicine",
     "department": "Emergency Medicine",
     "icon": "https://cdn-icons-png.flaticon.com/128/862/862032.png",
     "appointments": {
@@ -10,6 +11,7 @@ export const data = [
   },
   {
     "id": 2,
+    "routename":"internalmedicine",
     "department": "Internal Medicine",
     "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStRU-ZuRw7a7VSqj-ecqVpV351J57l3UO9Rhfs5sySpg&s7",
     "appointments": {
@@ -19,6 +21,7 @@ export const data = [
   },
   {
     "id": 3,
+    "routename":"surgery",
     "department": "Surgery",
     "icon": "https://cdn-icons-png.flaticon.com/128/4006/4006097.png",
     "appointments": {
@@ -28,6 +31,7 @@ export const data = [
   },
   {
     "id": 4,
+    "routename":"pediatrics",
     "department": "Pediatrics",
     "icon": "https://cdn-icons-png.flaticon.com/128/10154/10154457.png",
     "appointments": {
@@ -37,6 +41,7 @@ export const data = [
   },
   {
     "id": 5,
+    "routename":"gyne",
     "department": "Obstetrics and Gynecology",
     "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRig5oTLsWdsELK7Bf4QttsKOnwfSzWl48avQ&usqp=CAU",
     "appointments": {
@@ -46,6 +51,7 @@ export const data = [
   },
   {
     "id": 6,
+    "routename":"radiology",
     "department": "Radiology",
     "icon": "https://cdn-icons-png.flaticon.com/128/2522/2522621.png",
     "appointments": {
@@ -55,6 +61,7 @@ export const data = [
   },
   {
     "id": 7,
+    "routename":"cardiology",
     "department": "Cardiology",
     "icon": "https://cdn-icons-png.flaticon.com/128/9971/9971211.png",
     "appointments": {
@@ -64,6 +71,7 @@ export const data = [
   },
   {
     "id": 8,
+    "routename":"neurology",
     "department": "Neurology",
     "icon": "https://cdn-icons-png.flaticon.com/128/9133/9133647.png",
     "appointments": {
@@ -73,6 +81,7 @@ export const data = [
   },
   {
     "id": 9,
+    "routename":"orthopedics",
     "department": "Orthopedics",
     "icon": "https://cdn-icons-png.flaticon.com/512/6177/6177173.png",
     "appointments": {
@@ -82,6 +91,7 @@ export const data = [
   },
   {
     "id": 10,
+    "routename":"opthalmology",
     "department": "Ophthalmology",
     "icon": "https://cdn-icons-png.flaticon.com/128/2007/2007185.png",
     "appointments": {
