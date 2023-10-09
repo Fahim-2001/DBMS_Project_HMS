@@ -4,7 +4,7 @@ import styles from './Catalogue.module.css'
 import Link from "next/link";
 
 export default function Catalogue() {
-  console.log(data);
+  // console.log(data);
   return (
     <div>
       <h1 className="text-center text-3xl lg:text-4xl text-primary font-bold px-2 py-3 my-2">Book Your Appointment</h1>
