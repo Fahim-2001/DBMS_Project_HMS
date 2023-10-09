@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 
 const AddDoctor = () => {
   const { register, handleSubmit } = useForm();
-  const router = useRouter()
-  const {singleUser} = useContext(UserDataContext)
+  const router = useRouter();
+  const { singleUser } = useContext(UserDataContext);
 
   const onSubmit = async (doctor) => {
     try {
@@ -38,8 +38,16 @@ const AddDoctor = () => {
         length: 8,
         numbers: true,
       });
+      const routename = doctor?.speciality
+        .split("")
+        .filter((e) => e.trim().length)
+        .join("")
+        .toLowerCase();
       doctor["role"] = "doctor";
       doctor["password"] = password;
+      doctor["routename"] = routename;
+
+      // console.log(doctor);
 
       // POST Method : to doctors api
       const response = await fetch("http://localhost:3000/api/doctors", {
@@ -57,7 +65,7 @@ const AddDoctor = () => {
         password: doctor?.password,
         userRole: doctor?.role,
         gender: doctor?.gender,
-        picture: doctor?.profile_picture
+        picture: doctor?.profile_picture,
       };
       console.log(user)
 
@@ -100,85 +108,109 @@ const AddDoctor = () => {
   };
 
   return (
-    (singleUser?.userRole !=='doctor' && <div>
-      <p className="text-xs font-semibold mb-2">Add Doctor</p>
-      <form className="text-xs" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-wrap">
-          <div className="my-1">
-            <label className="mr-1">First Name</label>
-            <br />
-            <input
-              required
-              className="border border-primary mr-2"
-              {...register("firstname")}
-            />
+    singleUser?.userRole !== "doctor" && (
+      <div>
+        <p className="text-xs font-semibold mb-2">Add Doctor</p>
+        <form className="text-xs" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-wrap">
+            <div className="my-1">
+              <label className="mr-1">First Name</label>
+              <br />
+              <input
+                required
+                className="border border-primary mr-2"
+                {...register("firstname")}
+              />
+            </div>
+            <div className="my-1">
+              <label className="mr-1">Last Name</label>
+              <br />
+              <input
+                required
+                className="border border-primary mr-2"
+                {...register("lastname")}
+              />
+            </div>
+            <div className="my-1">
+              <label className="mr-1">Email Address</label>
+              <br />
+              <input
+                required
+                className="border border-primary mr-2"
+                {...register("email")}
+              />
+            </div>
+            <div className="my-1">
+              <label className="mr-1">Phone Number</label>
+              <br />
+              <input
+                placeholder="+88016890*****"
+                required
+                className="border border-primary mr-2"
+                type="tel"
+                {...register("phone_number")}
+              />
+            </div>
+            <div className="my-1">
+              <label className="mr-1">Speciality</label>
+              <br />
+              <input
+                required
+                className="border border-primary mr-2"
+                {...register("speciality")}
+              />
+            </div>
+            <div className="my-1">
+              <label className="mr-1">Gender </label>
+              <br />
+              <select
+                className="border border-primary mr-2 px-[4px]"
+                {...register("gender")}
+              >
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+            </div>
+            <div className="my-1">
+              <label className="mr-1">Profile Picture</label>
+              <br />
+              <input
+                type="file"
+                name="picture"
+                className="file-input file-input-bordered file-input-xs file-input-primary w-full max-w-xs text-xs"
+                {...register("profile_picture")}
+              />
+            </div>
+            <div className="flex my-2 md:my-4 md:mx-3">
+              <div className="my-1">
+                <label className="mr-1">Available From : </label>
+
+                <input
+                  type="time"
+                  required
+                  className="border border-primary mr-2"
+                  {...register("available_from")}
+                />
+              </div>
+              <div className="my-1">
+                <label className="mr-1">To : </label>
+
+                <input
+                  type="time"
+                  required
+                  className="border border-primary mr-2"
+                  {...register("available_to")}
+                />
+              </div>
+            </div>
           </div>
-          <div className="my-1">
-            <label className="mr-1">Last Name</label>
-            <br />
-            <input
-              required
-              className="border border-primary mr-2"
-              {...register("lastname")}
-            />
-          </div>
-          <div className="my-1">
-            <label className="mr-1">Email Address</label>
-            <br />
-            <input
-              required
-              className="border border-primary mr-2"
-              {...register("email")}
-            />
-          </div>
-          <div className="my-1">
-            <label className="mr-1">Phone Number</label>
-            <br />
-            <input
-              placeholder="+88016890*****"
-              required
-              className="border border-primary mr-2"
-              type="tel"
-              {...register("phone_number")}
-            />
-          </div>
-          <div className="my-1">
-            <label className="mr-1">Speciality</label>
-            <br />
-            <input
-              required
-              className="border border-primary mr-2"
-              {...register("speciality")}
-            />
-          </div>
-          <div className="my-1">
-            <label className="mr-1">Gender </label>
-            <br />
-            <select
-              className="border border-primary mr-2 px-[4px]"
-              {...register("gender")}
-            >
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-            </select>
-          </div>
-          <div className="my-1">
-            <label className="mr-1">Profile Picture</label>
-            <br />
-            <input
-              type="file"
-              name="picture"
-              className="file-input file-input-bordered file-input-xs file-input-primary w-full max-w-xs text-xs"
-              {...register("profile_picture")}
-            />
-          </div>
-        </div>
-        <button className="mx-1 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">
-          Add Doctor
-        </button>
-      </form>
-      <hr className="my-3"/>
-    </div>)
+          <button className="mx-1 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">
+            Add Doctor
+          </button>
+        </form>
+        <hr className="my-3" />
+      </div>
+    )
   );
 };
 
