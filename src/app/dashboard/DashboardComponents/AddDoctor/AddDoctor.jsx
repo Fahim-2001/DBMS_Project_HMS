@@ -47,7 +47,7 @@ const AddDoctor = () => {
       doctor["password"] = password;
       doctor["routename"] = routename;
 
-      // console.log(doctor);
+      // console.log(doctor); 
 
       // POST Method : to doctors api
       const response = await fetch("http://localhost:3000/api/doctors", {

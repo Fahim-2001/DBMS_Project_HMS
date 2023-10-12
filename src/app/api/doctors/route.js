@@ -23,7 +23,7 @@ export async function POST(req) {
   try {
     const user = await req.json();
 
-    console.log(user)
+    // console.log(user)
 
     // Sending Data to Database
     const data = await connection.query(
