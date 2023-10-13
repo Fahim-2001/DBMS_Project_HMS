@@ -9,8 +9,8 @@ const SingleDoctorForAppointments = async ({ params }) => {
   // console.log("Doctor-", doctor);
   return (
     <div>
-      <p>Appointment Form</p>
-      <AppointmentForm doctor={doctor}/>
+      <p className="text-lg text-center my-2">Book your appointment for <span className="font-semibold">{doctor[0]?.first_name}</span></p>
+      <AppointmentForm doctor={doctor[0]}/>
     </div>
   );
 };

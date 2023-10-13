@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
 
-export const metadata ={
-    title: "Doctor Appointment"
-}
+export const metadata = {
+  title: "Doctor Appointment",
+};
 const DoctorsForAppointments = ({ props, doctor }) => {
   // console.log(props)
   // console.log(doctor)
@@ -12,18 +12,31 @@ const DoctorsForAppointments = ({ props, doctor }) => {
     <div>
       <div className="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg ">
         <div className="flex justify-center -mt-16 md:justify-end">
-          {
-            doctor?.picture ? <img
-            className="object-cover w-20 h-20 border-2 border-blue-500 rounded-full "
-            alt="Testimonial avatar"
-            src={doctor?.picture}
-          /> : <img className="object-cover w-20 h-20 border-2 border-blue-500 rounded-full " src={doctor?.gender=="male" ? "https://as1.ftcdn.net/v2/jpg/02/90/56/38/1000_F_290563830_MCl0UobSKqqgV7wE8KeSOsablqJIUNCg.jpg" : "https://www.asirox.com/wp-content/uploads/2022/07/depositphotos_90647730-stock-illustration-female-doctor-avatar-icon.webp" }/>
-          }
+          {doctor?.picture ? (
+            <img
+              className="object-cover w-20 h-20 border-2 border-blue-500 rounded-full "
+              alt="Testimonial avatar"
+              src={doctor?.picture}
+            />
+          ) : (
+            <img
+              className="object-cover w-20 h-20 border-2 border-blue-500 rounded-full "
+              src={
+                doctor?.gender == "male"
+                  ? "https://as1.ftcdn.net/v2/jpg/02/90/56/38/1000_F_290563830_MCl0UobSKqqgV7wE8KeSOsablqJIUNCg.jpg"
+                  : "https://www.asirox.com/wp-content/uploads/2022/07/depositphotos_90647730-stock-illustration-female-doctor-avatar-icon.webp"
+              }
+            />
+          )}
         </div>
 
         <h2 className="mt-2 text-xl font-semibold text-gray-800  md:mt-0">
           {doctor?.first_name}
         </h2>
+        <div className="text-[10px] text-gray-500">
+          <p>MBBS, Dhaka Medical College</p>
+          <p>FCPS, London University of Medical Science</p>
+        </div>
 
         <div className="mt-2 text-xs md:text-sm text-gray-600 ">
           <p>
