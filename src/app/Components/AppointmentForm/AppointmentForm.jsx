@@ -2,13 +2,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { jsPDF } from "jspdf";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const AppointmentForm = ({ doctor }) => {
   const { register, handleSubmit } = useForm();
-
+  const router = useRouter();
   // console.log(doctor);
 
-  const onSubmit = (patient) => {
+  const onSubmit = async(patient) => {
     patient["doc_id"] = doctor?.doc_id;
     patient["fee"] = 800;
     console.log(patient);
@@ -16,7 +18,40 @@ const AppointmentForm = ({ doctor }) => {
     const doc = new jsPDF({
       orientation: "portrait",
     });
+    
+    const response = await fetch('http://localhost:3000/api/appointments',{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify(patient),
+    })
+    router.refresh()
 
+    if(response.ok){
+      toast.success("Appointment booking successful!", {
+        position: "top-right",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }else{
+      toast.warning("Appointment booking failed!", {
+        position: "top-right",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    // Invoice Generation
     // Heading
     doc.setFont("bold");
     doc.setFontSize(40);
@@ -81,9 +116,9 @@ const AppointmentForm = ({ doctor }) => {
       .setFontSize(16)
       .setTextColor("black")
       .text("Issue ", 10, 85, "left")
-      .text(":", 55, 85)
+      .text(":", 25, 85)
       .setFont("", "normal")
-      .text(`${patient?.short_description}`, 60, 85);
+      .text(`${patient?.short_description}`, 30, 85);
 
     // Right Column
     // Doctor ID
@@ -121,7 +156,7 @@ const AppointmentForm = ({ doctor }) => {
       .text("Appt. Type ", 110, 69, "left")
       .text(":", 140, 69)
       .setFont("", "normal")
-      .text(`${patient?.appointment_type}`, 145, 69);
+      .text(`${patient?.appt_type}`, 145, 69);
     // Date
     doc
       .setFont("times", "bold")
@@ -233,10 +268,10 @@ const AppointmentForm = ({ doctor }) => {
       .setFont("times")
       .setFontSize(10)
       .setTextColor("black")
-      .text("Collector", 10, 260, "left")
+      .text("Created by", 10, 260, "left")
       .text(":", 55, 260)
       .setFont("", "normal")
-      .text(`Md. Asif Akbar`, 60, 260);
+      .text(`PHP HMS Software`, 60, 260);
     // Collection date
     doc
       .setFont("times")
@@ -259,15 +294,15 @@ const AppointmentForm = ({ doctor }) => {
       .text(":", 55, 270)
       .setFont("", "normal")
       .text(
-        `${new Date().toLocaleString([],{
-          hour:'2-digit',
-          minute:'2-digit'
+        `${new Date().toLocaleString([], {
+          hour: "2-digit",
+          minute: "2-digit",
         })}`,
         60,
         270
       );
     // END
-    doc.save(`${patient?.patient_name}_invoice.pdf`);
+    doc.save(`${patient?.patient_name}_ACR.pdf`);
   };
   return (
     <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md">
@@ -381,7 +416,7 @@ const AppointmentForm = ({ doctor }) => {
             <select
               id="appointment_type"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-              {...register("appointment_type")}
+              {...register("appt_type")}
             >
               <option value="new">New Appointment</option>
               <option value="revisit">Revisit</option>
