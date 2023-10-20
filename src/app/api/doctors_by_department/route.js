@@ -7,7 +7,7 @@ export async function GET(req){
     try {
         const url = new URL(req.url)
         const department = url.searchParams.get('department')
-        console.log(department)
+        // console.log(department)
         // Retrieving Data from database
         const [data] = await connection.query(`SELECT * FROM doctors WHERE routename=?`,[department]);
         connection.release();
