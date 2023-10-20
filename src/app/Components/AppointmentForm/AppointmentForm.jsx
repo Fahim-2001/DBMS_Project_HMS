@@ -14,6 +14,7 @@ const AppointmentForm = ({ doctor }) => {
     patient["doc_email"]= doctor?.email;
     patient["doc_id"] = doctor?.doc_id;
     patient["fee"] = 800;
+    patient["appt_status"] = 'Unchecked';
     // console.log(patient);
 
     const response = await fetch("http://localhost:3000/api/appointments", {

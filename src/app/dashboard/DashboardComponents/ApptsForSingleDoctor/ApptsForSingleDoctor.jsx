@@ -2,6 +2,7 @@
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
+import UpdateStatus from "./UpdateStatus";
 
 const ApptsForSingleDoctor = () => {
   const session = useSession();
@@ -45,7 +46,7 @@ const ApptsForSingleDoctor = () => {
               <td>{appt?.patient_gender}</td>
               <td>{appt?.appt_date}</td>
               <td>{appt?.patient_issue}</td>
-              <td>Unchecked</td>
+              <td><UpdateStatus appt={appt}/></td>
             </tr>
           ))}
         </tbody>

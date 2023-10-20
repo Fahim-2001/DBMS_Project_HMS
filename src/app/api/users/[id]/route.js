@@ -3,14 +3,13 @@ import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
 
-// Doctor By ID api
-export async function GET(req){
+// User By ID api
+export async function GET(req,content){
     try {
-        const url = new URL(req.url)
-        const doc_id = url.searchParams.get('doctor_id')
-        // console.log(doc_id)
+        const userId = content.params.id;
+        
         // Retrieving Data from database
-        const [data] = await connection.query(`SELECT * FROM doctors WHERE doc_id=?`,[doc_id]);
+        const [data] = await connection.query(`SELECT * FROM users WHERE id=?`,[userId]);
         connection.release();
         
         // console.log(data);

@@ -3,7 +3,7 @@ import React from "react";
 
 const SingleDoctorForAppointments = async ({ params }) => {
   const doctor = await fetch(
-    `http://localhost:3000/api/doctor?doctor_id=${params.id}`,
+    `http://localhost:3000/api/doctors/${params.id}`,
     { cache: "no-store" }
   ).then((res) => res.json());
   // console.log("Doctor-", doctor);
