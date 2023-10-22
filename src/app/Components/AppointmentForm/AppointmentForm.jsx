@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { generatePdf } from "./pdfGenerator";
+import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 
 const AppointmentForm = ({ doctor }) => {
+  const {singleUser}=useContext(UserDataContext);
   const { register, handleSubmit } = useForm();
   const router = useRouter();
   // console.log(doctor);
@@ -15,6 +17,7 @@ const AppointmentForm = ({ doctor }) => {
     patient["doc_id"] = doctor?.doc_id;
     patient["fee"] = 800;
     patient["appt_status"] = 'Unchecked';
+    patient["ref_email"]= singleUser?.email;
     // console.log(patient);
 
     const response = await fetch("http://localhost:3000/api/appointments", {
@@ -25,7 +28,7 @@ const AppointmentForm = ({ doctor }) => {
       body: JSON.stringify(patient),
     });
     router.refresh();
-
+    
     if (response.ok) {
       toast.success("Appointment booking successful!", {
         position: "top-right",

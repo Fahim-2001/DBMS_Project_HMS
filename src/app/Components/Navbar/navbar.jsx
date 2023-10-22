@@ -48,7 +48,7 @@ export default function Navbar() {
       </li>
       <li>
         <Link
-          href=""
+          href="/vaccination"
           className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2 shadow-md hover:shadow-xl"
         >
           Vaccination Program
@@ -153,7 +153,7 @@ export default function Navbar() {
                   </li>
                 )}
                 <li>
-                  <Link href={"/"}>Profile</Link>
+                  <Link href={"/profile"}>Profile</Link>
                 </li>
                 <li onClick={() => signOut()}>
                   <p> {"[->"} Sign Out </p>

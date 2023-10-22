@@ -20,7 +20,7 @@ export async function POST(req) {
     const patient = await req.json();
 
     await connection.query(
-      "INSERT INTO appointments(patient_name, patient_age,patient_contact, patient_gender, patient_address, doc_id, ref_doctor, department, appt_type,appt_date,patient_issue,appt_fee,doc_email,appt_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO appointments(patient_name, patient_age,patient_contact, patient_gender, patient_address, doc_id, ref_doctor, department, appt_type,appt_date,patient_issue,appt_fee,doc_email,appt_status,ref_email) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
       [
         patient?.patient_name,
         patient?.patient_age,
@@ -35,7 +35,8 @@ export async function POST(req) {
         patient?.short_description,
         patient?.fee,
         patient?.doc_email,
-        patient?.appt_status
+        patient?.appt_status,
+        patient?.ref_email
       ]
     );
     return NextResponse.json({ message: "Appointment done!" }, { status: 201 });
