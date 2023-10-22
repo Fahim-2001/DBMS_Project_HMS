@@ -1,14 +1,56 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const VaccineForm = ({ vaccine }) => {
+    const router = useRouter()
   const { register, handleSubmit } = useForm();
 //   console.log(vaccine)
-  const onSubmit = (vaccineHolder) => {
+  const onSubmit =async(vaccineHolder) => {
     vaccineHolder['vaccine_name'] = vaccine?.vaccineName;
     vaccineHolder['shortname'] = vaccine?.routename;
-    console.log(vaccineHolder);
+    
+
+    try {
+        const response = await fetch('http://localhost:3000/api/vaccineforms',{
+        method:'POST',
+        headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(vaccineHolder),
+    })
+
+    // console.log(await response.json())
+    router.refresh()
+    
+    if(response.ok){
+        toast.success("Vaccine booking successful!", {
+            position: "top-right",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+    }else{
+        toast.warning("Vaccine booking failed!", {
+            position: "top-right",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+    }
+    } catch (error) {
+        console.log(error.message)
+    }
   };
   return (
     <div>
@@ -28,7 +70,7 @@ const VaccineForm = ({ vaccine }) => {
             <span className="label-text">Age</span>
           </label>
           <input
-            type="text"
+            type="number"
             className="input input-bordered input-sm w-full max-w-lg text-sm"
             {...register("age")}
           />
