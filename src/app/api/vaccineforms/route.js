@@ -17,15 +17,15 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    const { fullname, age, gender, contact, vaccine_name, shortname } =
+    const { fullname, age, gender, contact, vaccine_name, shortname, email, status } =
       await req.json();
     // console.log(vaccineHolder);
-    const data = await connection.query(
-      "INSERT INTO vaccineforms(fullname,age,gender,contact,vaccine_name,shortname) VALUE (?,?,?,?,?,?)",
-      [fullname, age, gender, contact, vaccine_name, shortname]
+    await connection.query(
+      "INSERT INTO vaccineforms(fullname,age,gender,contact,vaccine_name,shortname,email,status) VALUE (?,?,?,?,?,?,?,?)",
+      [fullname, age, gender, contact, vaccine_name, shortname, email,status]
     );
     connection.release();
-    console.log(data);
+
     return NextResponse.json(
       { message: "Vaccine for submission done!" },
       { status: 201 }

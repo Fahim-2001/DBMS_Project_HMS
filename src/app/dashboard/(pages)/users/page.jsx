@@ -21,7 +21,7 @@ const Users = async () => {
       <table className="table table-xs">
         <thead>
           <tr>
-            <th></th>
+            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>
@@ -44,7 +44,7 @@ const Users = async () => {
         </tbody>
         <tfoot>
           <tr>
-            <th></th>
+            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>

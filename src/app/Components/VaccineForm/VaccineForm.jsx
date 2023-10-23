@@ -1,55 +1,59 @@
 "use client";
+import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const VaccineForm = ({ vaccine }) => {
-    const router = useRouter()
+  const {singleUser} = useContext(UserDataContext);
+
+  const router = useRouter();
   const { register, handleSubmit } = useForm();
-//   console.log(vaccine)
-  const onSubmit =async(vaccineHolder) => {
-    vaccineHolder['vaccine_name'] = vaccine?.vaccineName;
-    vaccineHolder['shortname'] = vaccine?.routename;
+  //   console.log(vaccine)
+  const onSubmit = async (vaccineHolder) => {
     
+    vaccineHolder["vaccine_name"] = vaccine?.vaccineName;
+    vaccineHolder["shortname"] = vaccine?.routename;
+    vaccineHolder['status']= "Pending";
 
     try {
-        const response = await fetch('http://localhost:3000/api/vaccineforms',{
-        method:'POST',
+      const response = await fetch("http://localhost:3000/api/vaccineforms", {
+        method: "POST",
         headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(vaccineHolder),
-    })
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(vaccineHolder),
+      });
 
-    // console.log(await response.json())
-    router.refresh()
-    
-    if(response.ok){
+      // console.log(await response.json())
+      router.refresh();
+
+      if (response.ok) {
         toast.success("Vaccine booking successful!", {
-            position: "top-right",
-            autoClose: 10000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-    }else{
+          position: "top-right",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
         toast.warning("Vaccine booking failed!", {
-            position: "top-right",
-            autoClose: 10000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-    }
+          position: "top-right",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     } catch (error) {
-        console.log(error.message)
+      console.log(error.message);
     }
   };
   return (
@@ -80,12 +84,12 @@ const VaccineForm = ({ vaccine }) => {
             <span className="label-text">Gender</span>
           </label>
           <select
-              className="input input-bordered input-sm w-full max-w-lg text-sm"
-              {...register("gender")}
-            >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>   
+            className="input input-bordered input-sm w-full max-w-lg text-sm"
+            {...register("gender")}
+          >
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
         </div>
 
         <div className="form-control w-full">
@@ -98,7 +102,19 @@ const VaccineForm = ({ vaccine }) => {
             {...register("contact")}
           />
         </div>
-        
+
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered input-sm w-full max-w-lg text-sm"
+            defaultValue={singleUser?.email}
+            {...register("email")}
+          />
+        </div>
+
         <button
           type="submit"
           className="my-3 px-8 py-2.5 leading-5 text-white font-semibold transition-colors duration-300 transform bg-primary rounded-md hover:bg-secondary focus:outline-none focus:bg-secondary"

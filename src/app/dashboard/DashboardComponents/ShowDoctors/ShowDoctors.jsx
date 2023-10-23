@@ -10,14 +10,14 @@ const ShowDoctors = async () => {
 
   return (
     <div className="overflow-x-auto">
-      <div className="flex justify-between text-xs font-semibold mr-3">
-        <p>Doctors Table</p>
-        <p>Total Count :{doctors.length}</p>
-      </div>
+        <div className="flex justify-between text-xs font-semibold mr-3">
+          <p>Doctors Table</p>
+          <p>Total Count :{doctors.length}</p>
+        </div>
       <table className="table table-xs">
         <thead>
           <tr>
-            <th></th>
+            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>
@@ -28,8 +28,8 @@ const ShowDoctors = async () => {
         </thead>
         <tbody>
           {doctors?.map((doctor) => (
-            <tr key={doctor?.id}>
-              <th>{doctor?.id}</th>
+            <tr key={doctor?.doc_id}>
+              <th>{doctor?.doc_id}</th>
               <td>{doctor?.first_name}</td>
               <td>{doctor?.email}</td>
               <td>{doctor?.gender}</td>
@@ -44,7 +44,7 @@ const ShowDoctors = async () => {
         </tbody>
         <tfoot>
           <tr>
-            <th></th>
+            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Gender</th>

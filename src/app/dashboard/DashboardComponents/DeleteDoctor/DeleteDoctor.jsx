@@ -13,10 +13,17 @@ const DeleteDoctor = ({doctor}) => {
         const response = await fetch(`http://localhost:3000/api/doctors?email=${email}`, {
           method: "DELETE",
         });
+
+        const response2 = await fetch(
+          `http://localhost:3000/api/users?email=${email}`,
+          {
+            method: "DELETE",
+          }
+        );
         router.refresh();
   
-        if (response.ok) {
-          toast.success("Successfully deleted user!", {
+        if (response.ok && response2.ok) {
+          toast.success("Successfully deleted doctor!", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
