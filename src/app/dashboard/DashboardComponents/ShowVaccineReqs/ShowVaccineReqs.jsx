@@ -8,7 +8,7 @@ const ShowVaccineReqs = async () => {
   ).then((res) => res.json());
 //   console.log(vaccineRequests);
   return (
-    <div>
+    <div className="overflow-x-auto">
         <div className="flex justify-between text-xs font-semibold mr-3">
         <p>Vaccine Requests Table</p>
         <p>Total Count :{vaccineRequests.length}</p>

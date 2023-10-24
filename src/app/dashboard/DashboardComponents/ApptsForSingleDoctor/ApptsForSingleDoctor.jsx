@@ -23,8 +23,11 @@ const ApptsForSingleDoctor = () => {
 
   // console.log(appointments);
   return (
-    <div>
-      <div>
+    <div className="overflow-x-auto">
+      <div className="flex justify-between text-xs font-semibold mr-3">
+        <p>Appointments Table</p>
+        <p>Total Count :{appointments?.length}</p>
+      </div>
       <table className="table table-xs">
         <thead>
           <tr>
@@ -46,7 +49,9 @@ const ApptsForSingleDoctor = () => {
               <td>{appt?.patient_gender}</td>
               <td>{appt?.appt_date}</td>
               <td>{appt?.patient_issue}</td>
-              <td><UpdateStatus appt={appt}/></td>
+              <td>
+                <UpdateStatus appt={appt} />
+              </td>
             </tr>
           ))}
         </tbody>
@@ -62,7 +67,6 @@ const ApptsForSingleDoctor = () => {
           </tr>
         </tfoot>
       </table>
-      </div>
     </div>
   );
 };
