@@ -59,14 +59,6 @@ export default function Navbar() {
           href=""
           className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2 shadow-md hover:shadow-xl"
         >
-          Apply for insurance
-        </Link>
-      </li>
-      <li>
-        <Link
-          href=""
-          className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2 shadow-md hover:shadow-xl"
-        >
           Our Exillencies
         </Link>
       </li>
