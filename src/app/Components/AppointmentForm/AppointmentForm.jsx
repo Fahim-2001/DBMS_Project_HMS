@@ -53,7 +53,7 @@ const AppointmentForm = ({ doctor }) => {
       });
     }
     // Invoice Generation
-    // generatePdf(patient, doctor);
+    generatePdf(patient, doctor);
   };
 
   

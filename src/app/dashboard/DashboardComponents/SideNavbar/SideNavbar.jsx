@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 
 const SideNavbar = () => {
   const { singleUser } = useContext(UserDataContext);
-  
+  // console.log(singleUser)
   return (
     <div>
       <nav className="flex flex-col">
@@ -36,17 +36,23 @@ const SideNavbar = () => {
           >
             Appointments
           </Link>}
-          {(singleUser?.userRole==='doctor' || singleUser?.userRole==='super-admin' || singleUser?.userRole==='admin')&&<Link
+          <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
             href={'/dashboard/vaccinerequests'}
           >
             Vaccine Requests
-          </Link>}
+          </Link>
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
             href={'/dashboard/labtestapplies'}
           >
             Lab Test Registration
+          </Link>
+          <Link
+            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+            href={'/dashboard/labreports'}
+          >
+            Lab Reports
           </Link>
       </nav>
     </div>
