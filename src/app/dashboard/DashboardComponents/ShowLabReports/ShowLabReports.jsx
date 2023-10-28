@@ -26,9 +26,7 @@ const ShowLabReports = async () => {
                 <th>Tests</th>
                 <th>Payable Amount</th>
                 <th>Paid Ammount</th>
-                <th>Payment Status</th>
-                <th>Registered By</th>
-                <th>Report Status</th>
+
                 <th>Lab Report</th>
               </tr>
             </thead>
@@ -50,11 +48,13 @@ const ShowLabReports = async () => {
                   </td>
                   <td>{request?.payable_amount}</td>
                   <td>{request?.advanced_amount}</td>
-                  <td>{request?.payment_status}</td>
-                  <td>{request?.registered_by}</td>
-                  <td>{request?.report_status}</td>
                   <td>
-                    <Link href={`/dashboard/labreports/${request?.id}`} className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">Upload</Link>
+                    <Link
+                      href={`/dashboard/labreports/${request?.id}`}
+                      className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+                    >
+                      Upload
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -70,9 +70,7 @@ const ShowLabReports = async () => {
                 <th>Tests</th>
                 <th>Payable Amount</th>
                 <th>Paid Ammount</th>
-                <th>Payment Status</th>
-                <th>Registered By</th>
-                <th>Report Status</th>
+
                 <th>Lab Report</th>
               </tr>
             </tfoot>
