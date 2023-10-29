@@ -2,7 +2,6 @@
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
-import UpdateStatus from "./UpdateStatus";
 import Link from "next/link";
 
 const ApptsForSingleDoctor = () => {
@@ -82,11 +81,11 @@ const ApptsForSingleDoctor = () => {
                   className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
                 >
                   Upload
-                </Link>: <p
-                  className="mx-2 bg-gray-400 text-white font-semibold px-[8px] py-[3px] rounded-xl"
+                </Link>: <button
+                  className="mx-2 bg-gray-400 text-white font-semibold px-[10px] py-[3px] rounded-xl"
                 >
                   Uploaded
-                </p>}
+                </button>}
               </td>
             </tr>
           ))}

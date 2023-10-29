@@ -19,7 +19,6 @@ const UploadPrescription = ({ appointment }) => {
         prescription,
         test_preferences: testPreferences,
       };
-      console.log(data);
 
       const response = await fetch(
         `http://localhost:3000/api/appointments/${appointment[0]?.appt_id}`,
