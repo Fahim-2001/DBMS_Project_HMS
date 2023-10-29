@@ -6,19 +6,38 @@ import UpdateStatus from "./UpdateStatus";
 
 const ApptsForSingleDoctor = () => {
   const session = useSession();
+  const { singleUser } = useContext(UserDataContext);
   // console.log(session);
 
   const [appointments, setAppointments] = useState();
   useEffect(() => {
-    const getAppts = async () => {
-      await fetch(
-        `http://localhost:3000/api/appointments_for_single_doctor?doctoremail=${session?.data?.user?.email}`,
-        { cache: "no-store" }
-      )
-        .then((res) => res.json())
-        .then((data) => setAppointments(data));
-    };
-    getAppts();
+    // Data for super-admin and admin
+    if (
+      singleUser?.userRole === "super-admin" ||
+      singleUser?.userRole === "admin"
+    ) {
+      const getAppts = async () => {
+        await fetch(`http://localhost:3000/api/appointments`, {
+          cache: "no-store",
+        })
+          .then((res) => res.json())
+          .then((data) => setAppointments(data));
+      };
+      getAppts();
+    }
+
+    // Data for Doctor
+    if (singleUser?.userRole === "doctor") {
+      const getAppts = async () => {
+        await fetch(
+          `http://localhost:3000/api/appointments_for_single_doctor?doctoremail=${session?.data?.user?.email}`,
+          { cache: "no-store" }
+        )
+          .then((res) => res.json())
+          .then((data) => setAppointments(data));
+      };
+      getAppts();
+    }
   }, [session?.data?.user?.email]);
 
   // console.log(appointments);
@@ -37,6 +56,8 @@ const ApptsForSingleDoctor = () => {
             <th>Gender</th>
             <th>Date</th>
             <th>Problem</th>
+            {(singleUser?.userRole === "super-admin" ||
+              singleUser?.userRole === "admin") && <th>Doctor's Name</th>}
             <th>Status</th>
           </tr>
         </thead>
@@ -49,6 +70,10 @@ const ApptsForSingleDoctor = () => {
               <td>{appt?.patient_gender}</td>
               <td>{appt?.appt_date}</td>
               <td>{appt?.patient_issue}</td>
+              {(singleUser?.userRole === "super-admin" ||
+                singleUser?.userRole === "admin") && (
+                <td>{appt?.ref_doctor}</td>
+              )}
               <td>
                 <UpdateStatus appt={appt} />
               </td>
@@ -63,6 +88,8 @@ const ApptsForSingleDoctor = () => {
             <th>Gender</th>
             <th>Date</th>
             <th>Problem</th>
+            {(singleUser?.userRole === "super-admin" ||
+              singleUser?.userRole === "admin") && <th>Doctor's Name</th>}
             <th>Status</th>
           </tr>
         </tfoot>

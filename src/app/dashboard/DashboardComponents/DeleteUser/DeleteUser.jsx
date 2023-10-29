@@ -52,16 +52,27 @@ const DeleteUser = ({ user }) => {
     }
   };
   return (
-    <div>
-      {singleUser?.userRole !== "doctor" && (
+    (singleUser?.userRole === "super-admin" ||
+      singleUser?.userRole === "admin") &&
+    (user?.userRole === "super-admin" && singleUser?.userRole !=="super-admin" ? (
+      <div>
+        <button
+          className="mx-2 bg-gray-400 text-white font-semibold px-[8px] py-[3px] rounded-xl"
+          disabled
+        >
+          Delete
+        </button>
+      </div>
+    ) : (
+      <div>
         <button
           className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
           onClick={() => deleteUser(user?.email)}
         >
           Delete
         </button>
-      )}
-    </div>
+      </div>
+    ))
   );
 };
 

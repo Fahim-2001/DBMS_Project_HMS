@@ -1,14 +1,14 @@
 import React from "react";
 import DeleteUser from "../../DashboardComponents/DeleteUser/DeleteUser";
 
-export const metadata ={
-  title: "Users - PHP Hospital"
-}
+export const metadata = {
+  title: "Users - PHP Hospital",
+};
 const Users = async () => {
   // Calling all users data
-  const users = await fetch(
-    "http://localhost:3000/api/users",{cache:'no-store'}
-  ).then((res) => res.json());
+  const users = await fetch("http://localhost:3000/api/users", {
+    cache: "no-store",
+  }).then((res) => res.json());
 
   // console.log("Users Page: ",users)
   return (
@@ -38,7 +38,9 @@ const Users = async () => {
               <td>{user?.gender}</td>
               <td>{user?.createdAt}</td>
               <td>{user?.userRole}</td>
-              <td><DeleteUser user={user}/></td>
+              <td>
+                <DeleteUser user={user} />
+              </td>
             </tr>
           ))}
         </tbody>

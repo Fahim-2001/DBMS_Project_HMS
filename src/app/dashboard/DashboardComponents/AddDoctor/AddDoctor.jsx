@@ -2,7 +2,7 @@
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import { generate } from "generate-password";
 import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -10,6 +10,7 @@ const AddDoctor = () => {
   const { register, handleSubmit } = useForm();
   const router = useRouter();
   const { singleUser } = useContext(UserDataContext);
+  const formRef = useRef();
 
   const onSubmit = async (doctor) => {
     try {
@@ -90,6 +91,7 @@ const AddDoctor = () => {
           progress: undefined,
           theme: "light",
         });
+        formRef.current.reset();
       } else {
         toast.warning("Doctor registration failed!", {
           position: "top-right",
@@ -108,10 +110,10 @@ const AddDoctor = () => {
   };
 
   return (
-    singleUser?.userRole !== "doctor" && (
+    (singleUser?.userRole === "super-admin" || singleUser?.userRole === "admin") && (
       <div>
         <p className="text-xs font-semibold mb-2">Add Doctor</p>
-        <form className="text-xs" onSubmit={handleSubmit(onSubmit)}>
+        <form className="text-xs" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap">
             <div className="my-1">
               <label className="mr-1">First Name</label>

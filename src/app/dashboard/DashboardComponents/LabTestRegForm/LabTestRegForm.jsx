@@ -110,7 +110,7 @@ const LabTestRegForm = () => {
     },
   ];
   return (
-    <div className="text-xs">
+    singleUser?.userRole==="receptionist"&&<div className="text-xs">
       <p className="font-semibold">Lab Test Registration Form</p>
       {/* Lab Test Registration Form */}
       <form action="" onSubmit={handleSubmit(onSubmit)}>

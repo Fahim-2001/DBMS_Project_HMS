@@ -1,16 +1,15 @@
 import React from "react";
 import RoleUpdate from "../../DashboardComponents/RoleUpdate/RoleUpdate";
 
-export const metadata ={
-  title: "Roles - PHP Hospital"
-}
+export const metadata = {
+  title: "Roles - PHP Hospital",
+};
 
-const Roles = async() => {
-  
+const Roles = async () => {
   // Calling all users.
-  const users = await fetch(
-    "http://localhost:3000/api/users",{cache:'no-store'}
-  ).then((res) => res.json());
+  const users = await fetch("http://localhost:3000/api/users", {
+    cache: "no-store",
+  }).then((res) => res.json());
 
   // console.log("Role Page",users);
   return (
@@ -39,9 +38,13 @@ const Roles = async() => {
               <td>{user?.email}</td>
               <td>{user?.gender}</td>
               <td>{user?.createdAt}</td>
-              <td>
-                <RoleUpdate user={user}></RoleUpdate>
-              </td>
+              {user?.userRole === "doctor" ? (
+                <td>{user?.userRole}</td>
+              ) : (
+                <td>
+                  <RoleUpdate user={user}></RoleUpdate>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

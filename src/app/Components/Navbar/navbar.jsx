@@ -138,7 +138,8 @@ export default function Navbar() {
               >
                 {(singleUser?.userRole === "super-admin" ||
                   singleUser?.userRole === "admin" ||
-                  singleUser?.userRole === "moderator" ||
+                  singleUser?.userRole === "receptionist" ||
+                  singleUser?.userRole === "lab-attendant" ||
                   singleUser?.userRole === "doctor") && (
                   <li>
                     <Link href={"/dashboard"}>Dashboard</Link>

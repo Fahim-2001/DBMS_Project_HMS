@@ -41,7 +41,7 @@ export const data = [
   },
   {
     "id": 5,
-    "routename":"gyne",
+    "routename":"obstetricsandgynecology",
     "department": "Obstetrics and Gynecology",
     "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRig5oTLsWdsELK7Bf4QttsKOnwfSzWl48avQ&usqp=CAU",
     "appointments": {

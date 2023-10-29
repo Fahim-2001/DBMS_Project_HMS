@@ -50,7 +50,7 @@ const DeleteDoctor = ({doctor}) => {
       }
     };
     return (
-      <div>
+      (singleUser?.userRole==="super-admin" ||singleUser?.userRole==="admin")&&<div>
         {singleUser?.userRole !== 'doctor'&&<button
           className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
           onClick={()=>deleteUser(doctor?.email)}

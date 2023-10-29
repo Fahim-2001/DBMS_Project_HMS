@@ -15,45 +15,65 @@ const SideNavbar = () => {
         >
           Doctors
         </Link>
+
         <Link
           className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
           href={"/dashboard/users"}
         >
           Users
         </Link>
+
         {(singleUser?.userRole === "super-admin" ||
           singleUser?.userRole === "admin") && (
-            <Link
-              className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
-              href={"/dashboard/roles"}
-            >
-              Roles
-            </Link>
-          )}
-          {(singleUser?.userRole==='doctor' || singleUser?.userRole==='super-admin')&&<Link
-            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
-            href={'/dashboard/appointments'}
-          >
-            Appointments
-          </Link>}
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
-            href={'/dashboard/vaccinerequests'}
+            href={"/dashboard/roles"}
+          >
+            Roles
+          </Link>
+        )}
+
+        {(singleUser?.userRole === "doctor" ||
+          singleUser?.userRole === "super-admin" ||
+          singleUser?.userRole === "admin") && (
+          <Link
+            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+            href={"/dashboard/appointments"}
+          >
+            Appointments
+          </Link>
+        )}
+
+        {(singleUser?.userRole === "lab-attendant" ||
+          singleUser?.userRole === "super-admin" ||
+          singleUser?.userRole === "admin") && (
+          <Link
+            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+            href={"/dashboard/vaccinerequests"}
           >
             Vaccine Requests
           </Link>
+        )}
+
+        {(singleUser?.userRole === "receptionist" ||
+          singleUser?.userRole === "super-admin" ||
+          singleUser?.userRole === "admin") && (
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
-            href={'/dashboard/labtestapplies'}
+            href={"/dashboard/labtestapplies"}
           >
             Lab Test Registration
           </Link>
+        )}
+
+        {singleUser?.userRole === "lab-attendant" && (
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
-            href={'/dashboard/labreports'}
+            href={"/dashboard/labreports"}
           >
             Lab Reports
           </Link>
+        )}
       </nav>
     </div>
   );
