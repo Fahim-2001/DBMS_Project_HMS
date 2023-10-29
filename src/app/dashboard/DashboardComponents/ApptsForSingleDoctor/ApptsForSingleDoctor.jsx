@@ -3,6 +3,7 @@ import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvide
 import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 import UpdateStatus from "./UpdateStatus";
+import Link from "next/link";
 
 const ApptsForSingleDoctor = () => {
   const session = useSession();
@@ -40,7 +41,6 @@ const ApptsForSingleDoctor = () => {
     }
   }, [session?.data?.user?.email]);
 
-  // console.log(appointments);
   return (
     <div className="overflow-x-auto">
       <div className="flex justify-between text-xs font-semibold mr-3">
@@ -59,6 +59,7 @@ const ApptsForSingleDoctor = () => {
             {(singleUser?.userRole === "super-admin" ||
               singleUser?.userRole === "admin") && <th>Doctor's Name</th>}
             <th>Status</th>
+            <th>Prescription</th>
           </tr>
         </thead>
         <tbody>
@@ -74,8 +75,18 @@ const ApptsForSingleDoctor = () => {
                 singleUser?.userRole === "admin") && (
                 <td>{appt?.ref_doctor}</td>
               )}
+              <td>{appt?.appt_status}</td>
               <td>
-                <UpdateStatus appt={appt} />
+                {appt?.appt_status==="Unchecked" ? <Link
+                  href={`/dashboard/appointments/${appt?.appt_id}`}
+                  className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+                >
+                  Upload
+                </Link>: <p
+                  className="mx-2 bg-gray-400 text-white font-semibold px-[8px] py-[3px] rounded-xl"
+                >
+                  Uploaded
+                </p>}
               </td>
             </tr>
           ))}
@@ -91,6 +102,7 @@ const ApptsForSingleDoctor = () => {
             {(singleUser?.userRole === "super-admin" ||
               singleUser?.userRole === "admin") && <th>Doctor's Name</th>}
             <th>Status</th>
+            <th>Prescription</th>
           </tr>
         </tfoot>
       </table>
