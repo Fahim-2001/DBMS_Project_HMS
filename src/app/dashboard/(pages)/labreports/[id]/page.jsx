@@ -3,7 +3,7 @@ import React from "react";
 
 const page = async ({ params }) => {
   const labTestRequest = await fetch(
-    `http://localhost:3000/api/labtestrequests/${params.id}`,
+    `http://localhost:3000/api/labtests/${params.id}`,
     { cache: "no-store" }
   ).then((res) => res.json());
   

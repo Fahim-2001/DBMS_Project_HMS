@@ -2,7 +2,7 @@ import React from "react";
 
 const ShowLabTestReqs = async () => {
   const labTestRequests = await fetch(
-    "http://localhost:3000/api/labtestrequests",
+    "http://localhost:3000/api/labtests",
     { cache: "no-store" }
   ).then((res) => res.json());
 

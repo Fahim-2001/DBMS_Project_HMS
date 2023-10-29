@@ -2,10 +2,9 @@ import Link from "next/link";
 import React from "react";
 
 const ShowLabReports = async () => {
-  const labTestRequests = await fetch(
-    "http://localhost:3000/api/labtestrequests",
-    { cache: "no-store" }
-  ).then((res) => res.json());
+  const labTestRequests = await fetch("http://localhost:3000/api/labtests", {
+    cache: "no-store",
+  }).then((res) => res.json());
   return (
     <div>
       <div className="text-xs">
@@ -13,7 +12,7 @@ const ShowLabReports = async () => {
           <p>Lab Tests Report Table</p>
           <p>Total Count :{labTestRequests.length}</p>
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto">
           <table className="table table-xs ">
             <thead>
               <tr>
@@ -26,7 +25,7 @@ const ShowLabReports = async () => {
                 <th>Tests</th>
                 <th>Payable Amount</th>
                 <th>Paid Ammount</th>
-
+      
                 <th>Lab Report</th>
               </tr>
             </thead>
@@ -48,14 +47,15 @@ const ShowLabReports = async () => {
                   </td>
                   <td>{request?.payable_amount}</td>
                   <td>{request?.advanced_amount}</td>
-                  <td>
+                  
+                  {request?.report_status ==="On Process" ? <td>
                     <Link
                       href={`/dashboard/labreports/${request?.id}`}
                       className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
                     >
                       Upload
                     </Link>
-                  </td>
+                  </td> : <td>Uploaded</td>}
                 </tr>
               ))}
             </tbody>
@@ -70,7 +70,7 @@ const ShowLabReports = async () => {
                 <th>Tests</th>
                 <th>Payable Amount</th>
                 <th>Paid Ammount</th>
-
+      
                 <th>Lab Report</th>
               </tr>
             </tfoot>

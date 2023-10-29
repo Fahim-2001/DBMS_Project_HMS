@@ -64,7 +64,7 @@ const LabTestRegForm = () => {
     labData.report_status = "On Process"
     try {
       const response = await fetch(
-        "http://localhost:3000/api/labtestrequests",
+        "http://localhost:3000/api/labtests",
         {
           method: "POST",
           headers: {

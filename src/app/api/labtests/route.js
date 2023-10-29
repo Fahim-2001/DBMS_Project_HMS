@@ -6,7 +6,7 @@ const connection = await pool.getConnection();
 // Doctor By ID api
 export async function GET(req) {
   try {
-    const [data] = await connection.query("SELECT*FROM lab_test_requests");
+    const [data] = await connection.query("SELECT*FROM lab_tests");
     connection.release();
     // console.log(data);
 
@@ -23,7 +23,7 @@ export async function POST(req) {
     const tests = JSON.stringify(labtest?.tests);
 
     await connection.query(
-      "INSERT INTO lab_test_requests(fullname,age,gender,contact,email,number_of_tests, tests,registered_by,registers_email,payable_amount,advanced_amount,due_amount,payment_status,report_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO lab_tests(fullname,age,gender,contact,email,number_of_tests, tests,registered_by,registers_email,payable_amount,advanced_amount,due_amount,payment_status,report_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
       [
         labtest?.fullname,
         labtest?.age,

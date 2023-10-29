@@ -1,36 +1,65 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+let reports = [];
+
 const LabReportForm = ({ labTestRequest }) => {
   const [testName, setTestName] = useState("");
-  const [report, setReport] = useState("");
-  // const { register, handleSubmit } = useForm();
-  // const [reps, setReps] = useState([])
-  // console.log(labTestRequest);
+  const [reportTexts, setReportTexts] = useState("");
+  const router = useRouter();
   const tests = JSON.parse(labTestRequest.tests);
-  // console.log(tests);
+  // console.log(labTestRequest);
 
-  let reports = [];
-
-  const handleSubmit = (e) => {
+  // Function to add test reports
+  const handleAddReports = (e) => {
     e.preventDefault();
     const form = e.target;
-    const data = {
+    const reportData = {
       testName,
-      report,
+      reportTexts,
     };
-    console.log(data);
-    reports = [...reports, data]
+    reports.push(reportData);
+    toast.success(`${reportData.testName} Report Added`, {
+      position: "top-right",
+      autoClose: 1000,
+    });
     form.reset();
   };
 
-  const seeArray = () => {
-    const data ={
-      reports
+  // Function to submit the reports
+  const handleSubmitReport = async () => {
+    try {
+      const updateBody = {
+        report_status: "Uploaded",
+        reports,
+      };
+      const response = await fetch(
+        `http://localhost:3000/api/labtests/${labTestRequest?.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(updateBody),
+        }
+      );
+      router.refresh();
+
+      if (response.ok) {
+        toast.success("Report Uploaded", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+        reports = [];
+      } else {
+        toast.warning("Report Upload Failed", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
     }
-    console.log(data)
   };
 
   return (
@@ -57,8 +86,9 @@ const LabReportForm = ({ labTestRequest }) => {
           {labTestRequest?.number_of_tests}
         </p>
       </div>
+
       <div className="">
-        <form action="" onSubmit={handleSubmit}>
+        <form action="" onSubmit={handleAddReports}>
           <div>
             <div className="form-control w-full">
               <label className="label">
@@ -86,7 +116,7 @@ const LabReportForm = ({ labTestRequest }) => {
                 className="input input-bordered input-sm w-full text-sm"
                 cols="30"
                 rows="10"
-                onChange={(e) => setReport(e.target.value)}
+                onChange={(e) => setReportTexts(e.target.value)}
               ></textarea>
             </div>
             <div className="flex justify-center my-3">
@@ -94,7 +124,7 @@ const LabReportForm = ({ labTestRequest }) => {
                 type="submit"
                 className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
               >
-                Confirm Report
+                Add Report
               </button>
             </div>
           </div>
@@ -104,9 +134,9 @@ const LabReportForm = ({ labTestRequest }) => {
         <button
           type="submit"
           className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
-          onClick={seeArray}
+          onClick={handleSubmitReport}
         >
-          See Array
+          Submit Report
         </button>
       </div>
     </div>
