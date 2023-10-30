@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./providers";
 import UserDataProvider from "./Contexts/UserDataProvider/UserDataProvider";
+import NextTopLoader from "nextjs-toploader";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,7 +26,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head></head>
-      <body className={inter.className}>
+      <body className={`${inter.className} h-screen`}>
+        <NextTopLoader color="#000000" showSpinner={false}/>
         <AuthProvider>
           <UserDataProvider>
             <Navbar></Navbar>
