@@ -7,7 +7,7 @@ const ProfileLayout = ({ children }) => {
       <div className="border border-x-0 border-y-0 md:border-e">
         <ProfileNavbar />
       </div>
-      <main className="md:ml-5">{children}</main>
+      <main className="md:ml-5 my-2">{children}</main>
     </section>
   );
 };
