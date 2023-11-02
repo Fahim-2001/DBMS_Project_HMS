@@ -27,13 +27,29 @@ export async function PUT(req, content) {
     const doc_id = content.params.id;
     const body = await req.json();
     // console.log(doc_id, body)
-
     
-    await connection.query(`UPDATE doctors SET phone_number=?, picture=? WHERE doc_id=?`,[body?.phone_number, body?.profile_picture, doc_id]);
-    connection.release();
+    if (body.phone_number && body.profile_picture) {
+      await connection.query(
+        `UPDATE doctors SET phone_number=?, picture=? WHERE doc_id=?`,
+        [body?.phone_number, body?.profile_picture, doc_id]
+      );
+      connection.release();
+    } else if (body.phone_number) {
+      await connection.query(
+        `UPDATE doctors SET phone_number=? WHERE doc_id=?`,
+        [body?.phone_number, doc_id]
+      );
+      connection.release();
+    } else if (body.profile_picture) {
+      await connection.query(`UPDATE doctors SET  picture=? WHERE doc_id=?`, [
+        body?.profile_picture,
+        doc_id,
+      ]);
+      connection.release();
+    }
 
     // console.log(data);
-    return NextResponse.json({message:"Update Success"}, { status: 200 });
+    return NextResponse.json({ message: "Update Success" }, { status: 200 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }

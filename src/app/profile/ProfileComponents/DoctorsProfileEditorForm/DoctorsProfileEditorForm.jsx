@@ -6,49 +6,67 @@ import { toast } from "react-toastify";
 
 const DoctorsProfileEditorForm = ({ doctor }) => {
   const { register, handleSubmit } = useForm();
-  const router = useRouter()
-    // console.log(doctor);
+  const router = useRouter();
+  // console.log(doctor);
 
   const handleProfileUpdate = async (updatedDoctor) => {
     try {
-        // Digging out image file object from the form elements.
-        const fileInput = updatedDoctor?.profile_picture[0];
+      // Digging out image file object from the form elements.
+      const fileInput = updatedDoctor?.profile_picture[0];
 
-        // Processing the imageFile into FormData to send in cloudinary
-        const formData = new FormData();
-        formData.set("file", fileInput);
+      // Processing the imageFile into FormData to send in cloudinary
+      const formData = new FormData();
+      formData.set("file", fileInput);
 
-        // Form data set to cloudinary unsigned preset to prevent unsigned error into regarding preset 'phphospital-user-uploads'
-        formData.append("upload_preset", "phphospital-user-uploads");
+      // Form data set to cloudinary unsigned preset to prevent unsigned error into regarding preset 'phphospital-user-uploads'
+      formData.append("upload_preset", "phphospital-user-uploads");
 
-        // POST method : formdata to the cloudinary
-        const data = await fetch(
-          "https://api.cloudinary.com/v1_1/dqvsc6e7e/image/upload",
+      // POST method : formdata to the cloudinary
+      const data = await fetch(
+        "https://api.cloudinary.com/v1_1/dqvsc6e7e/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      ).then((res) => res.json());
+
+      //   profile_pictuer link
+      updatedDoctor.profile_picture = data.secure_url;
+
+      // console.log(updatedDoctor);
+
+      const response = await fetch(
+        `http://localhost:3000/api/doctors/${doctor?.doc_id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(updatedDoctor),
+        }
+      );
+
+      if (updatedDoctor.profile_picture) {
+        const response2 = await fetch(
+          `http://localhost:3000/api/users/${doctor?.user_id}`,
           {
-            method: "POST",
-            body: formData,
+            method: "PUT",
+            body: JSON.stringify(updatedDoctor.profile_picture),
           }
-        ).then((res) => res.json());
+        );
+        if(response2.ok){
+          console.log('Success')
+        }
+      }
+      router.refresh();
 
-    //   profile_pictuer link
-        updatedDoctor.profile_picture = data.secure_url;
-
-      console.log(updatedDoctor);
-
-      const response = await fetch(`http://localhost:3000/api/doctors/${doctor?.doc_id}`,{
-        method:'PUT',
-        body: JSON.stringify(updatedDoctor)
-      });
-      const response2 = await fetch(`http://localhost:3000/api/users/${doctor?.user_id}`,{
-        method:'PUT',
-        body: JSON.stringify(updatedDoctor.profile_picture)
-      });
-      router.refresh()
-
-      if(response.ok && response2.ok){
-        toast.success("Successfully Updated",{position:'top-right', autoClose:1000})
-      }else{
-        toast.warning("Update Failed",{position:'top-right', autoClose:1000})
+      if (response.ok) {
+        toast.success("Successfully Updated", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+      } else {
+        toast.warning("Update Failed", {
+          position: "top-right",
+          autoClose: 1000,
+        });
       }
     } catch (error) {
       console.log(error.message);
