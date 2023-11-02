@@ -26,12 +26,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head></head>
-      <body className={`${inter.className} h-screen`}>
+      <body className={inter.className}>
         <NextTopLoader color="#000000" showSpinner={false}/>
         <AuthProvider>
           <UserDataProvider>
             <Navbar></Navbar>
+            <div className="overflow-y-auto pb-12">
             {children}
+            </div>
             <Footer></Footer>
             <ToastContainer />
           </UserDataProvider>

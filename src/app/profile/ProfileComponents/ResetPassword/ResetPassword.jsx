@@ -40,7 +40,7 @@ const ResetPassword = ({ userId }) => {
     }
   };
   return (
-    <div className="text-xs">
+    <div className="text-xs mt-5">
       <div>
         <p className="font-semibold">Reset Password?</p>
       </div>

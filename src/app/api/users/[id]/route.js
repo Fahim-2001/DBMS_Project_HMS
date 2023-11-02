@@ -55,7 +55,43 @@ export async function PUT(req, content) {
     }
 
     // Update Profile Picture Operation
-    if (body?.picture) {
+    if (body?.phone_number && body?.address && body?.picture) {
+      await connection.query(
+        `UPDATE users SET phone_number=?,address=?, picture=? WHERE id=?`,
+        [body?.phone_number, body?.address, body?.picture, userId]
+      );
+      connection.release();
+    } else if (body?.phone_number && body?.address) {
+      await connection.query(
+        `UPDATE users SET phone_number=?,address=? WHERE id=?`,
+        [body?.phone_number, body?.address, userId]
+      );
+      connection.release();
+    } else if (body?.address && body?.picture) {
+      await connection.query(
+        `UPDATE users SET address=?, picture=? WHERE id=?`,
+        [body?.address, body?.picture, userId]
+      );
+      connection.release();
+    } else if (body?.phone_number && body?.picture) {
+      await connection.query(
+        `UPDATE users SET phone_number=?, picture=? WHERE id=?`,
+        [body?.phone_number, body?.picture, userId]
+      );
+      connection.release();
+    } else if (body?.phone_number) {
+      await connection.query(`UPDATE users SET phone_number=? WHERE id=?`, [
+        body?.phone_number,
+        userId,
+      ]);
+      connection.release();
+    } else if (body?.address) {
+      await connection.query(`UPDATE users SET address=? WHERE id=?`, [
+        body?.address,
+        userId,
+      ]);
+      connection.release();
+    } else if (body?.picture) {
       await connection.query(`UPDATE users SET picture=? WHERE id=?`, [
         body,
         userId,

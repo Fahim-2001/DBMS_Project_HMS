@@ -121,7 +121,7 @@ const LabTestRegForm = () => {
             <input
               required
               type="text"
-              className="border border-primary mr-2"
+              className="border border-primary mr-2 px-1"
               {...register("fullname")}
             />
           </div>
@@ -132,7 +132,7 @@ const LabTestRegForm = () => {
             <input
               required
               type="number"
-              className="border border-primary mr-2"
+              className="border border-primary mr-2 px-1"
               {...register("age")}
             />
           </div>
@@ -141,7 +141,7 @@ const LabTestRegForm = () => {
             <label className="mr-1">Gender </label>
             <br />
             <select
-              className="border border-primary mr-2 px-[4px]"
+              className="border border-primary mr-2 px-1 px-[4px]"
               {...register("gender")}
             >
               <option value="male">Male</option>
@@ -155,7 +155,7 @@ const LabTestRegForm = () => {
             <input
               required
               type="tel"
-              className="border border-primary mr-2"
+              className="border border-primary mr-2 px-1"
               {...register("contact")}
             />
           </div>
@@ -165,7 +165,7 @@ const LabTestRegForm = () => {
             <br />
             <input
               type="email"
-              className="border border-primary mr-2"
+              className="border border-primary mr-2 px-1"
               {...register("email")}
             />
           </div>
@@ -178,7 +178,7 @@ const LabTestRegForm = () => {
               type="number"
               min={0}
               value={numberOfTests}
-              className="border border-primary mr-2"
+              className="border border-primary mr-2 px-1"
               {...register("number_of_tests")}
               onChange={handleNumChange}
             />
@@ -191,7 +191,7 @@ const LabTestRegForm = () => {
               <select
                 required
                 type="text"
-                className="border border-primary mr-2"
+                className="border border-primary mr-2 px-1"
                 onChange={(e) => handleAddTests(e.target.value)}
               >
                 <option value="">Select Test</option>
@@ -226,7 +226,7 @@ const LabTestRegForm = () => {
               <label className="mr-1">Payment Method</label>
               <br />
               <select
-                className="border border-primary mr-2"
+                className="border border-primary mr-2 px-1"
                 required
                 onChange={(e) => setPaymentMethod(e.target.value)}
               >

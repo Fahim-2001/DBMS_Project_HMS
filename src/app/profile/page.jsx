@@ -21,7 +21,7 @@ const page = () => {
       {singleUser?.userRole === "doctor" ? (
         <DoctorsProfileEditor doctorCredentials={doctorCredentials}/>
       ) : (
-        <GeneralProfileEditor />
+        <GeneralProfileEditor singleUser={singleUser} />
       )}
       <ResetPassword userId={userId}/>
     </div>
