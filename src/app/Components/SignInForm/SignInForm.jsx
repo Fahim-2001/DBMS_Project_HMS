@@ -1,7 +1,5 @@
 "use client";
-
 import { signIn } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
 import React, { useState } from "react";
 
