@@ -76,22 +76,27 @@ const ApptsForSingleDoctor = () => {
               )}
               <td>{appt?.appt_status}</td>
               <td>
-                {appt?.appt_status==="Unchecked" ? <Link
-                  href={`/dashboard/appointments/${appt?.appt_id}`}
-                  className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
-                >
-                  Upload
-                </Link>: <button
-                  className="mx-2 bg-gray-400 text-white font-semibold px-[10px] py-[3px] rounded-xl"
-                >
-                  Uploaded
-                </button>}
+                {appt?.appt_status === "Unchecked" ? (
+                  singleUser?.userRole === "doctor" ? (
+                    <Link
+                      href={`/dashboard/appointments/${appt?.appt_id}`}
+                      className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+                    >
+                      Upload
+                    </Link>
+                  ) : (
+                    <p>Not Uploaded</p>
+                  )
+                ) : (
+                  <p>Uploaded</p>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
+            
             <th>Id</th>
             <th>Name</th>
             <th>Contact</th>

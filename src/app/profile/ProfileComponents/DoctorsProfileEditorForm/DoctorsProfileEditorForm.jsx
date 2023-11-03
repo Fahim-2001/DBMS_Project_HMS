@@ -51,8 +51,8 @@ const DoctorsProfileEditorForm = ({ doctor }) => {
             body: JSON.stringify(updatedDoctor.profile_picture),
           }
         );
-        if(response2.ok){
-          console.log('Success')
+        if (response2.ok) {
+          console.log("Success");
         }
       }
       router.refresh();
@@ -102,6 +102,7 @@ const DoctorsProfileEditorForm = ({ doctor }) => {
           </div>
         </div>
         {/* Row 2 */}
+        <p className="font-semibold mt-3">Contact Information</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <div className="form-control w-full">
             <label className="label">

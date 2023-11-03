@@ -5,14 +5,23 @@ const connection = await pool.getConnection();
 
 export async function GET(req, content) {
   try {
-    const [data] = await connection.query(
-      "SELECT*FROM appointments WHERE appt_id=?",
-      [content.params.id]
-    );
-    connection.release();
+    if (content.params.id.includes("@gmail.com")) {
+      const [data] = await connection.query(
+        "SELECT*FROM appointments WHERE ref_email=?",
+        [content.params.id]
+      );
+      connection.release();
+      return NextResponse.json(data, { status: 200 });
+    } else {
+      const [data] = await connection.query(
+        "SELECT*FROM appointments WHERE appt_id=?",
+        [content.params.id]
+      );
+      connection.release();
+      return NextResponse.json(data, { status: 200 });
+    }
 
     // console.log(data);
-    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }
