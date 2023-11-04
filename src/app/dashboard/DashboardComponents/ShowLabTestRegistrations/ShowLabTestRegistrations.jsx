@@ -1,21 +1,22 @@
 import React from "react";
+import TestPaymentStatusUpdate from "./TestPaymentStatusUpdate";
 
-const ShowLabTestReqs = async () => {
+const ShowLabTestRegistrations = async () => {
   const labTestRequests = await fetch(
     "http://localhost:3000/api/labtests",
     { cache: "no-store" }
   ).then((res) => res.json());
 
   // console.log(labTestRequests);
-
+    
   return (
-    <div className="text-xs">
+    <div className="text-xs mt-2">
       <div className="flex justify-between font-semibold mr-3">
-        <p>Lab Test Requests Table</p>
+        <p>Registered Lab Test's Table</p>
         <p>Total Count :{labTestRequests.length}</p>
       </div>
       <div className="overflow-x-auto">
-        <table className="table table-xs ">
+        <table className="table table-xs mt-2">
           <thead>
             <tr>
               <th>Id</th>
@@ -34,6 +35,7 @@ const ShowLabTestReqs = async () => {
           </thead>
           <tbody>
             {labTestRequests?.map((request) => (
+              
               <tr key={request?.id}>
                 <td>{request?.id}</td>
                 <td>{request?.fullname}</td>
@@ -50,7 +52,7 @@ const ShowLabTestReqs = async () => {
                 </td>
                 <td>{request?.payable_amount}</td>
                 <td>{request?.advanced_amount}</td>
-                <td>{request?.payment_status}</td>
+                <td><TestPaymentStatusUpdate request={request}/></td>
                 <td>{request?.report_status}</td>
                 <td>{request?.registered_by}</td>
               </tr>
@@ -78,4 +80,4 @@ const ShowLabTestReqs = async () => {
   );
 };
 
-export default ShowLabTestReqs;
+export default ShowLabTestRegistrations;

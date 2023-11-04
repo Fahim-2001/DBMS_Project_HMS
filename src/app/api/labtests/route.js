@@ -8,7 +8,7 @@ export async function GET(req) {
   try {
     const [data] = await connection.query("SELECT*FROM lab_tests");
     connection.release();
-    // console.log(data);
+    // console.log("From API ->",data);
 
     return NextResponse.json(data, { status: 200 });
   } catch (error) {

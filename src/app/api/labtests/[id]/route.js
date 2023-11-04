@@ -25,11 +25,23 @@ export async function PUT(req, content) {
     const reports = JSON.stringify(body.reports);
     // console.log(reports, body.report_status, id);
 
-    await connection.query(
-      "UPDATE lab_tests SET report_status=?, report=? WHERE id=?",
-      [body?.report_status, reports, id]
-    );
-    connection.release();
+    console.log(id, body);
+
+    if(body.payment_status==='Paid'){
+      await connection.query(
+        "UPDATE lab_tests SET payment_status=?, due_amount=? WHERE id=?",
+        [body?.payment_status,body?.due_amount, id]
+      );
+      connection.release();
+    }
+
+    if (body.reports) {
+      await connection.query(
+        "UPDATE lab_tests SET report_status=?, report=? WHERE id=?",
+        [body?.report_status, reports, id]
+      );
+      connection.release();
+    }
 
     return NextResponse.json(
       { message: "Report Submission done!" },

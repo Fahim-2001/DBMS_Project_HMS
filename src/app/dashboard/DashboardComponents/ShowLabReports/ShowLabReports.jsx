@@ -9,7 +9,7 @@ const ShowLabReports = async () => {
     <div>
       <div className="text-xs">
         <div className="flex justify-between font-semibold mr-3">
-          <p>Lab Tests Report Table</p>
+          <p>Lab Test's Report Table</p>
           <p>Total Count :{labTestRequests.length}</p>
         </div>
         <div className="overflow-x-auto overflow-y-auto">

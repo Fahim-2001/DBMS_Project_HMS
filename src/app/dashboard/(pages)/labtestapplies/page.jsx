@@ -1,12 +1,13 @@
 import React from 'react'
 import LabTestRegForm from '../../DashboardComponents/LabTestRegForm/LabTestRegForm'
-import ShowLabTestReqs from '../../DashboardComponents/ShowLabTestReqs/ShowLabTestReqs'
+import ShowLabTestRegistrations from '../../DashboardComponents/ShowLabTestRegistrations/ShowLabTestRegistrations'
+
 
 const page = () => {
   return (
     <div>
         <LabTestRegForm/>
-        <ShowLabTestReqs/>
+        <ShowLabTestRegistrations/>
     </div>
   )
 }
