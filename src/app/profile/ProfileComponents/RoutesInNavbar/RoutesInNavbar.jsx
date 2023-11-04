@@ -8,13 +8,13 @@ const RoutesInNavbar = ({ singleUser }) => {
       <nav className="flex flex-col">
         {singleUser?.userRole === "doctor" ? (
           <Link
-            href={"/profile/appointments"}
+            href={"/profile/doctorsappointments"}
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
           >
             Your Appointments
           </Link>
         ) : (
-          <Link href={"/profile/yourappointments"}>
+          <Link href={"/profile/yourappointments"} className="text-sm hover:bg-gray-300 px-3 py-2 my-1">
             Your Booked Appointments
           </Link>
         )}
