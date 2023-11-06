@@ -8,12 +8,13 @@ const TestPaymentStatusUpdate = ({ request }) => {
   const [status, setStatus] = useState("");
 
   const updateStatus = async () => {
-    // console.log(status, request?.id);
     try {
       const data = {
         due_ammount: 0,
         payment_status: status,
       };
+
+      // console.log(data)
 
       const response = await fetch(
         `http://localhost:3000/api/labtests/${request?.id}`,
@@ -56,9 +57,7 @@ const TestPaymentStatusUpdate = ({ request }) => {
       </button>
     </div>
   ) : (
-    <button className="mx-2 bg-gray-400 text-white font-semibold px-[8px] py-[3px] rounded-xl">
-      Updated
-    </button>
+    <p>{request?.payment_status}</p>
   );
 };
 

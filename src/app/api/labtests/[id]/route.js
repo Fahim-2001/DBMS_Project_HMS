@@ -25,12 +25,12 @@ export async function PUT(req, content) {
     const reports = JSON.stringify(body.reports);
     // console.log(reports, body.report_status, id);
 
-    console.log(id, body);
+    // console.log(id, body);
 
-    if(body.payment_status==='Paid'){
+    if (body.payment_status === "Paid") {
       await connection.query(
         "UPDATE lab_tests SET payment_status=?, due_amount=? WHERE id=?",
-        [body?.payment_status,body?.due_amount, id]
+        [body?.payment_status, body?.due_amount, id]
       );
       connection.release();
     }

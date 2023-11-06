@@ -4,7 +4,7 @@ export const GetInTouch = () => {
   return (
     <section className="my-5">
       <div>
-        <h1 className="text-center text-3xl lg:text-4xl text-primary font-bold px-2 py-3 my-2">
+        <h1 className="text-center text-3xl lg:text-4xl text-primary font-bold px-2 py-3 my-2 drop-shadow-md">
           Get In Touch
         </h1>
       </div>

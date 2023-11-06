@@ -4,7 +4,7 @@ export const ChooseUsMessage = () => {
   return (
     <section className='my-5'>
         <div>
-          <h1 className='text-center text-3xl lg:text-4xl text-primary font-bold px-2 py-3 my-2'>Why Choose Us ?</h1>
+          <h1 className='text-center text-3xl lg:text-4xl text-primary font-bold px-2 py-3 my-2 drop-shadow-md'>Why Choose Us ?</h1>
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-3 mx-[5%] text-center'>
           <div className='my-3 mx-5'>
