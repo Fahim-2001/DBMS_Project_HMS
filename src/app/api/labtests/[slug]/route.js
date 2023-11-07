@@ -7,17 +7,17 @@ const connection = await pool.getConnection();
 // Doctor By ID api
 export async function GET(req, content) {
   try {
-    if (content.params.id.includes("@gmail.com")) {
+    if (content.params.slug.includes("@gmail.com")) {
       const [data] = await connection.query(
         "SELECT*FROM lab_tests WHERE email=?",
-        [content.params.id]
+        [content.params.slug]
       );
       connection.release();
       return NextResponse.json(data, { status: 200 });
     } else {
       const [data] = await connection.query(
         "SELECT*FROM lab_tests WHERE id=?",
-        [content.params.id]
+        [content.params.slug]
       );
       connection.release();
       return NextResponse.json(data, { status: 200 });
