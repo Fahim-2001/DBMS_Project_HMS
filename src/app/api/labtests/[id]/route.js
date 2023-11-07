@@ -1,4 +1,5 @@
 import pool from "@/app/utils/db";
+import { NEXT_BUILTIN_DOCUMENT } from "next/dist/shared/lib/constants";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
@@ -6,13 +7,21 @@ const connection = await pool.getConnection();
 // Doctor By ID api
 export async function GET(req, content) {
   try {
-    const [data] = await connection.query("SELECT*FROM lab_tests WHERE id=?", [
-      content?.params?.id,
-    ]);
-    connection.release();
-    // console.log(data);
-
-    return NextResponse.json(data[0], { status: 200 });
+    if (content.params.id.includes("@gmail.com")) {
+      const [data] = await connection.query(
+        "SELECT*FROM lab_tests WHERE email=?",
+        [content.params.id]
+      );
+      connection.release();
+      return NextResponse.json(data, { status: 200 });
+    } else {
+      const [data] = await connection.query(
+        "SELECT*FROM lab_tests WHERE id=?",
+        [content.params.id]
+      );
+      connection.release();
+      return NextResponse.json(data, { status: 200 });
+    }
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }

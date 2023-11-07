@@ -210,8 +210,7 @@ export const generatePrescription = async (appt_id) => {
     .text(`${appt?.ref_doctor}`, 165, 230, "center")
     .text(`MBBS, Dhaka Medical College`, 165, 235, "center")
     .text(`FCPS, School of Medical Science, London`, 165, 240, "center")
-    .text(`${appt?.department}`, 165, 245, "center")
-    .text(`PHP Hospital`, 165, 250, "center");
+    .text(`${appt?.department}, PHP Hospital`, 165, 245, "center");
 
   prescription.line(10, 265, 200, 265); // horizontal line
   //  ------------------ Data Collection Info -------------------

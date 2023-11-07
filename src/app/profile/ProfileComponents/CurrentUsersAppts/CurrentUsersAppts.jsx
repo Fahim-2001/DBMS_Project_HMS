@@ -2,7 +2,7 @@
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
-import { generatePrescription } from "../prescription";
+import { generatePrescription } from "../../utils/prescription";
 
 const CurrentUsersAppts = () => {
   const { singleUser } = useContext(UserDataContext);
@@ -22,7 +22,7 @@ const CurrentUsersAppts = () => {
     getAppts();
   }, [singleUser?.email]);
 
-  console.log(appointments);
+  // console.log(appointments);
   return (
     <div className="overflow-x-auto">
       <div className="flex justify-between text-xs font-semibold mr-3">
