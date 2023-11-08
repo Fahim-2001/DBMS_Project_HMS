@@ -28,7 +28,7 @@ const UpdateVaccineStatus = ({ req }) => {
   };
   return (
     <div className="flex">
-      {singleUser?.userRole === "lab-attendant" ? (
+      {(singleUser?.userRole === "super-admin" || singleUser?.userRole === "lab-attendant") ? (
         <>
           <select onChange={(e) => setStatus(e.target.value)}>
             <option defaultValue={req?.status}>{req?.status}</option>

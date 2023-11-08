@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -10,6 +10,7 @@ const AppointmentForm = ({ doctor }) => {
   const {singleUser}=useContext(UserDataContext);
   const { register, handleSubmit } = useForm();
   const router = useRouter();
+  const formRef = useRef()
   // console.log(doctor);
 
   const onSubmit = async (patient) => {
@@ -54,6 +55,8 @@ const AppointmentForm = ({ doctor }) => {
     }
     // Invoice Generation
     generatePdf(patient, doctor);
+
+    formRef.current.reset()
   };
 
   
@@ -63,7 +66,7 @@ const AppointmentForm = ({ doctor }) => {
         Appointment Form
       </h2>
 
-      <form className="text-xs" onSubmit={handleSubmit(onSubmit)}>
+      <form className="text-xs" onSubmit={handleSubmit(onSubmit)} ref={formRef}>
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
           <div>
             <label className="text-gray-700" htmlFor="fullname">

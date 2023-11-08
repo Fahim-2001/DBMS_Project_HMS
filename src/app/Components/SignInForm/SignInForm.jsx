@@ -1,12 +1,14 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(null);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +17,7 @@ const SignInForm = () => {
       const res = await signIn("credentials", {
         email: email,
         password: password,
-        redirect:true
+        redirect: false,
       });
 
       if (res.error) {
@@ -30,7 +32,7 @@ const SignInForm = () => {
       }
 
       setError("");
-      
+      router.replace("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -71,22 +73,13 @@ const SignInForm = () => {
           </div>
 
           <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Password
-              </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-primary hover:text-secondary"
-                >
-                  Forgot password?
-                </a>
-              </div>
-            </div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Password
+            </label>
+
             <div className="mt-2">
               <input
                 id="password"

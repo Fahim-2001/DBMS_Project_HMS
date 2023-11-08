@@ -22,15 +22,13 @@ export const authOption = {
         );
         connection.release();
         const user = data[0];
-
+        
         // Verification of email and password.
-        if (credentials.email != user.email) {
-          throw new Error("Invalid Email.");
-        }
         if (!user) {
           throw new Error("Invalid Email or Password.");
         }
 
+        // Password Verification
         const isMatched = await bcrypt.compare(
           credentials.password,
           user.password

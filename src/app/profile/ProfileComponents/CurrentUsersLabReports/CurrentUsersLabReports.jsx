@@ -47,34 +47,34 @@ const CurrentUsersLabReports = () => {
   
   return (
     <div className="text-xs">
-      {/* Search By Report Id Field */}
-      <form className="flex" action="post" onSubmit={handleSearchById}>
-        <input
-          type="text"
-          placeholder="Search here with your report Id"
-          className="input input-bordered input-sm w-full"
-          onChange={(e)=>setReportId(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-4 py-1 ml-2 rounded-xl"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+          {/* Search By Report Id Field */}
+          <form className="flex" action="post" onSubmit={handleSearchById}>
+            <input
+              type="text"
+              placeholder="Search here with your report Id"
+              className="input input-bordered input-sm w-full"
+              onChange={(e)=>setReportId(e.target.value)}
             />
-          </svg>
-        </button>
-      </form>
+            <button
+              type="submit"
+              className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-4 py-1 ml-2 rounded-xl"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                />
+              </svg>
+            </button>
+          </form>
       {/* Search Result in a table if report is not null */}
       {report !=null && (
         <div className="overflow-x-auto">

@@ -1,14 +1,14 @@
 import jsPDF from "jspdf";
 
 export const generateLabReport = async (rep_id) => {
-  // Appointment data fetching
+  // Report data fetching
   const labReport = await fetch(
     `http://localhost:3000/api/labtests/${rep_id}}`,
     {
       cache: "no-store",
     }
   ).then((res) => res.json());
-  console.log(labReport);
+  
   const rpt = labReport[0];
 
   console.log(rpt);
@@ -128,24 +128,6 @@ export const generateLabReport = async (rep_id) => {
       .text(`${test.testName}`, 20, (lineGap1 += 7))
       .text(`${test.reportTexts}`,110,(lineGap2 += 7));
   });
-
-  // //-------------------- Test Preferences -----------------------
-  // report
-  //   .setFont("times", "bold")
-  //   .setFontSize(10)
-  //   .setTextColor("black")
-  //   .text("Test Preferences :", 110, 67, "left");
-
-  // // reports
-  // const reports = rpt.test_preferences.split(", ");
-  // let lineGapTest = 67;
-  // reports.map((test) => {
-  //   report
-  //     .setFont("times", "normal")
-  //     .setFontSize(10)
-  //     .setTextColor("black")
-  //     .text(`${test}`, 130, (lineGapTest += 7));
-  // });
 
   report.line(10, 265, 200, 265); // horizontal line
   //  ------------------ Data Collection Info -------------------

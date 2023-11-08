@@ -8,47 +8,11 @@ export const generatePrescription = async (appt_id) => {
   ).then((res) => res.json());
   const appt = appointment[0];
 
-  console.log(appt);
+  
   // PDF object creation
   const prescription = new jsPDF({
     orientation: "portrait",
   });
-
-  // appt_date: "2023-11-12"
-  // ​​
-  // appt_fee: 800
-  // ​​
-  // appt_id: 5
-  // ​​
-  // appt_status: "Checked"
-  // ​​
-  // appt_type: "new"
-  // ​​
-  // department: "Emergency Medicine"
-  // ​​
-  // doc_email: "kader.doct@gmail.com"
-  // ​​
-  // doc_id: 2
-  // ​​
-  // patient_address: "Rupganj"
-  // ​​
-  // patient_age: "30"
-  // ​​
-  // patient_contact: "01234567891"
-  // ​​
-  // patient_gender: "male"
-  // ​​
-  // patient_issue: "Pasay Betha"
-  // ​​
-  // patient_name: "Arbin Zaman"
-  // ​​
-  // prescription: "Napa (3time daily after meal), Sergel (3times daily before meal)"
-  // ​​
-  // ref_doctor: "Dr. Abdul "
-  // ​​
-  // ref_email: "fahim@gmail.com"
-  // ​​
-  // test_preferences: "X-ray"
 
   // Heading
   prescription.setFont("bold");

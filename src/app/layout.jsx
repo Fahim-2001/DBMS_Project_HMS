@@ -8,7 +8,6 @@ import { AuthProvider } from "./providers";
 import UserDataProvider from "./Contexts/UserDataProvider/UserDataProvider";
 import NextTopLoader from "nextjs-toploader";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -25,15 +24,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head></head>
+      <head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charSet="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+      </head>
       <body className={inter.className}>
-        <NextTopLoader color="#000000" showSpinner={false}/>
+        <NextTopLoader color="#000000" showSpinner={false} />
         <AuthProvider>
           <UserDataProvider>
             <Navbar></Navbar>
-            <div className="overflow-y-auto pb-12">
-            {children}
-            </div>
+            <div className="overflow-y-auto pb-12">{children}</div>
             <Footer></Footer>
             <ToastContainer />
           </UserDataProvider>

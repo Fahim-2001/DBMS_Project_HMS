@@ -61,20 +61,17 @@ const LabTestRegForm = () => {
       labData.due_amount = 0;
       labData.payment_status = "Paid";
     }
-    labData.report_status = "On Process"
+    labData.report_status = "On Process";
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/labtests",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(labData),
-        }
-      );
+      const response = await fetch("http://localhost:3000/api/labtests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(labData),
+      });
       router.refresh();
-      
+
       if (response.ok) {
         console.log("Successs");
         // console.log(labData);
@@ -110,153 +107,156 @@ const LabTestRegForm = () => {
     },
   ];
   return (
-    singleUser?.userRole==="receptionist"&&<div className="text-xs">
-      <p className="font-semibold">Lab Test Registration Form</p>
-      {/* Lab Test Registration Form */}
-      <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-wrap">
-          <div className="my-1">
-            <label className="mr-1">Full Name</label>
-            <br />
-            <input
-              required
-              type="text"
-              className="border border-primary mr-2 px-1"
-              {...register("fullname")}
-            />
-          </div>
-
-          <div className="my-1">
-            <label className="mr-1">Age</label>
-            <br />
-            <input
-              required
-              type="number"
-              className="border border-primary mr-2 px-1"
-              {...register("age")}
-            />
-          </div>
-
-          <div className="my-1">
-            <label className="mr-1">Gender </label>
-            <br />
-            <select
-              className="border border-primary mr-2 px-1 px-[4px]"
-              {...register("gender")}
-            >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-
-          <div className="my-1">
-            <label className="mr-1">Contact</label>
-            <br />
-            <input
-              required
-              type="tel"
-              className="border border-primary mr-2 px-1"
-              {...register("contact")}
-            />
-          </div>
-
-          <div className="my-1">
-            <label className="mr-1">Email</label>
-            <br />
-            <input
-              type="email"
-              className="border border-primary mr-2 px-1"
-              {...register("email")}
-            />
-          </div>
-
-          <div className="my-1">
-            <label className="mr-1">Number of Tests</label>
-            <br />
-            <input
-              required
-              type="number"
-              min={0}
-              value={numberOfTests}
-              className="border border-primary mr-2 px-1"
-              {...register("number_of_tests")}
-              onChange={handleNumChange}
-            />
-          </div>
-
-          {textFields.map((fieldName) => (
-            <div key={fieldName} className="my-1">
-              <label className="mr-1">{fieldName}</label>
+    (singleUser?.userRole == "super-admin" ||
+      singleUser?.userRole === "receptionist") && (
+      <div className="text-xs">
+        <p className="font-semibold">Lab Test Registration Form</p>
+        {/* Lab Test Registration Form */}
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-wrap">
+            <div className="my-1">
+              <label className="mr-1">Full Name</label>
               <br />
-              <select
+              <input
                 required
                 type="text"
                 className="border border-primary mr-2 px-1"
-                onChange={(e) => handleAddTests(e.target.value)}
-              >
-                <option value="">Select Test</option>
-                {options.map((option) => (
-                  <option value={JSON.stringify(option)} key={option.id}>
-                    {option?.test}
-                  </option>
-                ))}
-              </select>
+                {...register("fullname")}
+              />
             </div>
-          ))}
-        </div>
 
-        {numberOfTests > 0 && (
-          <button
-            type="submit"
-            className="mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
-          >
-            Proceed To Payment
-          </button>
-        )}
-      </form>
-
-      {/* Payment Method */}
-      {numberOfTests > 0 && (
-        <div>
-          <div className="flex flex-wrap">
-            <div className="my-5">
-              <p>You have to pay: {payableAmount} BDT</p>
+            <div className="my-1">
+              <label className="mr-1">Age</label>
+              <br />
+              <input
+                required
+                type="number"
+                className="border border-primary mr-2 px-1"
+                {...register("age")}
+              />
             </div>
-            <div className="my-1 mx-2">
-              <label className="mr-1">Payment Method</label>
+
+            <div className="my-1">
+              <label className="mr-1">Gender </label>
               <br />
               <select
-                className="border border-primary mr-2 px-1"
-                required
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="border border-primary mr-2 px-1 px-[4px]"
+                {...register("gender")}
               >
-                <option value="">Select Method</option>
-                <option value="Full Payment">Full Payment</option>
-                <option value="Due Payment">Due Payment</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
               </select>
             </div>
-            {paymentMethod == "Due Payment" && (
-              <div className="my-1">
-                <label className="mr-1">Advance Amount</label>
+
+            <div className="my-1">
+              <label className="mr-1">Contact</label>
+              <br />
+              <input
+                required
+                type="tel"
+                className="border border-primary mr-2 px-1"
+                {...register("contact")}
+              />
+            </div>
+
+            <div className="my-1">
+              <label className="mr-1">Email</label>
+              <br />
+              <input
+                type="email"
+                className="border border-primary mr-2 px-1"
+                {...register("email")}
+              />
+            </div>
+
+            <div className="my-1">
+              <label className="mr-1">Number of Tests</label>
+              <br />
+              <input
+                required
+                type="number"
+                min={0}
+                value={numberOfTests}
+                className="border border-primary mr-2 px-1"
+                {...register("number_of_tests")}
+                onChange={handleNumChange}
+              />
+            </div>
+
+            {textFields.map((fieldName) => (
+              <div key={fieldName} className="my-1">
+                <label className="mr-1">{fieldName}</label>
                 <br />
-                <input
+                <select
                   required
-                  type="number"
-                  className="border border-primary mr-2"
-                  onChange={(e) => setAdvancedAmount(e.target.value)}
-                />
+                  type="text"
+                  className="border border-primary mr-2 px-1"
+                  onChange={(e) => handleAddTests(e.target.value)}
+                >
+                  <option value="">Select Test</option>
+                  {options.map((option) => (
+                    <option value={JSON.stringify(option)} key={option.id}>
+                      {option?.test}
+                    </option>
+                  ))}
+                </select>
               </div>
-            )}
+            ))}
           </div>
-          <button
-            onClick={confirmRegistration}
-            className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
-          >
-            Confirm Registration
-          </button>
-        </div>
-      )}
-    </div>
+
+          {numberOfTests > 0 && (
+            <button
+              type="submit"
+              className="mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+            >
+              Proceed To Payment
+            </button>
+          )}
+        </form>
+
+        {/* Payment Method */}
+        {numberOfTests > 0 && (
+          <div>
+            <div className="flex flex-wrap">
+              <div className="my-5">
+                <p>You have to pay: {payableAmount} BDT</p>
+              </div>
+              <div className="my-1 mx-2">
+                <label className="mr-1">Payment Method</label>
+                <br />
+                <select
+                  className="border border-primary mr-2 px-1"
+                  required
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                >
+                  <option value="">Select Method</option>
+                  <option value="Full Payment">Full Payment</option>
+                  <option value="Due Payment">Due Payment</option>
+                </select>
+              </div>
+              {paymentMethod == "Due Payment" && (
+                <div className="my-1">
+                  <label className="mr-1">Advance Amount</label>
+                  <br />
+                  <input
+                    required
+                    type="number"
+                    className="border border-primary mr-2"
+                    onChange={(e) => setAdvancedAmount(e.target.value)}
+                  />
+                </div>
+              )}
+            </div>
+            <button
+              onClick={confirmRegistration}
+              className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+            >
+              Confirm Registration
+            </button>
+          </div>
+        )}
+      </div>
+    )
   );
 };
 
