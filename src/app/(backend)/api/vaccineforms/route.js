@@ -1,0 +1,36 @@
+import pool from "@/app/(backend)/utils/db";
+import { NextResponse } from "next/server";
+
+const connection = await pool.getConnection();
+
+// Doctor By ID api
+export async function GET(req) {
+  try {
+    const [data] = await connection.query("SELECT*FROM vaccineforms");
+    connection.release();
+    // console.log(data);
+    return NextResponse.json(data, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(error.message, { status: 500 });
+  }
+}
+
+export async function POST(req) {
+  try {
+    const { fullname, age, gender, contact, vaccine_name, shortname, email, status } =
+      await req.json();
+    // console.log(vaccineHolder);
+    await connection.query(
+      "INSERT INTO vaccineforms(fullname,age,gender,contact,vaccine_name,shortname,email,status) VALUE (?,?,?,?,?,?,?,?)",
+      [fullname, age, gender, contact, vaccine_name, shortname, email,status]
+    );
+    connection.release();
+
+    return NextResponse.json(
+      { message: "Vaccine for submission done!" },
+      { status: 201 }
+    );
+  } catch (error) {
+    NextResponse.json({ message: error.message }, { status: 500 });
+  }
+}

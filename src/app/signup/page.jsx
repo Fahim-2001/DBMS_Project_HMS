@@ -2,7 +2,7 @@ import React from 'react'
 import { SignUpForm } from '../Components/SignUpForm/SignUpForm'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import { authOption } from '../api/auth/[...nextauth]/route'
+import { authOption } from '../(backend)/api/auth/[...nextauth]/route'
 
 
 const SignUp = async() => {
