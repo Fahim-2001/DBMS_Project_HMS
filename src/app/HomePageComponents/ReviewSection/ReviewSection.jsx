@@ -22,6 +22,7 @@ const ReviewSection = () => {
 
     if(response.ok){
         console.log("Success");
+        formRef.current.reset()
     }else{
         console.log("failed")
     }
@@ -36,7 +37,7 @@ const ReviewSection = () => {
       <div className="">
       <form className="mx-32" onSubmit={handleSubmit(onSubmit)} ref={formRef}>
       <div className="flex flex-col mb-3">
-          <label className="text-gray-700" htmlFor="name">
+          <label className="text-gray-700 my-2" htmlFor="name">
             Your Name
           </label>
           <input
@@ -48,7 +49,7 @@ const ReviewSection = () => {
           />
         </div>
         <div className="flex flex-col mb-3">
-          <label className="text-gray-700" htmlFor="email">
+          <label className="text-gray-700 my-2" htmlFor="email">
             Your Email
           </label>
           <input
@@ -61,7 +62,7 @@ const ReviewSection = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-gray-700" htmlFor="comment">
+          <label className="text-gray-700 my-2" htmlFor="comment">
             Your comment
           </label>
           <textarea
@@ -70,7 +71,7 @@ const ReviewSection = () => {
             rows={30}
             cols={20}
             placeholder="Type here"
-            className="input input-bordered input-md w-full"
+            className="input input-bordered input-md w-full h-[150px]"
             {...register("comment")}
             required
           />
