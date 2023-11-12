@@ -2,7 +2,7 @@
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
-import { generatePrescription } from "../../utils/generatePrescription";
+import { generatePrescription } from "../../../utils/generatePrescription";
 
 const CurrentUsersAppts = () => {
   const { singleUser } = useContext(UserDataContext);

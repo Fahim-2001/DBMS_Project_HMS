@@ -1,13 +1,13 @@
 "use client";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const VaccineForm = ({ vaccine }) => {
   const {singleUser} = useContext(UserDataContext);
-
+  const formRef = useRef();
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   //   console.log(vaccine)
@@ -32,7 +32,7 @@ const VaccineForm = ({ vaccine }) => {
       if (response.ok) {
         toast.success("Vaccine booking successful!", {
           position: "top-right",
-          autoClose: 10000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -40,10 +40,11 @@ const VaccineForm = ({ vaccine }) => {
           progress: undefined,
           theme: "light",
         });
+        // formRef.current.reset()
       } else {
         toast.warning("Vaccine booking failed!", {
           position: "top-right",
-          autoClose: 10000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -58,7 +59,7 @@ const VaccineForm = ({ vaccine }) => {
   };
   return (
     <div>
-      <form action="" onSubmit={handleSubmit(onSubmit)}>
+      <form action="" onSubmit={handleSubmit(onSubmit)} className="mx-auto" ref={formRef}>
         <div className="form-control w-full">
           <label className="label">
             <span className="label-text">Full Name</span>

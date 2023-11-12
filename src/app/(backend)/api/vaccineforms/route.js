@@ -1,9 +1,11 @@
 import pool from "@/app/(backend)/utils/db";
+
+import { generate } from "generate-password";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
 
-// Doctor By ID api
+//All Registered Vaccine Info 
 export async function GET(req) {
   try {
     const [data] = await connection.query("SELECT*FROM vaccineforms");
@@ -15,18 +17,50 @@ export async function GET(req) {
   }
 }
 
+// New Vaccine Information to the database.
 export async function POST(req) {
   try {
-    const { fullname, age, gender, contact, vaccine_name, shortname, email, status } =
-      await req.json();
-    // console.log(vaccineHolder);
+    const {
+      fullname,
+      age,
+      gender,
+      contact,
+      vaccine_name,
+      shortname,
+      email,
+      status,
+    } = await req.json();
+
+    // Current Date
+    const reg_date = `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`;
+    // This token is generated to identify current request in the next query to generate pdf.
+    const token = generate({
+      length: 5,
+      numbers: true,
+    });
+
     await connection.query(
-      "INSERT INTO vaccineforms(fullname,age,gender,contact,vaccine_name,shortname,email,status) VALUE (?,?,?,?,?,?,?,?)",
-      [fullname, age, gender, contact, vaccine_name, shortname, email,status]
+      "INSERT INTO vaccineforms(fullname,age,gender,contact,vaccine_name,shortname,email,status,token,reg_date) VALUE (?,?,?,?,?,?,?,?,?,?)",
+      [
+        fullname,
+        age,
+        gender,
+        contact,
+        vaccine_name,
+        shortname,
+        email,
+        status,
+        token,
+        reg_date,
+      ]
     );
     connection.release();
 
+    const data = await connection.query("SELECT * FROM vaccineforms WHERE id=?",[token]);
+    const vaccineInfo = data[0][0];
+
     return NextResponse.json(
+      vaccineInfo,
       { message: "Vaccine for submission done!" },
       { status: 201 }
     );

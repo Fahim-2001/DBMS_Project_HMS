@@ -14,7 +14,7 @@ const Vaccination = () => {
           className={styles.img}
         />
         <div>
-        <p className="text-primary text-3xl font-bold mb-3">
+        <p className="text-primary text-3xl font-bold mb-3 drop-shadow-md">
           Importance of Vaccination
         </p>
 
@@ -33,7 +33,7 @@ const Vaccination = () => {
         </p>
         </div>
         <div>
-          <p className="text-primary text-3xl font-bold mb-3 text-right my-10">Our Vaccine Programs</p>
+          <p className="text-primary text-3xl font-bold mb-3 text-right my-10 drop-shadow-md mr-3">Our Vaccine Programs</p>
           <div className="my-3 flex flex-wrap justify-center">
             {vaccineData.map(vac=>(
               <Link href={`vaccination/${vac?.routename}`} key={vac?.id} vac={vac} className="border border-primary rounded-md hover:bg-primary hover:text-white text-lg font-semibold shadow-md mx-2 my-2 px-4 py-3 ">{vac?.disease}</Link>

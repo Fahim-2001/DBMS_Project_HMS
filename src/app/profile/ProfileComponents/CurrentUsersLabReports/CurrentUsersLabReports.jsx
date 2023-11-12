@@ -1,7 +1,7 @@
 "use client";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import React, { useContext, useEffect, useState } from "react";
-import { generateLabReport } from "../../utils/generateLabReport";
+import { generateLabReport } from "../../../utils/generateLabReport";
 
 const CurrentUsersLabReports = () => {
   const [labReports, setLabReports] = useState([]);

@@ -4,15 +4,14 @@ import React, { useEffect } from "react";
 import useSWR from "swr";
 
 const DisplayReview = () => {
+  
+  // Fetching Reviews using swr.
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  // Single user fetching By email.
   const {
     data: reviews,
-    error,
-    isLoading,
   } = useSWR(`http://localhost:3000/api/reviews`, fetcher);
 
-  console.log(reviews);
+  // console.log(reviews);
   return (
     <div className="mx-auto h-72 w-4/5 md:w-1/2 mb-24">
       <h1 className="text-center text-3xl lg:text-4xl text-primary font-bold px-2 py-3 mt-3 -mb-10 drop-shadow-md">

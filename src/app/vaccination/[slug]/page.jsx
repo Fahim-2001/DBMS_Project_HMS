@@ -43,7 +43,7 @@ const page = ({ params }) => {
           </p>
         </div>
         <div>
-          <p className="text-primary text-xl font-medium">Get This Vaccine from us</p>
+          <p className="text-primary text-xl font-medium mx-auto">Get This Vaccine from us</p>
           <VaccineForm vaccine={vaccine}/>
         </div>
       </div>
