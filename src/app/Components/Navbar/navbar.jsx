@@ -8,8 +8,8 @@ import React, { useContext } from "react";
 export default function Navbar() {
   const session = useSession();
   // console.log(session?.data?.user);
-  const { singleUser } = useContext(UserDataContext);
-  // console.log(singleUser);
+  const { runningUser } = useContext(UserDataContext);
+  // console.log(runningUser);
 
   const menuItems = (
     <>
@@ -114,11 +114,11 @@ export default function Navbar() {
             {
               <div>
                 <p className="mx-2 text-md font-semibold font-serif text-white ">
-                  {singleUser?.fullname || session?.data?.user?.name}
+                  {runningUser?.fullname || session?.data?.user?.name}
                 </p>
-                {singleUser?.userRole !== "user" && (
+                {runningUser?.userRole !== "user" && (
                   <p className="text-white text-xs text-right">
-                    {singleUser?.userRole}
+                    {runningUser?.userRole}
                   </p>
                 )}
               </div>
@@ -128,7 +128,7 @@ export default function Navbar() {
               <div tabIndex={0} className="avatar placeholder">
                 <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
                   {
-                    singleUser?.picture ? <img src={singleUser?.picture} alt="Picture of user" /> : <img src={singleUser?.gender=="male" ? "https://cdn-icons-png.flaticon.com/512/5556/5556468.png" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KPUL8FzWe7WpCqb0fIy6Q2uBRhtydqEFeg&usqp=CAU" }/>
+                    runningUser?.picture ? <img src={runningUser?.picture} alt="Picture of user" /> : <img src={runningUser?.gender=="male" ? "https://cdn-icons-png.flaticon.com/512/5556/5556468.png" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KPUL8FzWe7WpCqb0fIy6Q2uBRhtydqEFeg&usqp=CAU" }/>
                   }
                 </div>
               </div>
@@ -136,11 +136,11 @@ export default function Navbar() {
                 tabIndex={0}
                 className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
               >
-                {(singleUser?.userRole === "super-admin" ||
-                  singleUser?.userRole === "admin" ||
-                  singleUser?.userRole === "receptionist" ||
-                  singleUser?.userRole === "lab-attendant" ||
-                  singleUser?.userRole === "doctor") && (
+                {(runningUser?.userRole === "super-admin" ||
+                  runningUser?.userRole === "admin" ||
+                  runningUser?.userRole === "receptionist" ||
+                  runningUser?.userRole === "lab-attendant" ||
+                  runningUser?.userRole === "doctor") && (
                   <li>
                     <Link href={"/dashboard"}>Dashboard</Link>
                   </li>

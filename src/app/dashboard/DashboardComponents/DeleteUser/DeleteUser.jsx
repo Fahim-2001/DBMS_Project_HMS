@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { toast } from "react-toastify";
 
 const DeleteUser = ({ user }) => {
-  const { singleUser } = useContext(UserDataContext);
+  const { runningUser } = useContext(UserDataContext);
   const router = useRouter();
   const deleteUser = async (email) => {
     try {
@@ -52,9 +52,9 @@ const DeleteUser = ({ user }) => {
     }
   };
   return (
-    (singleUser?.userRole === "super-admin" ||
-      singleUser?.userRole === "admin") &&
-    (user?.userRole === "super-admin" && singleUser?.userRole !=="super-admin" ? (
+    (runningUser?.userRole === "super-admin" ||
+      runningUser?.userRole === "admin") &&
+    (user?.userRole === "super-admin" && runningUser?.userRole !=="super-admin" ? (
       <div>
         <button
           className="mx-2 bg-gray-400 text-white font-semibold px-[8px] py-[3px] rounded-xl"

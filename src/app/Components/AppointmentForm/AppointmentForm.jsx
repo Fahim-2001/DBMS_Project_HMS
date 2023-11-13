@@ -7,7 +7,7 @@ import { generatePdf } from "./pdfGenerator";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 
 const AppointmentForm = ({ doctor }) => {
-  const {singleUser}=useContext(UserDataContext);
+  const {runningUser}=useContext(UserDataContext);
   const { register, handleSubmit } = useForm();
   const router = useRouter();
   const formRef = useRef()
@@ -18,7 +18,7 @@ const AppointmentForm = ({ doctor }) => {
     patient["doc_id"] = doctor?.doc_id;
     patient["fee"] = 800;
     patient["appt_status"] = 'Unchecked';
-    patient["ref_email"]= singleUser?.email;
+    patient["ref_email"]= runningUser?.email;
     // console.log(patient);
 
     const response = await fetch("http://localhost:3000/api/appointments", {

@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const GeneralProfileEditor = ({ singleUser }) => {
+const GeneralProfileEditor = ({ runningUser }) => {
   const { register, handleSubmit } = useForm();
 
   const handleUpdate = async(updatedProfile) => {
@@ -30,7 +30,7 @@ const GeneralProfileEditor = ({ singleUser }) => {
       updatedProfile.picture = data.secure_url;
 
       // PUT method for updating user profile.
-      const response = await fetch(`http://localhost:3000/api/users/${singleUser?.id}`,{
+      const response = await fetch(`http://localhost:3000/api/users/${runningUser?.id}`,{
         method:'PUT',
         body: JSON.stringify(updatedProfile),
       })
@@ -57,7 +57,7 @@ const GeneralProfileEditor = ({ singleUser }) => {
           </label>
           <input
             className="input input-bordered input-sm w-full text-sm"
-            defaultValue={singleUser?.fullname}
+            defaultValue={runningUser?.fullname}
           />
         </div>
 
@@ -70,7 +70,7 @@ const GeneralProfileEditor = ({ singleUser }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={singleUser?.phone_number}
+              defaultValue={runningUser?.phone_number}
               {...register("phone_number")}
             />
           </div>
@@ -80,7 +80,7 @@ const GeneralProfileEditor = ({ singleUser }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={singleUser?.address}
+              defaultValue={runningUser?.address}
               {...register("address")}
             />
           </div>
@@ -92,7 +92,7 @@ const GeneralProfileEditor = ({ singleUser }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={singleUser?.email}
+              defaultValue={runningUser?.email}
               readOnly
             />
           </div>

@@ -3,22 +3,22 @@ import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvide
 import React, { useContext, useEffect, useState } from "react";
 import { generateLabReport } from "../../../utils/generateLabReport";
 
-const CurrentUsersLabReports = () => {
+const runningUsersLabReports = () => {
   const [labReports, setLabReports] = useState([]);
-  const { singleUser } = useContext(UserDataContext);
+  const { runningUser } = useContext(UserDataContext);
 
   // Client Side Rendering using useEffect from Database
   useEffect(() => {
     const getAllReports = async () => {
       // Fetching method with a particular user's email
-      await fetch(`http://localhost:3000/api/labtests/${singleUser?.email}`, {
+      await fetch(`http://localhost:3000/api/labtests/${runningUser?.email}`, {
         cache: "no-store",
       })
         .then((res) => res.json())
         .then((data) => setLabReports(data));
     };
     getAllReports();
-  }, [singleUser?.email]);
+  }, [runningUser?.email]);
 
 
   // DATA BY PARTICULAR EMAIL WITH  REPORT ID
@@ -30,7 +30,7 @@ const CurrentUsersLabReports = () => {
     
     // Fetching method with a particular user's both email and report id
     await fetch(
-      `http://localhost:3000/api/labtests/${singleUser?.email}/${reportId}`,
+      `http://localhost:3000/api/labtests/${runningUser?.email}/${reportId}`,
       {
         cache: "no-store",
       }
@@ -207,4 +207,4 @@ const CurrentUsersLabReports = () => {
   );
 };
 
-export default CurrentUsersLabReports;
+export default runningUsersLabReports;

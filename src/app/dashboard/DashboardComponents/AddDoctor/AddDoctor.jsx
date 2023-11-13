@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const AddDoctor = () => {
   const { register, handleSubmit } = useForm();
   const router = useRouter();
-  const { singleUser } = useContext(UserDataContext);
+  const { runningUser } = useContext(UserDataContext);
   const formRef = useRef();
 
   const onSubmit = async (doctor) => {
@@ -110,7 +110,7 @@ const AddDoctor = () => {
   };
 
   return (
-    (singleUser?.userRole === "super-admin" || singleUser?.userRole === "admin") && (
+    (runningUser?.userRole === "super-admin" || runningUser?.userRole === "admin") && (
       <div>
         <p className="text-xs font-semibold mb-2">Add Doctor</p>
         <form className="text-xs" ref={formRef} onSubmit={handleSubmit(onSubmit)}>

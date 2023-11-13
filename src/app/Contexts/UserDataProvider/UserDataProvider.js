@@ -12,17 +12,17 @@ const UserDataProvider = ({ children }) => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   // Single user fetching By email.
   const {
-    data: singleUser,
+    data: runningUser,
     error,
     isLoading,
   } = useSWRImmutable(
-    `http://localhost:3000/api/userExist?email=${email}`,
+    `http://localhost:3000/api/users/${email}`,
     fetcher
   );
-  // console.log(singleUser);
+  // console.log(runningUser);
 
   const values = {
-    singleUser,
+    runningUser,
   };
 
   return (

@@ -1,13 +1,17 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
+import { sqlQueries } from "../../utils/sqlQueries";
+import bcrypt from "bcryptjs";
 
 const connection = await pool.getConnection();
 
-// All User Info API
+// All Users
 export async function GET(req, res) {
   try {
     // Retrieving Data from database
-    const [data] = await connection.query("SELECT * FROM users");
+    const [data] = await connection.query(
+      sqlQueries.usersApiQueries.getAllUsers
+    );
     connection.release();
 
     // console.log(data);
@@ -17,28 +21,54 @@ export async function GET(req, res) {
   }
 }
 
-// Post API to fetch user by email.
+// New Users Data POSTing to Database
 export async function POST(req) {
   try {
     const user = await req.json();
 
-    await connection.query(
-      `UPDATE users SET userRole='${user?.userRole}' WHERE email='${user?.email}'`
+    // Getting User info to check either account with the requested email exists or not.
+    const userData = await connection.query(
+      sqlQueries.usersApiQueries.getUserByEmail,
+      [user?.email]
     );
+    connection.release();
 
-    return NextResponse.json({ message: "Update Successful" }, { status: 201 });
+    let existingUser = userData[0][0];
+    
+    if (existingUser != undefined && existingUser?.email === user?.email) {
+      return NextResponse.json(existingUser);
+    }
+
+    const hashedPass = await bcrypt.hash(user.password, 10);
+
+    // Sending Data to Database
+    await connection.query(
+      sqlQueries.usersApiQueries.postNewUser,
+      [
+        user.name,
+        user.email,
+        hashedPass,
+        user.userRole,
+        user.gender,
+        user.picture,
+      ]
+    );
+    connection.release();
+
+    return NextResponse.json({ message: "User Registered!" }, { status: 201 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }
 }
 
+// Delete a user by email.
 export async function DELETE(req) {
   try {
     const url = new URL(req.url);
     const email = url.searchParams.get("email");
     // console.log("User email : ", email);
 
-    await connection.query("DELETE FROM users WHERE email=?", [email]);
+    await connection.query(sqlQueries.usersApiQueries.deleteUserByEmail, [email]);
 
     return NextResponse.json(
       { message: "Deletion Successful" },

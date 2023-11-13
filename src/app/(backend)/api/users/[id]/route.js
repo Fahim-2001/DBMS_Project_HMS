@@ -1,18 +1,29 @@
 import pool from "@/app/(backend)/utils/db";
+import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
 
-// User By ID api
+// User By ID
 export async function GET(req, content) {
   try {
     const userId = content.params.id;
 
+    if(content.params.id.includes('@gmail.com')){
+      const [user] = await connection.query(
+        sqlQueries.usersApiQueries.getUserByEmail,
+        [userId]
+      );
+      connection.release();
+      return NextResponse.json(user[0], {status:200});
+    }
+
     // Retrieving Data from database
-    const [user] = await connection.query(`SELECT * FROM users WHERE id=?`, [
-      userId,
-    ]);
+    const [user] = await connection.query(
+      sqlQueries.usersApiQueries.getUserById,
+      [userId]
+    );
     connection.release();
 
     // console.log(user);
@@ -26,12 +37,23 @@ export async function PUT(req, content) {
   try {
     const userId = content.params.id;
     const body = await req.json();
+    console.log(body);
+
+    // Users Role Update
+    if (body?.userRole != null) {
+      await connection.query(sqlQueries.usersApiQueries.updateUserRoleById, [
+        body?.userRole,
+        userId,
+      ]);
+      connection.release();
+    }
 
     // Password Reset Operation
     if (body.old_pass && body.new_pass) {
-      const [user] = await connection.query(`SELECT * FROM users WHERE id=?`, [
-        userId,
-      ]);
+      const [user] = await connection.query(
+        sqlQueries.usersApiQueries.getUserById,
+        [userId]
+      );
 
       // Password comparison
       const didMatched = await bcrypt.compare(body.old_pass, user[0].password);
@@ -44,56 +66,38 @@ export async function PUT(req, content) {
         );
       }
 
-      // // Password Hashing
+      //New Password Hashing
       const password = await bcrypt.hash(body?.new_pass, 10);
       // Updating password
-      await connection.query(`UPDATE users SET password=? WHERE id=?`, [
-        password,
+      await connection.query(
+        sqlQueries.usersApiQueries.updateUserPasswordById,
+        [password, userId]
+      );
+      connection.release();
+    }
+
+    // Update Phone Number by Id.
+    if (body?.phone_number) {
+      await connection.query(
+        sqlQueries.usersApiQueries.updateUserPhoneNumberById,
+        [body?.phone_number, userId]
+      );
+      connection.release();
+    }
+
+    // Update Address by Id.
+    if (body?.address) {
+      await connection.query(sqlQueries.usersApiQueries.updateUserAddressById, [
+        body?.address,
         userId,
       ]);
       connection.release();
     }
 
-    // Update Profile Picture Operation
-    if (body?.phone_number && body?.address && body?.picture) {
-      await connection.query(
-        `UPDATE users SET phone_number=?,address=?, picture=? WHERE id=?`,
-        [body?.phone_number, body?.address, body?.picture, userId]
-      );
-      connection.release();
-    } else if (body?.phone_number && body?.address) {
-      await connection.query(
-        `UPDATE users SET phone_number=?,address=? WHERE id=?`,
-        [body?.phone_number, body?.address, userId]
-      );
-      connection.release();
-    } else if (body?.address && body?.picture) {
-      await connection.query(
-        `UPDATE users SET address=?, picture=? WHERE id=?`,
-        [body?.address, body?.picture, userId]
-      );
-      connection.release();
-    } else if (body?.phone_number && body?.picture) {
-      await connection.query(
-        `UPDATE users SET phone_number=?, picture=? WHERE id=?`,
-        [body?.phone_number, body?.picture, userId]
-      );
-      connection.release();
-    } else if (body?.phone_number) {
-      await connection.query(`UPDATE users SET phone_number=? WHERE id=?`, [
-        body?.phone_number,
-        userId,
-      ]);
-      connection.release();
-    } else if (body?.address) {
-      await connection.query(`UPDATE users SET address=? WHERE id=?`, [
-        body?.address,
-        userId,
-      ]);
-      connection.release();
-    } else if (body?.picture) {
-      await connection.query(`UPDATE users SET picture=? WHERE id=?`, [
-        body,
+    // // Update Profile Picture by Id.
+    if (body?.picture) {
+      await connection.query(sqlQueries.usersApiQueries.updateUserProfilePictureById, [
+        body?.picture,
         userId,
       ]);
       connection.release();

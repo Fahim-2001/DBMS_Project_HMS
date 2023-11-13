@@ -6,7 +6,7 @@ import React, { useContext, useState } from "react";
 const UpdateVaccineStatus = ({ req }) => {
   const router = useRouter();
   const [status, setStatus] = useState();
-  const { singleUser } = useContext(UserDataContext);
+  const { runningUser } = useContext(UserDataContext);
 
   const updateStatus = async () => {
     try {
@@ -28,7 +28,7 @@ const UpdateVaccineStatus = ({ req }) => {
   };
   return (
     <div className="flex">
-      {(singleUser?.userRole === "super-admin" || singleUser?.userRole === "lab-attendant") ? (
+      {(runningUser?.userRole === "super-admin" || runningUser?.userRole === "lab-attendant") ? (
         <>
           <select onChange={(e) => setStatus(e.target.value)}>
             <option defaultValue={req?.status}>{req?.status}</option>

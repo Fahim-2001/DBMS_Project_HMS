@@ -25,14 +25,13 @@ export const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-
-    // Error checking if there is correct information or not
-    if (!fullname || !email || !password || !confirmedPassword) {
-      setError("Please fill up all the required fields!");
-      return;
-    }
-
     try {
+      // Error checking if there is correct information or not
+      if (!fullname || !email || !password || !confirmedPassword) {
+        setError("Please fill up all the required fields!");
+        return;
+      }
+
       // User information
       const user = {
         name: fullname,
@@ -42,36 +41,27 @@ export const SignUpForm = () => {
         gender: gender,
       };
 
-      // Api call to get existing user with same email
-      const existUserResponse = await fetch("api/userExist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(email),
-      });
-      const existingUser = await existUserResponse.json();
-
-      // Existing Email check
-      if (existingUser.email == email) {
-        setError("Email Exists!");
-        return;
-      }
-
       // Password Check
       if (password != confirmedPassword) {
         setError("Confirme Password not matched!");
         return;
       }
 
-      // Api call to send user information into the db
-      const res = await fetch("api/register", {
+      // POST method to send user data to db
+      const res = await fetch("api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
       });
+      const registrationResponse = await res.json();
+
+      // Checking whether an account exists or not with this email.
+      if (registrationResponse?.email === email) {
+        setError("An account exists with this email !");
+        return;
+      }
 
       if (res.ok) {
         form.reset();

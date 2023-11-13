@@ -1,13 +1,13 @@
 import React from 'react'
 
-import CurrentUsersAppts from '../../ProfileComponents/CurrentUsersAppts/CurrentUsersAppts'
+import runningUsersAppts from '../../ProfileComponents/runningUsersAppts/runningUsersAppts'
 
 export const metadata ={
     title: "Your Booked Appointments - PHP Hospital"
 }
 const page = () => {
   return (
-    <div><CurrentUsersAppts/></div>
+    <div><runningUsersAppts/></div>
   )
 }
 

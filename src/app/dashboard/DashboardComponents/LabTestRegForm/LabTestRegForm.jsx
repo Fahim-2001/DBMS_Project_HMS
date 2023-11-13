@@ -5,7 +5,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const LabTestRegForm = () => {
-  const { singleUser } = useContext(UserDataContext);
+  const { runningUser } = useContext(UserDataContext);
   const { register, handleSubmit } = useForm();
   const [numberOfTests, setNumberOfTests] = useState(0);
   const [textFields, setTextFields] = useState([]);
@@ -36,8 +36,8 @@ const LabTestRegForm = () => {
   const onSubmit = async (data) => {
     data.number_of_tests = numberOfTests;
     data["tests"] = tests;
-    data["registered_by"] = singleUser?.fullname;
-    data["registers_email"] = singleUser?.email;
+    data["registered_by"] = runningUser?.fullname;
+    data["registers_email"] = runningUser?.email;
 
     // Process of payable amount
     data.tests.map((test) => {
@@ -107,8 +107,8 @@ const LabTestRegForm = () => {
     },
   ];
   return (
-    (singleUser?.userRole == "super-admin" ||
-      singleUser?.userRole === "receptionist") && (
+    (runningUser?.userRole == "super-admin" ||
+      runningUser?.userRole === "receptionist") && (
       <div className="text-xs">
         <p className="font-semibold">Lab Test Registration Form</p>
         {/* Lab Test Registration Form */}

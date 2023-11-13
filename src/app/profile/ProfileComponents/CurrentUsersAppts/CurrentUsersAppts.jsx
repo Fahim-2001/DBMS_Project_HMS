@@ -4,15 +4,15 @@ import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { generatePrescription } from "../../../utils/generatePrescription";
 
-const CurrentUsersAppts = () => {
-  const { singleUser } = useContext(UserDataContext);
+const runningUsersAppts = () => {
+  const { runningUser } = useContext(UserDataContext);
   const [appointments, setAppointments] = useState();
 
   // Appointment Data Fetching sending user's email those are under the email.
   useEffect(() => {
     const getAppts = async () => {
       await fetch(
-        `http://localhost:3000/api/appointments/${singleUser?.email}`,
+        `http://localhost:3000/api/appointments/${runningUser?.email}`,
         {
           cache: "no-store",
         }
@@ -21,7 +21,7 @@ const CurrentUsersAppts = () => {
         .then((data) => setAppointments(data));
     };
     getAppts();
-  }, [singleUser?.email]);
+  }, [runningUser?.email]);
 
   // Appointment Data Fetching sending user's email those are under the email.
   const [id, setId] = useState();
@@ -29,7 +29,7 @@ const CurrentUsersAppts = () => {
   const handleSearchById = async (e) => {
     e.preventDefault();
     await fetch(
-      `http://localhost:3000/api/appointments/${singleUser?.email}/${id}`,
+      `http://localhost:3000/api/appointments/${runningUser?.email}/${id}`,
       {
         cache: "no-store",
       }
@@ -93,8 +93,8 @@ const CurrentUsersAppts = () => {
                 <td>{appointment?.patient_gender}</td>
                 <td>{appointment?.appt_date}</td>
                 <td>{appointment?.patient_issue}</td>
-                {(singleUser?.userRole === "super-admin" ||
-                  singleUser?.userRole === "admin") && (
+                {(runningUser?.userRole === "super-admin" ||
+                  runningUser?.userRole === "admin") && (
                   <td>{appointment?.ref_doctor}</td>
                 )}
                 <td>{appointment?.appt_status}</td>
@@ -143,8 +143,8 @@ const CurrentUsersAppts = () => {
                 <td>{appt?.patient_gender}</td>
                 <td>{appt?.appt_date}</td>
                 <td>{appt?.patient_issue}</td>
-                {(singleUser?.userRole === "super-admin" ||
-                  singleUser?.userRole === "admin") && (
+                {(runningUser?.userRole === "super-admin" ||
+                  runningUser?.userRole === "admin") && (
                   <td>{appt?.ref_doctor}</td>
                 )}
                 <td>{appt?.appt_status}</td>
@@ -182,4 +182,4 @@ const CurrentUsersAppts = () => {
   );
 };
 
-export default CurrentUsersAppts;
+export default runningUsersAppts;

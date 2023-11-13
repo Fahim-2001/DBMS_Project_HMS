@@ -9,19 +9,19 @@ import ResetPassword from "./ProfileComponents/ResetPassword/ResetPassword";
 //   title:'Profile - PHP Hospital'
 // }
 const page = () => {
-  const { singleUser } = useContext(UserDataContext);
+  const { runningUser } = useContext(UserDataContext);
   const doctorCredentials ={
-    email : singleUser?.email,
-    id: singleUser?.id
+    email : runningUser?.email,
+    id: runningUser?.id
   }
 
-  const userId= singleUser?.id;
+  const userId= runningUser?.id;
   return (
     <div>
-      {singleUser?.userRole === "doctor" ? (
+      {runningUser?.userRole === "doctor" ? (
         <DoctorsProfileEditor doctorCredentials={doctorCredentials}/>
       ) : (
-        <GeneralProfileEditor singleUser={singleUser} />
+        <GeneralProfileEditor runningUser={runningUser} />
       )}
       <ResetPassword userId={userId}/>
     </div>

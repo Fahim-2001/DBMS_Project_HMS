@@ -5,12 +5,12 @@ import RoutesInNavbar from "../RoutesInNavbar/RoutesInNavbar";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 
 const ProfileNavbar = () => {
-    const { singleUser } = useContext(UserDataContext);
+    const { runningUser } = useContext(UserDataContext);
   return (
     <div>
-      <ProfileInNavbar singleUser={singleUser}/>
+      <ProfileInNavbar runningUser={runningUser}/>
       <hr className="my-2 " />
-      <RoutesInNavbar singleUser={singleUser}/>
+      <RoutesInNavbar runningUser={runningUser}/>
     </div>
   );
 };

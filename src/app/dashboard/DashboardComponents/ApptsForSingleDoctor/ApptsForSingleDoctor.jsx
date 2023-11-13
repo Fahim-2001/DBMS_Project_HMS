@@ -6,15 +6,15 @@ import Link from "next/link";
 
 const ApptsForSingleDoctor = () => {
   const session = useSession();
-  const { singleUser } = useContext(UserDataContext);
+  const { runningUser } = useContext(UserDataContext);
   // console.log(session);
 
   const [appointments, setAppointments] = useState();
   useEffect(() => {
     // Data for super-admin and admin
     if (
-      singleUser?.userRole === "super-admin" ||
-      singleUser?.userRole === "admin"
+      runningUser?.userRole === "super-admin" ||
+      runningUser?.userRole === "admin"
     ) {
       const getAppts = async () => {
         await fetch(`http://localhost:3000/api/appointments`, {
@@ -27,7 +27,7 @@ const ApptsForSingleDoctor = () => {
     }
 
     // Data for Doctor
-    if (singleUser?.userRole === "doctor") {
+    if (runningUser?.userRole === "doctor") {
       const getAppts = async () => {
         await fetch(
           `http://localhost:3000/api/appointments_for_single_doctor?doctoremail=${session?.data?.user?.email}`,
@@ -55,8 +55,8 @@ const ApptsForSingleDoctor = () => {
             <th>Gender</th>
             <th>Date</th>
             <th>Problem</th>
-            {(singleUser?.userRole === "super-admin" ||
-              singleUser?.userRole === "admin") && <th>Doctor's Name</th>}
+            {(runningUser?.userRole === "super-admin" ||
+              runningUser?.userRole === "admin") && <th>Doctor's Name</th>}
             <th>Status</th>
             <th>Prescription</th>
           </tr>
@@ -70,14 +70,14 @@ const ApptsForSingleDoctor = () => {
               <td>{appt?.patient_gender}</td>
               <td>{appt?.appt_date}</td>
               <td>{appt?.patient_issue}</td>
-              {(singleUser?.userRole === "super-admin" ||
-                singleUser?.userRole === "admin") && (
+              {(runningUser?.userRole === "super-admin" ||
+                runningUser?.userRole === "admin") && (
                 <td>{appt?.ref_doctor}</td>
               )}
               <td>{appt?.appt_status}</td>
               <td>
                 {appt?.appt_status === "Unchecked" ? (
-                  singleUser?.userRole === "doctor" ? (
+                  runningUser?.userRole === "doctor" ? (
                     <Link
                       href={`/dashboard/appointments/${appt?.appt_id}`}
                       className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
@@ -103,8 +103,8 @@ const ApptsForSingleDoctor = () => {
             <th>Gender</th>
             <th>Date</th>
             <th>Problem</th>
-            {(singleUser?.userRole === "super-admin" ||
-              singleUser?.userRole === "admin") && <th>Doctor's Name</th>}
+            {(runningUser?.userRole === "super-admin" ||
+              runningUser?.userRole === "admin") && <th>Doctor's Name</th>}
             <th>Status</th>
             <th>Prescription</th>
           </tr>

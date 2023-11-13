@@ -4,8 +4,8 @@ import Link from "next/link";
 import React, { useContext } from "react";
 
 const SideNavbar = () => {
-  const { singleUser } = useContext(UserDataContext);
-  // console.log(singleUser)
+  const { runningUser } = useContext(UserDataContext);
+  // console.log(runningUser)
   return (
     <div>
       <nav className="flex flex-col">
@@ -23,8 +23,8 @@ const SideNavbar = () => {
           Users
         </Link>
 
-        {(singleUser?.userRole === "super-admin" ||
-          singleUser?.userRole === "admin") && (
+        {(runningUser?.userRole === "super-admin" ||
+          runningUser?.userRole === "admin") && (
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
             href={"/dashboard/roles"}
@@ -33,9 +33,9 @@ const SideNavbar = () => {
           </Link>
         )}
 
-        {(singleUser?.userRole === "doctor" ||
-          singleUser?.userRole === "super-admin" ||
-          singleUser?.userRole === "admin") && (
+        {(runningUser?.userRole === "doctor" ||
+          runningUser?.userRole === "super-admin" ||
+          runningUser?.userRole === "admin") && (
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
             href={"/dashboard/appointments"}
@@ -44,9 +44,9 @@ const SideNavbar = () => {
           </Link>
         )}
 
-        {(singleUser?.userRole === "lab-attendant" ||
-          singleUser?.userRole === "super-admin" ||
-          singleUser?.userRole === "admin") && (
+        {(runningUser?.userRole === "lab-attendant" ||
+          runningUser?.userRole === "super-admin" ||
+          runningUser?.userRole === "admin") && (
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
             href={"/dashboard/vaccinerequests"}
@@ -55,9 +55,9 @@ const SideNavbar = () => {
           </Link>
         )}
 
-        {(singleUser?.userRole === "receptionist" ||
-          singleUser?.userRole === "super-admin" ||
-          singleUser?.userRole === "admin") && (
+        {(runningUser?.userRole === "receptionist" ||
+          runningUser?.userRole === "super-admin" ||
+          runningUser?.userRole === "admin") && (
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
             href={"/dashboard/labtestapplies"}
@@ -66,7 +66,7 @@ const SideNavbar = () => {
           </Link>
         )}
 
-        {singleUser?.userRole === "lab-attendant" && (
+        {runningUser?.userRole === "lab-attendant" && (
           <Link
             className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
             href={"/dashboard/labreports"}

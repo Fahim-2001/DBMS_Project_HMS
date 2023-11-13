@@ -3,8 +3,8 @@
 import Link from "next/link";
 import React from "react";
 
-const ProfileInNavbar = ({ singleUser }) => {
-//   console.log(singleUser);
+const ProfileInNavbar = ({ runningUser }) => {
+//   console.log(runningUser);
   return (
     <div>
       <div className="">
@@ -29,12 +29,12 @@ const ProfileInNavbar = ({ singleUser }) => {
         </div>
         <div className="flex justify-center avatar my-3">
           <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
-            {singleUser?.picture ? (
-              <img src={singleUser?.picture} alt="Picture of user" />
+            {runningUser?.picture ? (
+              <img src={runningUser?.picture} alt="Picture of user" />
             ) : (
               <img
                 src={
-                  singleUser?.gender == "male"
+                  runningUser?.gender == "male"
                     ? "https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
                     : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KPUL8FzWe7WpCqb0fIy6Q2uBRhtydqEFeg&usqp=CAU"
                 }
@@ -43,8 +43,8 @@ const ProfileInNavbar = ({ singleUser }) => {
           </div>
         </div>
         <div className="text-center mb-5">
-          <h3 className="font-semibold text-sm">{singleUser?.fullname}</h3>
-          <p className="text-xs">{singleUser?.userRole}</p>
+          <h3 className="font-semibold text-sm">{runningUser?.fullname}</h3>
+          <p className="text-xs">{runningUser?.userRole}</p>
         </div>
       </div>
     </div>

@@ -3,8 +3,7 @@ module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
   ],
 
   daisyui: {
@@ -29,5 +28,5 @@ module.exports = {
     ],
   },
 
-  plugins: [require("daisyui"), require('flowbite/plugin')],
+  plugins: [require("daisyui")],
 };

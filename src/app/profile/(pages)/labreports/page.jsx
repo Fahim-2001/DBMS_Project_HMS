@@ -1,11 +1,11 @@
 import React from "react";
-import CurrentUsersLabReports from "../../ProfileComponents/CurrentUsersLabReports/CurrentUsersLabReports";
+import runningUsersLabReports from "../../ProfileComponents/runningUsersLabReports/runningUsersLabReports";
 
 const page = async () => {
  
   return (
     <div>
-      <CurrentUsersLabReports />
+      <runningUsersLabReports />
     </div>
   );
 };

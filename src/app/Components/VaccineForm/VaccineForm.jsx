@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const VaccineForm = ({ vaccine }) => {
-  const {singleUser} = useContext(UserDataContext);
+  const {runningUser} = useContext(UserDataContext);
   const formRef = useRef();
   const router = useRouter();
   const { register, handleSubmit } = useForm();
@@ -115,7 +115,7 @@ const VaccineForm = ({ vaccine }) => {
           <input
             type="text"
             className="input input-bordered input-sm w-full max-w-lg text-sm"
-            defaultValue={singleUser?.email}
+            defaultValue={runningUser?.email}
             {...register("email")}
           />
         </div>
