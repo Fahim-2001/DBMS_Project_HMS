@@ -1,5 +1,6 @@
 "use client";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
+import { generateVaccineTicket } from "@/app/utils/generateVaccineTicket";
 import { useRouter } from "next/navigation";
 import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -26,7 +27,10 @@ const VaccineForm = ({ vaccine }) => {
         body: JSON.stringify(vaccineHolder),
       });
 
-      // console.log(await response.json())
+      const vaccineInfo = await response.json();
+
+      generateVaccineTicket(vaccineInfo)
+
       router.refresh();
 
       if (response.ok) {

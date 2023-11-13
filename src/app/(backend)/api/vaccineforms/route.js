@@ -1,6 +1,7 @@
 import pool from "@/app/(backend)/utils/db";
 
 import { generate } from "generate-password";
+import { validateConfig } from "next/dist/server/config-shared";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
@@ -56,15 +57,15 @@ export async function POST(req) {
     );
     connection.release();
 
-    const data = await connection.query("SELECT * FROM vaccineforms WHERE id=?",[token]);
+    const data = await connection.query("SELECT * FROM vaccineforms WHERE token=?",[token]);
     const vaccineInfo = data[0][0];
-
+     
     return NextResponse.json(
       vaccineInfo,
       { message: "Vaccine for submission done!" },
       { status: 201 }
     );
   } catch (error) {
-    NextResponse.json({ message: error.message }, { status: 500 });
+    console.log(error.message)
   }
 }
