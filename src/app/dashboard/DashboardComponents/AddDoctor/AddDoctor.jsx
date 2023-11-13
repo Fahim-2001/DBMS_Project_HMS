@@ -71,7 +71,7 @@ const AddDoctor = () => {
       console.log(user)
 
       // POST Method : to registers api
-      const response2 = await fetch("http://localhost:3000/api/register", {
+      const response2 = await fetch("http://localhost:3000/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -10,7 +10,7 @@ const DashboardLayout = ({ children }) => {
   return (
     <ProtectedRoute>
       <section className="grid grid-cols-[20%_minmax(80%,_1fr)] mx-3 max-h-screen">
-        <SideNavbar />
+        <SideNavbar/>
         <main className="mx-3 py-2 my-1">{children}</main>
       </section>
     </ProtectedRoute>

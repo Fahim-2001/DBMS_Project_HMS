@@ -12,7 +12,7 @@ export async function GET(req, content) {
 
     if(content.params.id.includes('@gmail.com')){
       const [user] = await connection.query(
-        sqlQueries.usersApiQueries.getUserByEmail,
+        sqlQueries.user.getByEmail,
         [userId]
       );
       connection.release();
@@ -21,7 +21,7 @@ export async function GET(req, content) {
 
     // Retrieving Data from database
     const [user] = await connection.query(
-      sqlQueries.usersApiQueries.getUserById,
+      sqlQueries.user.getById,
       [userId]
     );
     connection.release();
@@ -41,7 +41,7 @@ export async function PUT(req, content) {
 
     // Users Role Update
     if (body?.userRole != null) {
-      await connection.query(sqlQueries.usersApiQueries.updateUserRoleById, [
+      await connection.query(sqlQueries.user.updateRoleById, [
         body?.userRole,
         userId,
       ]);
@@ -51,7 +51,7 @@ export async function PUT(req, content) {
     // Password Reset Operation
     if (body.old_pass && body.new_pass) {
       const [user] = await connection.query(
-        sqlQueries.usersApiQueries.getUserById,
+        sqlQueries.user.getById,
         [userId]
       );
 
@@ -70,7 +70,7 @@ export async function PUT(req, content) {
       const password = await bcrypt.hash(body?.new_pass, 10);
       // Updating password
       await connection.query(
-        sqlQueries.usersApiQueries.updateUserPasswordById,
+        sqlQueries.user.updatePasswordById,
         [password, userId]
       );
       connection.release();
@@ -79,7 +79,7 @@ export async function PUT(req, content) {
     // Update Phone Number by Id.
     if (body?.phone_number) {
       await connection.query(
-        sqlQueries.usersApiQueries.updateUserPhoneNumberById,
+        sqlQueries.user.updatePhoneNumberById,
         [body?.phone_number, userId]
       );
       connection.release();
@@ -87,7 +87,7 @@ export async function PUT(req, content) {
 
     // Update Address by Id.
     if (body?.address) {
-      await connection.query(sqlQueries.usersApiQueries.updateUserAddressById, [
+      await connection.query(sqlQueries.user.updateAddressById, [
         body?.address,
         userId,
       ]);
@@ -96,7 +96,7 @@ export async function PUT(req, content) {
 
     // // Update Profile Picture by Id.
     if (body?.picture) {
-      await connection.query(sqlQueries.usersApiQueries.updateUserProfilePictureById, [
+      await connection.query(sqlQueries.user.updateProfilePictureById, [
         body?.picture,
         userId,
       ]);

@@ -1,5 +1,6 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
+import { sqlQueries } from "../../../utils/sqlQueries";
 
 const connection = await pool.getConnection();
 
@@ -7,7 +8,9 @@ const connection = await pool.getConnection();
 export async function GET(req, res) {
   try {
     // Retrieving Data from database
-    const [data] = await connection.query("SELECT * FROM doctors");
+    const [data] = await connection.query(
+      sqlQueries.doctor.getAll
+    );
     connection.release();
 
     // console.log(data);
@@ -18,32 +21,28 @@ export async function GET(req, res) {
   }
 }
 
-// Doctor post method
+//New Doctor POST to DB
 export async function POST(req) {
   try {
     const user = await req.json();
 
-    // console.log(user)
+    console.log(user)
 
-    // Sending Data to Database
-    const data = await connection.query(
-      "INSERT INTO doctors(first_name, last_name, email, phone_number, speciality, gender, role, picture, routename,available_from, available_to) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
-      [
-        user.firstname,
-        user.lastname,
-        user.email,
-        user.phone_number,
-        user.speciality,
-        user.gender,
-        user.role,
-        user.profile_picture,
-        user.routename,
-        user.available_from,
-        user.available_to
-      ]
-    );
+    await connection.query(sqlQueries.doctor.postNew, [
+      user.firstname,
+      user.lastname,
+      user.email,
+      user.phone_number,
+      user.speciality,
+      user.gender,
+      user.role,
+      user.profile_picture,
+      user.routename,
+      user.available_from,
+      user.available_to,
+    ]);
     connection.release();
-    
+
     return NextResponse.json({ message: "User Registered!" }, { status: 201 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
@@ -57,8 +56,10 @@ export async function DELETE(req) {
     const email = url.searchParams.get("email");
     // console.log("User email : ", email);
 
-    await connection.query("DELETE FROM doctors WHERE email=?", [email]);
-
+    await connection.query(sqlQueries.doctor.deleteByEmail, [
+      email,
+    ]);
+    connection.release();
     return NextResponse.json(
       { message: "Deletion Successful" },
       { status: 201 }

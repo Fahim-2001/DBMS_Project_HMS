@@ -8,16 +8,16 @@ const SideNavbar = () => {
   // console.log(runningUser)
   return (
     <div>
-      <nav className="flex flex-col">
+      <nav className="flex flex-col font-medium">
         <Link
-          className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+          className="text-sm hover:bg-gray-300 px-3 py-2 my-1  rounded-sm"
           href={"/dashboard/doctors"}
         >
           Doctors
         </Link>
 
         <Link
-          className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+          className="text-sm hover:bg-gray-300 px-3 py-2 my-1  rounded-sm"
           href={"/dashboard/users"}
         >
           Users
@@ -26,7 +26,7 @@ const SideNavbar = () => {
         {(runningUser?.userRole === "super-admin" ||
           runningUser?.userRole === "admin") && (
           <Link
-            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+            className="text-sm hover:bg-gray-300 px-3 py-2 my-1  rounded-sm"
             href={"/dashboard/roles"}
           >
             Roles
@@ -37,7 +37,7 @@ const SideNavbar = () => {
           runningUser?.userRole === "super-admin" ||
           runningUser?.userRole === "admin") && (
           <Link
-            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+            className="text-sm hover:bg-gray-300 px-3 py-2 my-1  rounded-sm"
             href={"/dashboard/appointments"}
           >
             Appointments
@@ -48,7 +48,7 @@ const SideNavbar = () => {
           runningUser?.userRole === "super-admin" ||
           runningUser?.userRole === "admin") && (
           <Link
-            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+            className="text-sm hover:bg-gray-300 px-3 py-2 my-1  rounded-sm"
             href={"/dashboard/vaccinerequests"}
           >
             Vaccine Requests
@@ -59,7 +59,7 @@ const SideNavbar = () => {
           runningUser?.userRole === "super-admin" ||
           runningUser?.userRole === "admin") && (
           <Link
-            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+            className="text-sm hover:bg-gray-300 px-3 py-2 my-1  rounded-sm"
             href={"/dashboard/labtestapplies"}
           >
             Lab Test Registration
@@ -68,7 +68,7 @@ const SideNavbar = () => {
 
         {runningUser?.userRole === "lab-attendant" && (
           <Link
-            className="text-sm hover:bg-gray-300 px-3 py-2 my-1"
+            className="text-sm hover:bg-gray-300 px-3 py-2 my-1 drop- rounded-sm"
             href={"/dashboard/labreports"}
           >
             Lab Reports

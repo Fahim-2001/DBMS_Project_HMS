@@ -14,7 +14,7 @@ const page = () => {
     email : runningUser?.email,
     id: runningUser?.id
   }
-
+  console.log(runningUser)
   const userId= runningUser?.id;
   return (
     <div>

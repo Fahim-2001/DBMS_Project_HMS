@@ -3,7 +3,7 @@ import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvide
 import React, { useContext, useEffect, useState } from "react";
 import { generateLabReport } from "../../../utils/generateLabReport";
 
-const runningUsersLabReports = () => {
+const CurrentUsersLabReports = () => {
   const [labReports, setLabReports] = useState([]);
   const { runningUser } = useContext(UserDataContext);
 
@@ -207,4 +207,4 @@ const runningUsersLabReports = () => {
   );
 };
 
-export default runningUsersLabReports;
+export default CurrentUsersLabReports;

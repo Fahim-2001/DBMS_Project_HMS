@@ -116,7 +116,7 @@ const runningUsersAppts = () => {
         </div>
       )}
       <div className="flex justify-between text-xs font-semibold mr-3">
-        <p> Your Booked Appointments Table</p>
+        <p> Your Lab Reports Table</p>
         <p>Total Count :{appointments?.length}</p>
       </div>
       <div className="overflow-x-auto">

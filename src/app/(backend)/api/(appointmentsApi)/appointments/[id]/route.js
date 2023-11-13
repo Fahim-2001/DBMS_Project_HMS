@@ -1,20 +1,23 @@
 import pool from "@/app/(backend)/utils/db";
+import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
 
 export async function GET(req, content) {
   try {
+    // Appointment By Reference Email.
     if (content.params.id.includes("@gmail.com")) {
       const [data] = await connection.query(
-        "SELECT*FROM appointments WHERE ref_email=?",
+        sqlQueries.appointment.getByEmail,
         [content.params.id]
       );
       connection.release();
       return NextResponse.json(data, { status: 200 });
     } else {
+      // Appointment by Id
       const [data] = await connection.query(
-        "SELECT*FROM appointments WHERE appt_id=?",
+        sqlQueries.appointment.getById,
         [content.params.id]
       );
       connection.release();
@@ -34,7 +37,7 @@ export async function PUT(req, content) {
     // console.log(body, appt_id);
 
     await connection.query(
-      `UPDATE appointments SET appt_status=?, prescription=?, test_preferences=? WHERE appt_id=?`,
+      sqlQueries.appointment.updateStatusPrescriptionTestPreferenceById,
       [body?.appt_status, body?.prescription, body?.test_preferences, appt_id]
     );
 

@@ -1,15 +1,18 @@
 import pool from "@/app/(backend)/utils/db";
+import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
-// Deparmentwise doctor information method
+
+// Deparmentwise doctor information 
 export async function GET(req){
     try {
         const url = new URL(req.url)
         const department = url.searchParams.get('department')
         // console.log(department)
-        // Retrieving Data from database
-        const [data] = await connection.query(`SELECT * FROM doctors WHERE routename=?`,[department]);
+
+        
+        const [data] = await connection.query(sqlQueries.doctor.getByDepartment,[department]);
         connection.release();
         
         // console.log(data);

@@ -1,13 +1,16 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
+import { sqlQueries } from "../../../utils/sqlQueries";
 
 const connection = await pool.getConnection();
 
 // Doctor By ID api
 export async function GET(req) {
   try {
-    const [data] = await connection.query('SELECT*FROM appointments');
-    connection.release()
+    const [data] = await connection.query(
+      sqlQueries.appointment.getAll
+    );
+    connection.release();
     // console.log(data);
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
@@ -20,7 +23,7 @@ export async function POST(req) {
     const patient = await req.json();
 
     await connection.query(
-      "INSERT INTO appointments(patient_name, patient_age,patient_contact, patient_gender, patient_address, doc_id, ref_doctor, department, appt_type,appt_date,patient_issue,appt_fee,doc_email,appt_status,ref_email) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      sqlQueries.appointment.postNew,
       [
         patient?.patient_name,
         patient?.patient_age,
@@ -36,7 +39,7 @@ export async function POST(req) {
         patient?.fee,
         patient?.doc_email,
         patient?.appt_status,
-        patient?.ref_email
+        patient?.ref_email,
       ]
     );
     return NextResponse.json({ message: "Appointment done!" }, { status: 201 });

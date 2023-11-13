@@ -1,16 +1,24 @@
 import pool from "@/app/(backend)/utils/db";
+import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
 
-// Doctor By ID api
+// Doctor By ID
 export async function GET(req, content) {
   try {
     const doc_id = content.params.id;
 
+    // Doctor By Email
+    if(content.params.id.includes("@gmail.com")){
+      const [data] = await connection.query(sqlQueries.doctor.getByEmail,[content.params.id])
+      connection.release();
+      return NextResponse.json(data[0], { status: 200 });
+    }
+
     // Retrieving Data from database
     const [data] = await connection.query(
-      `SELECT * FROM doctors WHERE doc_id=?`,
+      sqlQueries.doctor.getById,
       [doc_id]
     );
     connection.release();
@@ -27,26 +35,23 @@ export async function PUT(req, content) {
     const doc_id = content.params.id;
     const body = await req.json();
     // console.log(doc_id, body)
-    
-    if (body.phone_number && body.profile_picture) {
+
+    //Phone Number Update
+    if (body.phone_number) {
       await connection.query(
-        `UPDATE doctors SET phone_number=?, picture=? WHERE doc_id=?`,
-        [body?.phone_number, body?.profile_picture, doc_id]
-      );
-      connection.release();
-    } else if (body.phone_number) {
-      await connection.query(
-        `UPDATE doctors SET phone_number=? WHERE doc_id=?`,
+        sqlQueries.doctor.updatePhoneNumber,
         [body?.phone_number, doc_id]
       );
-      connection.release();
-    } else if (body.profile_picture) {
-      await connection.query(`UPDATE doctors SET  picture=? WHERE doc_id=?`, [
-        body?.profile_picture,
-        doc_id,
-      ]);
-      connection.release();
     }
+
+    // Profile Picture Update
+    if (body.profile_picture) {
+      await connection.query(
+        sqlQueries.doctor.updateProfilePicture,
+        [body?.profile_picture, doc_id]
+      );
+    }
+    connection.release();
 
     // console.log(data);
     return NextResponse.json({ message: "Update Success" }, { status: 200 });

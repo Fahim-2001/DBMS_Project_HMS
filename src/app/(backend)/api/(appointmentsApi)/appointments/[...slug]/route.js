@@ -1,4 +1,5 @@
 import pool from "@/app/(backend)/utils/db";
+import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
@@ -7,7 +8,7 @@ export async function GET(req, content) {
   try {
     // Data retrieving from db using user's email and appointment id.
       const [data] = await connection.query(
-        "SELECT*FROM appointments WHERE ref_email=? AND appt_id=?",
+        sqlQueries.appointment.getByEmailAndId,
         [content.params.slug[0], content.params.slug[1]]
       );
       connection.release();
