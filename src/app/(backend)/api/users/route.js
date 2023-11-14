@@ -10,7 +10,7 @@ export async function GET(req, res) {
   try {
     // Retrieving Data from database
     const [data] = await connection.query(
-      sqlQueries.user.getAll
+      sqlQueries.users.getAll
     );
     connection.release();
 
@@ -28,7 +28,7 @@ export async function POST(req) {
 
     // Getting User info to check either account with the requested email exists or not.
     const userData = await connection.query(
-      sqlQueries.user.getByEmail,
+      sqlQueries.users.getByEmail,
       [user?.email]
     );
     connection.release();
@@ -43,7 +43,7 @@ export async function POST(req) {
 
     // Sending Data to Database
     await connection.query(
-      sqlQueries.user.postNew,
+      sqlQueries.users.postNew,
       [
         user.name,
         user.email,
@@ -68,7 +68,7 @@ export async function DELETE(req) {
     const email = url.searchParams.get("email");
     // console.log("User email : ", email);
 
-    await connection.query(sqlQueries.user.deleteByEmail, [email]);
+    await connection.query(sqlQueries.users.deleteByEmail, [email]);
 
     return NextResponse.json(
       { message: "Deletion Successful" },

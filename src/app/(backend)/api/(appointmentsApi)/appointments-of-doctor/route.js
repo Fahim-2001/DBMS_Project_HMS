@@ -12,7 +12,7 @@ export async function GET(req) {
     // console.log(doctorEmail);
 
     const [data] = await connection.query(
-      sqlQueries.appointment.getByDoctorsEmail,
+      sqlQueries.appointments.getByDoctorsEmail,
       [doctorEmail]
     );
     connection.release();

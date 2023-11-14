@@ -8,7 +8,7 @@ const connection = await pool.getConnection();
 export async function GET(req) {
   try {
     const [data] = await connection.query(
-      sqlQueries.appointment.getAll
+      sqlQueries.appointments.getAll
     );
     connection.release();
     // console.log(data);
@@ -23,7 +23,7 @@ export async function POST(req) {
     const patient = await req.json();
 
     await connection.query(
-      sqlQueries.appointment.postNew,
+      sqlQueries.appointments.postNew,
       [
         patient?.patient_name,
         patient?.patient_age,

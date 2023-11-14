@@ -30,7 +30,7 @@ const ApptsForSingleDoctor = () => {
     if (runningUser?.userRole === "doctor") {
       const getAppts = async () => {
         await fetch(
-          `http://localhost:3000/api/appointments_for_single_doctor?doctoremail=${session?.data?.user?.email}`,
+          `http://localhost:3000/api/appointments-of-doctor?doctoremail=${session?.data?.user?.email}`,
           { cache: "no-store" }
         )
           .then((res) => res.json())

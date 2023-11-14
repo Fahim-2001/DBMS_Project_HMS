@@ -1,5 +1,5 @@
 import pool from "@/app/(backend)/utils/db";
-import { NEXT_BUILTIN_DOCUMENT } from "next/dist/shared/lib/constants";
+import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
@@ -9,14 +9,14 @@ export async function GET(req, content) {
   try {
     if (content.params.slug.includes("@gmail.com")) {
       const [data] = await connection.query(
-        "SELECT*FROM lab_tests WHERE email=?",
+        sqlQueries.labtests.getByEmail,
         [content.params.slug]
       );
       connection.release();
       return NextResponse.json(data, { status: 200 });
     } else {
       const [data] = await connection.query(
-        "SELECT*FROM lab_tests WHERE id=?",
+        sqlQueries.labtests.getById,
         [content.params.slug]
       );
       connection.release();
@@ -38,7 +38,7 @@ export async function PUT(req, content) {
 
     if (body.payment_status === "Paid") {
       await connection.query(
-        "UPDATE lab_tests SET payment_status=?, due_amount=? WHERE id=?",
+        sqlQueries.labtests.updatePaymentStatusById,
         [body?.payment_status, body?.due_amount, id]
       );
       connection.release();
@@ -46,7 +46,7 @@ export async function PUT(req, content) {
 
     if (body.reports) {
       await connection.query(
-        "UPDATE lab_tests SET report_status=?, report=? WHERE id=?",
+        sqlQueries.labtests.updateReportById,
         [body?.report_status, reports, id]
       );
       connection.release();

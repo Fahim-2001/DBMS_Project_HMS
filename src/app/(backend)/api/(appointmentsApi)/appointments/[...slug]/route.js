@@ -6,9 +6,9 @@ const connection = await pool.getConnection();
 
 export async function GET(req, content) {
   try {
-    // Data retrieving from db using user's email and appointment id.
+    // Appointment by user's email and appointment id.
       const [data] = await connection.query(
-        sqlQueries.appointment.getByEmailAndId,
+        sqlQueries.appointments.getByEmailAndId,
         [content.params.slug[0], content.params.slug[1]]
       );
       connection.release();

@@ -6,20 +6,19 @@ const connection = await pool.getConnection();
 
 export async function GET(req, content) {
   try {
-    // Appointment By Reference Email.
+    // Appointment By Reference Email [email which is used during booking appointment].
     if (content.params.id.includes("@gmail.com")) {
       const [data] = await connection.query(
-        sqlQueries.appointment.getByEmail,
+        sqlQueries.appointments.getByEmail,
         [content.params.id]
       );
       connection.release();
       return NextResponse.json(data, { status: 200 });
     } else {
-      // Appointment by Id
-      const [data] = await connection.query(
-        sqlQueries.appointment.getById,
-        [content.params.id]
-      );
+      // Appointment by Appointment Id
+      const [data] = await connection.query(sqlQueries.appointments.getById, [
+        content.params.id,
+      ]);
       connection.release();
       return NextResponse.json(data, { status: 200 });
     }
@@ -36,8 +35,9 @@ export async function PUT(req, content) {
     const appt_id = content.params.id;
     // console.log(body, appt_id);
 
+    // Updates appointment's Status, Prescription (uploaded or not), Test Preferences by Appointment Id
     await connection.query(
-      sqlQueries.appointment.updateStatusPrescriptionTestPreferenceById,
+      sqlQueries.appointments.updateStatusPrescriptionTestPreferenceById,
       [body?.appt_status, body?.prescription, body?.test_preferences, appt_id]
     );
 

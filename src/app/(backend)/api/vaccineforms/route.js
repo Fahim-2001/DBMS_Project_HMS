@@ -1,15 +1,14 @@
 import pool from "@/app/(backend)/utils/db";
-
 import { generate } from "generate-password";
-import { validateConfig } from "next/dist/server/config-shared";
 import { NextResponse } from "next/server";
+import { sqlQueries } from "../../utils/sqlQueries";
 
 const connection = await pool.getConnection();
 
-//All Registered Vaccine Info 
+//All Registered Vaccine Info
 export async function GET(req) {
   try {
-    const [data] = await connection.query("SELECT*FROM vaccineforms");
+    const [data] = await connection.query(sqlQueries.vaccineforms.getAll);
     connection.release();
     // console.log(data);
     return NextResponse.json(data, { status: 200 });
@@ -40,32 +39,31 @@ export async function POST(req) {
       numbers: true,
     });
 
-    await connection.query(
-      "INSERT INTO vaccineforms(fullname,age,gender,contact,vaccine_name,shortname,email,status,token,reg_date) VALUE (?,?,?,?,?,?,?,?,?,?)",
-      [
-        fullname,
-        age,
-        gender,
-        contact,
-        vaccine_name,
-        shortname,
-        email,
-        status,
-        token,
-        reg_date,
-      ]
-    );
+    await connection.query(sqlQueries.vaccineforms.postNew, [
+      fullname,
+      age,
+      gender,
+      contact,
+      vaccine_name,
+      shortname,
+      email,
+      status,
+      token,
+      reg_date,
+    ]);
     connection.release();
 
-    const data = await connection.query("SELECT * FROM vaccineforms WHERE token=?",[token]);
+    const data = await connection.query(sqlQueries.vaccineforms.getByToken, [
+      token,
+    ]);
     const vaccineInfo = data[0][0];
-     
+
     return NextResponse.json(
       vaccineInfo,
       { message: "Vaccine for submission done!" },
       { status: 201 }
     );
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
 }

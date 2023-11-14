@@ -9,7 +9,7 @@ export async function GET(req, res) {
   try {
     // Retrieving Data from database
     const [data] = await connection.query(
-      sqlQueries.doctor.getAll
+      sqlQueries.doctors.getAll
     );
     connection.release();
 
@@ -28,7 +28,7 @@ export async function POST(req) {
 
     console.log(user)
 
-    await connection.query(sqlQueries.doctor.postNew, [
+    await connection.query(sqlQueries.doctors.postNew, [
       user.firstname,
       user.lastname,
       user.email,
@@ -56,7 +56,7 @@ export async function DELETE(req) {
     const email = url.searchParams.get("email");
     // console.log("User email : ", email);
 
-    await connection.query(sqlQueries.doctor.deleteByEmail, [
+    await connection.query(sqlQueries.doctors.deleteByEmail, [
       email,
     ]);
     connection.release();

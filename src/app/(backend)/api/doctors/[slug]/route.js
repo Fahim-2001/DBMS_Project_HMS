@@ -3,28 +3,35 @@ import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
 const connection = await pool.getConnection();
-
-// Doctor By ID
+function isLowercase(departmentName) {
+  return /^[a-z]+$/.test(departmentName);
+}
 export async function GET(req, content) {
   try {
-    const doc_id = content.params.id;
+    // Doctors By Department
+    if(isLowercase(content.params.slug)){
+      const [data] = await connection.query(sqlQueries.doctors.getByDepartment,[content.params.slug])
+      connection.release();
+      return NextResponse.json(data, { status: 200 });
+    }
 
     // Doctor By Email
-    if(content.params.id.includes("@gmail.com")){
-      const [data] = await connection.query(sqlQueries.doctor.getByEmail,[content.params.id])
+    if(content.params.slug.includes("@gmail.com")){
+      const [data] = await connection.query(sqlQueries.doctors.getByEmail,[content.params.slug])
       connection.release();
       return NextResponse.json(data[0], { status: 200 });
     }
 
-    // Retrieving Data from database
+    // Doctor By Id
+    const doc_id = content.params.slug;
     const [data] = await connection.query(
-      sqlQueries.doctor.getById,
+      sqlQueries.doctors.getById,
       [doc_id]
-    );
-    connection.release();
-
-    // console.log(data);
-    return NextResponse.json(data, { status: 200 });
+      );
+      connection.release();
+      
+      // console.log(data);
+      return NextResponse.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }
@@ -32,14 +39,14 @@ export async function GET(req, content) {
 
 export async function PUT(req, content) {
   try {
-    const doc_id = content.params.id;
+    const doc_id = content.params.slug;
     const body = await req.json();
     // console.log(doc_id, body)
 
     //Phone Number Update
     if (body.phone_number) {
       await connection.query(
-        sqlQueries.doctor.updatePhoneNumber,
+        sqlQueries.doctors.updatePhoneNumberById,
         [body?.phone_number, doc_id]
       );
     }
@@ -47,7 +54,7 @@ export async function PUT(req, content) {
     // Profile Picture Update
     if (body.profile_picture) {
       await connection.query(
-        sqlQueries.doctor.updateProfilePicture,
+        sqlQueries.doctors.updateProfilePictureById,
         [body?.profile_picture, doc_id]
       );
     }

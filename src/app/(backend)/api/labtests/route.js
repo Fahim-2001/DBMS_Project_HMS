@@ -1,12 +1,13 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
+import { sqlQueries } from "../../utils/sqlQueries";
 
 const connection = await pool.getConnection();
 
 // Doctor By ID api
 export async function GET(req) {
   try {
-    const [data] = await connection.query("SELECT*FROM lab_tests");
+    const [data] = await connection.query(sqlQueries.labtests.getAll);
     connection.release();
     // console.log("From API ->",data);
 
@@ -23,7 +24,7 @@ export async function POST(req) {
     const tests = JSON.stringify(labtest?.tests);
 
     await connection.query(
-      "INSERT INTO lab_tests(fullname,age,gender,contact,email,number_of_tests, tests,registered_by,registers_email,payable_amount,advanced_amount,due_amount,payment_status,report_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      sqlQueries.labtests.postNew,
       [
         labtest?.fullname,
         labtest?.age,

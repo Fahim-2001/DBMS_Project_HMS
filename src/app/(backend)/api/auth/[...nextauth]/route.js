@@ -17,7 +17,7 @@ export const authOption = {
           throw new Error("Provide email and password");
         }
         // Getting user by his/her e-mail from database
-        const [data] = await connection.query(sqlQueries.user.getByEmail, [
+        const [data] = await connection.query(sqlQueries.users.getByEmail, [
           credentials.email,
         ]);
         connection.release();
