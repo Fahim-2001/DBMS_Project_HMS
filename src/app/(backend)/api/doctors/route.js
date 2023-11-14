@@ -1,6 +1,8 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
-import { sqlQueries } from "../../../utils/sqlQueries";
+import { sqlQueries } from "../../utils/sqlQueries";
+import { transporter } from "../../utils/nodemailer";
+
 
 const connection = await pool.getConnection();
 
@@ -28,6 +30,24 @@ export async function POST(req) {
 
     console.log(user)
 
+    const mail = await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: user?.email,
+      subject:'Welcome Message',
+      text: `Welcome ${user?.firstname} to PHP Hospital`,
+      html:`
+        <h1>Hello ${user?.firstname}</h1>
+        <h3>Credentials</h3>
+        </br>
+        <p>Password : ${user?.password}</p>
+        </br>
+        <small>Use this password to log into PHP Hospital</small>
+        <small>You can reset this password going to your profile</small>
+        <h3>Thank You!</h3>
+      `
+    })
+    console.log("Successfully sent credentials "+mail.messageId);
+    
     await connection.query(sqlQueries.doctors.postNew, [
       user.firstname,
       user.lastname,
