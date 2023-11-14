@@ -41,13 +41,13 @@ export async function POST(req) {
         </br>
         <p>Password : ${user?.password}</p>
         </br>
-        <small>Use this password to log into PHP Hospital</small>
+        <small>Use this password to log into PHP Hospital,</small>
         <small>You can reset this password going to your profile</small>
         <h3>Thank You!</h3>
       `
     })
     console.log("Successfully sent credentials "+mail.messageId);
-    
+
     await connection.query(sqlQueries.doctors.postNew, [
       user.firstname,
       user.lastname,
