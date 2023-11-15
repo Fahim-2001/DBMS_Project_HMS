@@ -6,7 +6,7 @@ import { generateLabReport } from "../../../utils/generateLabReport";
 const CurrentUsersLabReports = () => {
   const [labReports, setLabReports] = useState([]);
   const { runningUser } = useContext(UserDataContext);
-
+  console.log(labReports)
   // Client Side Rendering using useEffect from Database
   useEffect(() => {
     const getAllReports = async () => {
@@ -131,7 +131,7 @@ const CurrentUsersLabReports = () => {
         </div>
       )}
       <div className="flex justify-between text-xs font-semibold mr-3">
-        <p> Your Booked Appointments Table</p>
+        <p> Your Registered Lab Reports Table</p>
         <p>Total Count :{labReports?.length}</p>
       </div>
       <div className="overflow-x-auto">
@@ -152,7 +152,7 @@ const CurrentUsersLabReports = () => {
             </tr>
           </thead>
           <tbody>
-            {labReports.map((rep) => (
+            {labReports?.map((rep) => (
               <tr key={rep?.id}>
                 <td className="font-semibold">{rep?.id}</td>
                 <td>{rep?.fullname}</td>

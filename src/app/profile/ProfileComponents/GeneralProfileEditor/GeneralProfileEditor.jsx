@@ -1,13 +1,15 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const GeneralProfileEditor = ({ runningUser }) => {
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
 
-  const handleUpdate = async(updatedProfile) => {
+  const handleUpdate = async (updatedProfile) => {
     try {
+      setLoading(true);
       // Digging out image file object from the form elements.
       const fileInput = updatedProfile?.picture[0];
 
@@ -30,18 +32,29 @@ const GeneralProfileEditor = ({ runningUser }) => {
       updatedProfile.picture = data.secure_url;
 
       // PUT method for updating user profile.
-      const response = await fetch(`http://localhost:3000/api/users/${runningUser?.id}`,{
-        method:'PUT',
-        body: JSON.stringify(updatedProfile),
-      })
+      const response = await fetch(
+        `http://localhost:3000/api/users/${runningUser?.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(updatedProfile),
+        }
+      );
 
-      if(response.ok){
-        toast.success("Profile Updated",{position:'top-right', autoClose:1000});
-      }else{
-        toast.warning("Profile Update Failed",{position:'top-right', autoClose:1000});
+      if (response.ok) {
+        toast.success("Profile Updated", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+      } else {
+        toast.warning("Profile Update Failed", {
+          position: "top-right",
+          autoClose: 1000,
+        });
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -110,12 +123,22 @@ const GeneralProfileEditor = ({ runningUser }) => {
 
         {/* Button */}
         <div className="flex justify-end my-3">
-          <button
-            type="submit"
-            className="mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
-          >
-            Update
-          </button>
+          {loading ? (
+            <button
+              disabled
+              className="flex justify-center items-center mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
+            >
+              <span>Update</span>
+              <span className="loading loading-spinner loading-xs px-2 "></span>
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
+            >
+              Update
+            </button>
+          )}
         </div>
       </form>
     </div>

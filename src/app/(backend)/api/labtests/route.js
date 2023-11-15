@@ -20,7 +20,7 @@ export async function GET(req) {
 export async function POST(req) {
   try {
     const labtest = await req.json();
-    console.log(labtest);
+    // console.log(labtest);
     const tests = JSON.stringify(labtest?.tests);
 
     await connection.query(

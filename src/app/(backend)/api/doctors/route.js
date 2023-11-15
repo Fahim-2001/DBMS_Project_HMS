@@ -3,16 +3,13 @@ import { NextResponse } from "next/server";
 import { sqlQueries } from "../../utils/sqlQueries";
 import { transporter } from "../../utils/nodemailer";
 
-
 const connection = await pool.getConnection();
 
 // All doctors information method.
 export async function GET(req, res) {
   try {
     // Retrieving Data from database
-    const [data] = await connection.query(
-      sqlQueries.doctors.getAll
-    );
+    const [data] = await connection.query(sqlQueries.doctors.getAll);
     connection.release();
 
     // console.log(data);
@@ -28,25 +25,25 @@ export async function POST(req) {
   try {
     const user = await req.json();
 
-    console.log(user)
+    console.log(user);
 
     const mail = await transporter.sendMail({
       from: process.env.EMAIL,
       to: user?.email,
-      subject:'Welcome Message',
+      subject: "Welcome Message",
       text: `Welcome ${user?.firstname} to PHP Hospital`,
-      html:`
-        <h1>Hello ${user?.firstname}</h1>
-        <h3>Credentials</h3>
+      html: `
+        <h1>Hello ${user?.firstname}, cordial welcome to PHP Hospital ❤️</h1>
+        <h3>Your Credentials</h3>
         </br>
         <p>Password : ${user?.password}</p>
         </br>
-        <small>Use this password to log into PHP Hospital,</small>
-        <small>You can reset this password going to your profile</small>
+        <p><small>Use this password to log into PHP Hospital</small></p>
+        <p><small>You can reset this password going to your profile</small></p>
         <h3>Thank You!</h3>
-      `
-    })
-    console.log("Successfully sent credentials "+mail.messageId);
+      `,
+    });
+    console.log("Successfully sent credentials " + mail.messageId);
 
     await connection.query(sqlQueries.doctors.postNew, [
       user.firstname,
@@ -76,9 +73,7 @@ export async function DELETE(req) {
     const email = url.searchParams.get("email");
     // console.log("User email : ", email);
 
-    await connection.query(sqlQueries.doctors.deleteByEmail, [
-      email,
-    ]);
+    await connection.query(sqlQueries.doctors.deleteByEmail, [email]);
     connection.release();
     return NextResponse.json(
       { message: "Deletion Successful" },

@@ -7,6 +7,7 @@ const connection = await pool.getConnection();
 // Doctor By ID api
 export async function GET(req, content) {
   try {
+    // Lab Report By Email used during registration
     if (content.params.slug.includes("@gmail.com")) {
       const [data] = await connection.query(
         sqlQueries.labtests.getByEmail,
@@ -15,12 +16,13 @@ export async function GET(req, content) {
       connection.release();
       return NextResponse.json(data, { status: 200 });
     } else {
+      // Lab Report By Id
       const [data] = await connection.query(
         sqlQueries.labtests.getById,
         [content.params.slug]
       );
       connection.release();
-      return NextResponse.json(data, { status: 200 });
+      return NextResponse.json(data[0], { status: 200 });
     }
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
@@ -30,7 +32,7 @@ export async function GET(req, content) {
 export async function PUT(req, content) {
   try {
     const body = await req.json();
-    const id = content.params.id;
+    const id = content.params.slug;
     const reports = JSON.stringify(body.reports);
     // console.log(reports, body.report_status, id);
 

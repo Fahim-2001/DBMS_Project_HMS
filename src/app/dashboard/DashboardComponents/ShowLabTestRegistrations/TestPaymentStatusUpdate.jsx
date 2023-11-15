@@ -6,15 +6,17 @@ import { toast } from "react-toastify";
 const TestPaymentStatusUpdate = ({ request }) => {
   const router = useRouter();
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const updateStatus = async () => {
     try {
+      setLoading(true);
       const data = {
         due_ammount: 0,
         payment_status: status,
       };
 
-      // console.log(data)
+      console.log(data)
 
       const response = await fetch(
         `http://localhost:3000/api/labtests/${request?.id}`,
@@ -30,6 +32,7 @@ const TestPaymentStatusUpdate = ({ request }) => {
           position: "top-right",
           autoClose: 1000,
         });
+        
       } else {
         toast.warning("Update Payment Status Failed", {
           position: "top-right",
@@ -38,6 +41,8 @@ const TestPaymentStatusUpdate = ({ request }) => {
       }
     } catch (error) {
       console.log(error.message);
+    }finally{
+      setLoading(false)
     }
   };
   return request?.payment_status === "Due" ? (
@@ -53,7 +58,7 @@ const TestPaymentStatusUpdate = ({ request }) => {
         className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
         onClick={updateStatus}
       >
-        Update
+        {loading? <span className="loading loading-spinner loading-xs"></span>: "Update"}
       </button>
     </div>
   ) : (

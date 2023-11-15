@@ -9,6 +9,7 @@ const ResetPassword = ({ userId }) => {
   const formRef = useRef();
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -16,6 +17,7 @@ const ResetPassword = ({ userId }) => {
 
   const handleReset = async (data) => {
     try {
+      setLoading(true);
       const response = await fetch(
         `http://localhost:3000/api/users/${userId}`,
         {
@@ -37,6 +39,8 @@ const ResetPassword = ({ userId }) => {
       }
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -59,7 +63,7 @@ const ResetPassword = ({ userId }) => {
             <label className="label flex justify-between items-center">
               <span className="font-medium">New Password</span>
               <div onClick={handlePasswordVisibility}>
-                {showPassword==true ? (
+                {showPassword == true ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -98,19 +102,29 @@ const ResetPassword = ({ userId }) => {
               </div>
             </label>
             <input
-              type={showPassword?"text":"password"}
+              type={showPassword ? "text" : "password"}
               className="input input-bordered input-sm w-full text-sm"
               {...register("new_pass")}
             />
           </div>
         </div>
         <div className="flex justify-end my-3">
-          <button
-            type="submit"
-            className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
-          >
-            Reset Password
-          </button>
+        {loading ? (
+            <button
+              disabled
+              className="flex justify-center items-center mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
+            >
+              <span>Reset Password</span>
+              <span className="loading loading-spinner loading-xs px-2 "></span>
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
+            >
+              Reset Password
+            </button>
+          )}
         </div>
       </form>
     </div>

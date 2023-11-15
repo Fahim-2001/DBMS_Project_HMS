@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { generatePrescription } from "../../../utils/generatePrescription";
 
-const runningUsersAppts = () => {
+const CurrentUsersAppts = () => {
   const { runningUser } = useContext(UserDataContext);
   const [appointments, setAppointments] = useState();
 
@@ -182,4 +182,4 @@ const runningUsersAppts = () => {
   );
 };
 
-export default runningUsersAppts;
+export default CurrentUsersAppts;

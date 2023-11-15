@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const UploadPrescription = ({ appointment }) => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [prescription, setPrescription] = useState("");
   const [testPreferences, setTestPreferences] = useState("");
-  console.log(appointment[0]);
+  // console.log(appointment);
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const form = e.target;
-
     try {
       const data = {
         appt_status: "Checked",
@@ -21,7 +22,7 @@ const UploadPrescription = ({ appointment }) => {
       };
 
       const response = await fetch(
-        `http://localhost:3000/api/appointments/${appointment[0]?.appt_id}`,
+        `http://localhost:3000/api/appointments/${appointment?.appt_id}`,
         {
           method: "PUT",
           body: JSON.stringify(data),
@@ -34,6 +35,7 @@ const UploadPrescription = ({ appointment }) => {
           position: "top-right",
           autoClose: 1000,
         });
+        setLoading(false);
       } else {
         toast.warning("Prescription Upload Failed", {
           position: "top-right",
@@ -55,7 +57,7 @@ const UploadPrescription = ({ appointment }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={appointment[0]?.patient_name}
+              defaultValue={appointment?.patient_name}
               readOnly
             />
           </div>
@@ -65,7 +67,7 @@ const UploadPrescription = ({ appointment }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={appointment[0]?.patient_age}
+              defaultValue={appointment?.patient_age}
               readOnly
             />
           </div>
@@ -78,7 +80,7 @@ const UploadPrescription = ({ appointment }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={appointment[0]?.patient_gender}
+              defaultValue={appointment?.patient_gender}
               readOnly
             />
           </div>
@@ -88,7 +90,7 @@ const UploadPrescription = ({ appointment }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={appointment[0]?.appt_type}
+              defaultValue={appointment?.appt_type}
               readOnly
             />
           </div>
@@ -101,7 +103,7 @@ const UploadPrescription = ({ appointment }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={appointment[0]?.patient_issue}
+              defaultValue={appointment?.patient_issue}
               readOnly
             />
           </div>
@@ -111,7 +113,7 @@ const UploadPrescription = ({ appointment }) => {
             </label>
             <input
               className="input input-bordered input-sm w-full text-sm"
-              defaultValue={appointment[0]?.appt_date}
+              defaultValue={appointment?.appt_date}
               readOnly
             />
           </div>
@@ -141,9 +143,21 @@ const UploadPrescription = ({ appointment }) => {
             onChange={(e) => setTestPreferences(e.target.value)}
           ></textarea>
         </div>
-        <button className="mx-2 my-3 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">
-          Update
-        </button>
+        {loading ? (
+          <button
+            disabled
+            className="mx-2 my-3 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+          >
+            <span className="loading loading-spinner loading-xs"></span>
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="mx-2 my-3 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+          >
+            Update
+          </button>
+        )}
       </form>
     </div>
   );

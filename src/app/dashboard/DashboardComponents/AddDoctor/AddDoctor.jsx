@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const AddDoctor = () => {
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const router = useRouter();
   const { runningUser } = useContext(UserDataContext);
@@ -14,6 +15,7 @@ const AddDoctor = () => {
 
   const onSubmit = async (doctor) => {
     try {
+      setLoading(true);
       // // Digging out image file object from the form elements.
       const fileInput = doctor?.profile_picture[0];
 
@@ -48,7 +50,7 @@ const AddDoctor = () => {
       doctor["password"] = password;
       doctor["routename"] = routename;
 
-      // console.log(doctor); 
+      // console.log(doctor);
 
       // POST Method : to doctors api
       const response = await fetch("http://localhost:3000/api/doctors", {
@@ -68,7 +70,7 @@ const AddDoctor = () => {
         gender: doctor?.gender,
         picture: doctor?.profile_picture,
       };
-      console.log(user)
+      console.log(user);
 
       // POST Method : to registers api
       const response2 = await fetch("http://localhost:3000/api/users", {
@@ -91,6 +93,7 @@ const AddDoctor = () => {
           progress: undefined,
           theme: "light",
         });
+        setLoading(false);
         formRef.current.reset();
       } else {
         toast.warning("Doctor registration failed!", {
@@ -110,17 +113,22 @@ const AddDoctor = () => {
   };
 
   return (
-    (runningUser?.userRole === "super-admin" || runningUser?.userRole === "admin") && (
+    (runningUser?.userRole === "super-admin" ||
+      runningUser?.userRole === "admin") && (
       <div>
         <p className="text-xs font-semibold mb-2">Add Doctor</p>
-        <form className="text-xs" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="text-xs"
+          ref={formRef}
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="flex flex-wrap">
             <div className="my-1">
               <label className="mr-1">First Name</label>
               <br />
               <input
                 required
-                className="border border-primary mr-2"
+                className="border border-primary mr-2 p-1 rounded"
                 {...register("firstname")}
               />
             </div>
@@ -129,7 +137,7 @@ const AddDoctor = () => {
               <br />
               <input
                 required
-                className="border border-primary mr-2"
+                className="border border-primary mr-2 p-1 rounded"
                 {...register("lastname")}
               />
             </div>
@@ -138,7 +146,8 @@ const AddDoctor = () => {
               <br />
               <input
                 required
-                className="border border-primary mr-2"
+                className="border border-primary mr-2 p-1 rounded"
+                placeholder="Enter your valid gmail"
                 {...register("email")}
               />
             </div>
@@ -148,7 +157,7 @@ const AddDoctor = () => {
               <input
                 placeholder="+88016890*****"
                 required
-                className="border border-primary mr-2"
+                className="border border-primary mr-2 p-1 rounded"
                 type="tel"
                 {...register("phone_number")}
               />
@@ -158,7 +167,7 @@ const AddDoctor = () => {
               <br />
               <input
                 required
-                className="border border-primary mr-2"
+                className="border border-primary mr-2 p-1 rounded"
                 {...register("speciality")}
               />
             </div>
@@ -166,7 +175,7 @@ const AddDoctor = () => {
               <label className="mr-1">Gender </label>
               <br />
               <select
-                className="border border-primary mr-2 px-[4px]"
+                className="border border-primary mr-2 p-1 rounded px-[4px]"
                 {...register("gender")}
               >
                 <option value="female">Female</option>
@@ -190,7 +199,7 @@ const AddDoctor = () => {
                 <input
                   type="time"
                   required
-                  className="border border-primary mr-2"
+                  className="border border-primary mr-2 p-1 rounded"
                   {...register("available_from")}
                 />
               </div>
@@ -200,15 +209,22 @@ const AddDoctor = () => {
                 <input
                   type="time"
                   required
-                  className="border border-primary mr-2"
+                  className="border border-primary mr-2 p-1 rounded"
                   {...register("available_to")}
                 />
               </div>
             </div>
           </div>
-          <button className="mx-1 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">
-            Add Doctor
-          </button>
+          {loading ? (
+            <button disabled className="flex justify-center items-centermx-1 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">
+              <span className="px-2">Adding Doctor</span>
+              <span className="loading loading-spinner loading-xs"></span>
+            </button>
+          ) : (
+            <button className="mx-1 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl">
+              Add Doctor
+            </button>
+          )}
         </form>
         <hr className="my-3" />
       </div>

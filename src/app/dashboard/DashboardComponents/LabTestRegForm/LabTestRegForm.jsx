@@ -1,8 +1,9 @@
 "use client";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const LabTestRegForm = () => {
   const { runningUser } = useContext(UserDataContext);
@@ -13,7 +14,9 @@ const LabTestRegForm = () => {
   const [payableAmount, setPayableAmount] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [advancedAmount, setAdvancedAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const formRef = useRef();
 
   // New field creating operation
   const handleNumChange = (event) => {
@@ -50,6 +53,7 @@ const LabTestRegForm = () => {
   };
 
   const confirmRegistration = async () => {
+    setLoading(true);
     // Setting of Payment
     if (paymentMethod == "Due Payment") {
       const due = labData.payable_amount - advancedAmount;
@@ -73,13 +77,23 @@ const LabTestRegForm = () => {
       router.refresh();
 
       if (response.ok) {
-        console.log("Successs");
-        // console.log(labData);
+        toast.success("Test Registered", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+        formRef.current.reset();
       } else {
         console.log("Failed");
       }
     } catch (error) {
-      console.log(error.message);
+      toast.warning("Test Registration Failed", {
+        position: "top-right",
+        autoClose: 1000,
+      });
+    } finally {
+      setLoading(false);
+      setNumberOfTests(0);
+      setTextFields([])
     }
   };
 
@@ -112,7 +126,7 @@ const LabTestRegForm = () => {
       <div className="text-xs">
         <p className="font-semibold">Lab Test Registration Form</p>
         {/* Lab Test Registration Form */}
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <form action="" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap">
             <div className="my-1">
               <label className="mr-1">Full Name</label>
@@ -120,7 +134,7 @@ const LabTestRegForm = () => {
               <input
                 required
                 type="text"
-                className="border border-primary mr-2 px-1"
+                className="border border-primary mr-2 p-1 rounded"
                 {...register("fullname")}
               />
             </div>
@@ -131,7 +145,7 @@ const LabTestRegForm = () => {
               <input
                 required
                 type="number"
-                className="border border-primary mr-2 px-1"
+                className="border border-primary mr-2 p-1 rounded"
                 {...register("age")}
               />
             </div>
@@ -140,7 +154,8 @@ const LabTestRegForm = () => {
               <label className="mr-1">Gender </label>
               <br />
               <select
-                className="border border-primary mr-2 px-1 px-[4px]"
+                required
+                className="border border-primary mr-2 p-1 rounded px-[4px]"
                 {...register("gender")}
               >
                 <option value="male">Male</option>
@@ -154,7 +169,7 @@ const LabTestRegForm = () => {
               <input
                 required
                 type="tel"
-                className="border border-primary mr-2 px-1"
+                className="border border-primary mr-2 p-1 rounded"
                 {...register("contact")}
               />
             </div>
@@ -163,8 +178,9 @@ const LabTestRegForm = () => {
               <label className="mr-1">Email</label>
               <br />
               <input
+                required
                 type="email"
-                className="border border-primary mr-2 px-1"
+                className="border border-primary mr-2 p-1 rounded"
                 {...register("email")}
               />
             </div>
@@ -177,7 +193,7 @@ const LabTestRegForm = () => {
                 type="number"
                 min={0}
                 value={numberOfTests}
-                className="border border-primary mr-2 px-1"
+                className="border border-primary mr-2 p-1 rounded"
                 {...register("number_of_tests")}
                 onChange={handleNumChange}
               />
@@ -190,7 +206,7 @@ const LabTestRegForm = () => {
                 <select
                   required
                   type="text"
-                  className="border border-primary mr-2 px-1"
+                  className="border border-primary mr-2 p-1 rounded"
                   onChange={(e) => handleAddTests(e.target.value)}
                 >
                   <option value="">Select Test</option>
@@ -225,7 +241,7 @@ const LabTestRegForm = () => {
                 <label className="mr-1">Payment Method</label>
                 <br />
                 <select
-                  className="border border-primary mr-2 px-1"
+                  className="border border-primary mr-2 p-1 rounded"
                   required
                   onChange={(e) => setPaymentMethod(e.target.value)}
                 >
@@ -241,7 +257,7 @@ const LabTestRegForm = () => {
                   <input
                     required
                     type="number"
-                    className="border border-primary mr-2"
+                    className="border border-primary mr-2 p-1 rounded"
                     onChange={(e) => setAdvancedAmount(e.target.value)}
                   />
                 </div>
@@ -251,7 +267,11 @@ const LabTestRegForm = () => {
               onClick={confirmRegistration}
               className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
             >
-              Confirm Registration
+              {loading ? (
+                <span className="loading loading-spinner loading-xs"></span>
+              ) : (
+                "Confirm Registration"
+              )}
             </button>
           </div>
         )}

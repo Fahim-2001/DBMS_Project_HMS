@@ -1,37 +1,44 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 let reports = [];
 
 const LabReportForm = ({ labTestRequest }) => {
+  const [loading, setLoading] = useState(false);
   const [testName, setTestName] = useState("");
   const [reportTexts, setReportTexts] = useState("");
   const router = useRouter();
-  const tests = JSON.parse(labTestRequest.tests);
+  const tests = JSON.parse(labTestRequest ? labTestRequest?.tests : "null");
+  // console.log(tests)
   // console.log(labTestRequest);
 
   // Function to add test reports
   const handleAddReports = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const reportData = {
-      testName,
-      reportTexts,
-    };
-    reports.push(reportData);
-    toast.success(`${reportData.testName} Report Added`, {
-      position: "top-right",
-      autoClose: 1000,
-    });
-    form.reset();
+    try {
+      const form = e.target;
+      const reportData = {
+        testName,
+        reportTexts,
+      };
+      reports.push(reportData);
+      toast.success(`${reportData.testName} Report Added`, {
+        position: "top-right",
+        autoClose: 1000,
+      });
+      form.reset();
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   // Function to submit the reports
   const handleSubmitReport = async () => {
     try {
+      setLoading(true);
+
       const updateBody = {
         report_status: "Uploaded",
         reports,
@@ -59,6 +66,9 @@ const LabReportForm = ({ labTestRequest }) => {
       }
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
+      router.back();
     }
   };
 
@@ -136,7 +146,11 @@ const LabReportForm = ({ labTestRequest }) => {
           className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
           onClick={handleSubmitReport}
         >
-          Submit Report
+          {loading ? (
+            <span className="loading loading-spinner loading-xs"></span>
+          ) : (
+            "Submit Report"
+          )}
         </button>
       </div>
     </div>

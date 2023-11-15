@@ -1,14 +1,16 @@
 "use client";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 const DeleteUser = ({ user }) => {
+  const [loading, setLoading] = useState(false);
   const { runningUser } = useContext(UserDataContext);
   const router = useRouter();
   const deleteUser = async (email) => {
     try {
+      setLoading(true);
       // Deleting user from the database
       const response = await fetch(
         `http://localhost:3000/api/users?email=${email}`,
@@ -35,6 +37,7 @@ const DeleteUser = ({ user }) => {
           progress: undefined,
           theme: "light",
         });
+        setLoading(false);
       } else {
         toast.warning("User Deletion failed!", {
           position: "top-right",
@@ -54,7 +57,8 @@ const DeleteUser = ({ user }) => {
   return (
     (runningUser?.userRole === "super-admin" ||
       runningUser?.userRole === "admin") &&
-    (user?.userRole === "super-admin" && runningUser?.userRole !=="super-admin" ? (
+    (user?.userRole === "super-admin" &&
+    runningUser?.userRole !== "super-admin" ? (
       <div>
         <button
           className="mx-2 bg-gray-400 text-white font-semibold px-[8px] py-[3px] rounded-xl"
@@ -65,12 +69,21 @@ const DeleteUser = ({ user }) => {
       </div>
     ) : (
       <div>
-        <button
-          className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
-          onClick={() => deleteUser(user?.email)}
-        >
-          Delete
-        </button>
+        {loading ? (
+          <button
+            disabled
+            className="flex justify-center items-center mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+          >
+            <span className="loading loading-spinner loading-xs"></span>
+          </button>
+        ) : (
+          <button
+            className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+            onClick={() => deleteUser(user?.email)}
+          >
+            Delete
+          </button>
+        )}
       </div>
     ))
   );

@@ -20,7 +20,7 @@ export async function GET(req, content) {
         content.params.id,
       ]);
       connection.release();
-      return NextResponse.json(data, { status: 200 });
+      return NextResponse.json(data[0], { status: 200 });
     }
 
     // console.log(data);

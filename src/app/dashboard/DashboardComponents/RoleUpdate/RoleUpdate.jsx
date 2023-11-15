@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 
 const RoleUpdate = ({ user }) => {
   const [role, setRole] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { runningUser } = useContext(UserDataContext);
   // console.log(user);
   const updateRole = async () => {
+    setLoading(true);
     const newRole = {
       userRole: role,
     };
@@ -36,6 +38,7 @@ const RoleUpdate = ({ user }) => {
           progress: undefined,
           theme: "light",
         });
+        setLoading(false);
       } else {
         toast.warning("Role update failed!", {
           position: "top-right",
@@ -76,12 +79,21 @@ const RoleUpdate = ({ user }) => {
             <option value="lab-attendant">lab-attendant</option>
             <option value="user">user</option>
           </select>
-          <button
-            className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
-            onClick={updateRole}
-          >
-            Update
-          </button>
+          {loading ? (
+            <button
+              disabled
+              className="flex justify-center items-center mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+            >
+              <span className="loading loading-spinner loading-xs"></span>
+            </button>
+          ) : (
+            <button
+              className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+              onClick={updateRole}
+            >
+              Update
+            </button>
+          )}
         </div>
       )}
     </div>

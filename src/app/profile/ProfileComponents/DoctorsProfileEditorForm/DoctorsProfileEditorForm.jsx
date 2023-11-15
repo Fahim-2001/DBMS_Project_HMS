@@ -1,16 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const DoctorsProfileEditorForm = ({ doctor }) => {
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
+
   const router = useRouter();
   // console.log(doctor);
 
   const handleProfileUpdate = async (updatedDoctor) => {
     try {
+      setLoading(true);
       // Digging out image file object from the form elements.
       const fileInput = updatedDoctor?.profile_picture[0];
 
@@ -70,6 +73,8 @@ const DoctorsProfileEditorForm = ({ doctor }) => {
       }
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -126,12 +131,22 @@ const DoctorsProfileEditorForm = ({ doctor }) => {
           </div>
         </div>
         <div className="flex justify-end my-3">
-          <button
-            type="submit"
-            className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
-          >
-            Update
-          </button>
+          {loading ? (
+            <button
+              disabled
+              className="flex justify-center items-center mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
+            >
+              <span>Update</span>
+              <span className="loading loading-spinner loading-xs px-2 "></span>
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
+            >
+              Update
+            </button>
+          )}
         </div>
       </form>
     </div>

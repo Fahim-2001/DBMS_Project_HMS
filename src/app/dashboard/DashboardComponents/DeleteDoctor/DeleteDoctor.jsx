@@ -1,14 +1,16 @@
 "use client"
 import { UserDataContext } from '@/app/Contexts/UserDataProvider/UserDataProvider';
 import { useRouter } from 'next/navigation';
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { toast } from 'react-toastify';
 
 const DeleteDoctor = ({doctor}) => {
+    const [loading, setLoading] = useState(false);
     const {runningUser} = useContext(UserDataContext)
     const router = useRouter();
     const deleteUser = async (email) => {
       try {
+        setLoading(true);
         // Deleting user from the database
         const response = await fetch(`http://localhost:3000/api/doctors?email=${email}`, {
           method: "DELETE",
@@ -33,6 +35,7 @@ const DeleteDoctor = ({doctor}) => {
             progress: undefined,
             theme: "light",
           });
+          setLoading(false)
         }else{
           toast.warning("User Deletion failed!", {
               position: "top-right",
@@ -51,12 +54,19 @@ const DeleteDoctor = ({doctor}) => {
     };
     return (
       (runningUser?.userRole==="super-admin" ||runningUser?.userRole==="admin")&&<div>
-        {runningUser?.userRole !== 'doctor'&&<button
-          className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+        {runningUser?.userRole !== 'doctor'&&(loading?
+        <button
+        disabled
+        className="flex justify-center items-center mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+      >
+        <span className="loading loading-spinner loading-xs"></span>
+      </button>:
+        <button
+          className="flex justify-center items-center mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
           onClick={()=>deleteUser(doctor?.email)}
         >
           Delete
-        </button>}
+        </button>)}
       </div>
     );
 }
