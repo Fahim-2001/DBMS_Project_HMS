@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -7,59 +7,91 @@ import { generatePdf } from "./pdfGenerator";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 
 const AppointmentForm = ({ doctor }) => {
-  const {runningUser}=useContext(UserDataContext);
+  const { runningUser } = useContext(UserDataContext);
   const { register, handleSubmit } = useForm();
+  const [paymentType, setPaymentType] = useState("Online");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const formRef = useRef()
+  const formRef = useRef();
   // console.log(doctor);
+  // console.log(paymentType);
 
   const onSubmit = async (patient) => {
-    patient["doc_email"]= doctor?.email;
-    patient["doc_id"] = doctor?.doc_id;
-    patient["fee"] = 800;
-    patient["appt_status"] = 'Unchecked';
-    patient["ref_email"]= runningUser?.email;
-    // console.log(patient);
+    try {
+      setLoading(true);
 
-    const response = await fetch("http://localhost:3000/api/appointments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(patient),
-    });
-    router.refresh();
-    
-    if (response.ok) {
-      toast.success("Appointment booking successful!", {
-        position: "top-right",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } else {
-      toast.warning("Appointment booking failed!", {
-        position: "top-right",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      // Paitent new properties
+      patient["doc_email"] = doctor?.email;
+      patient["doc_id"] = doctor?.doc_id;
+      patient["fee"] = 800;
+      patient["appt_status"] = "Unchecked";
+      patient["ref_email"] = runningUser?.email;
+      patient.payment_method = paymentType;
+
+      // console.log(patient);
+      let response;
+      if (paymentType === "Onsite") {
+        response = await fetch("http://localhost:3000/api/appointments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(patient),
+        });
+        router.refresh();
+      } else {
+        response = await fetch("http://localhost:3000/api/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(patient),
+        });
+        router.refresh();
+      }
+
+      const data = await response.json();
+      console.log(data);
+      if(data.url){
+        router.replace(data.url)
+      }
+
+      // console.log(url.message, url.status)
+
+      if (response.ok) {
+        toast.success("Appointment booking successful!", {
+          position: "top-right",
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.warning("Appointment booking failed!", {
+          position: "top-right",
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      // Invoice Generation
+      // generatePdf(patient, doctor);
+
+      // formRef.current.reset()
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
     }
-    // Invoice Generation
-    generatePdf(patient, doctor);
-
-    formRef.current.reset()
   };
 
-  
   return (
     <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md">
       <h2 className="text-lg font-semibold text-gray-700 capitalize">
@@ -159,7 +191,7 @@ const AppointmentForm = ({ doctor }) => {
               type="text"
               required
               readOnly
-              defaultValue={doctor?.first_name+" "+doctor?.last_name}
+              defaultValue={doctor?.first_name + " " + doctor?.last_name}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
               {...register("ref_doctor")}
             />
@@ -207,15 +239,59 @@ const AppointmentForm = ({ doctor }) => {
               * Except government holiday
             </p>
           </div>
+
+          <div>
+            <label className="text-gray-700 " htmlFor="appointment_type">
+              Payment
+            </label>
+            <select
+              id="appointment_type"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+              defaultValue={paymentType}
+              onChange={(e) => setPaymentType(e.target.value)}
+            >
+              <option value="Online">Online</option>
+              <option value="Onsite">Onsite</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="text-gray-700" htmlFor="fullname">
+              Payable Amount
+            </label>
+            <input
+              id="fullname"
+              type="text"
+              required
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+              defaultValue={"800 BDT"}
+            />
+          </div>
         </div>
 
         <div className="flex justify-end mt-6">
-          <button
-            type="submit"
-            className="px-8 py-2.5 leading-5 text-white font-semibold transition-colors duration-300 transform bg-primary rounded-md hover:bg-secondary focus:outline-none focus:bg-secondary"
-          >
-            Confirm Appointment
-          </button>
+          {loading ? (
+            <button
+              disabled
+              className="px-8 py-2.5 leading-5 text-white font-semibold transition-colors duration-300 transform bg-primary rounded-md hover:bg-secondary focus:outline-none focus:bg-secondary"
+            >
+              <span className="loading loading-spinner loading-xs"></span>
+            </button>
+          ) : paymentType === "Online" ? (
+            <button
+              type="submit"
+              className="px-8 py-2.5 leading-5 text-white font-semibold transition-colors duration-300 transform bg-primary rounded-md hover:bg-secondary focus:outline-none focus:bg-secondary"
+            >
+              Proceed To Payment
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="px-8 py-2.5 leading-5 text-white font-semibold transition-colors duration-300 transform bg-primary rounded-md hover:bg-secondary focus:outline-none focus:bg-secondary"
+            >
+              Confirm Appointment
+            </button>
+          )}
         </div>
       </form>
     </section>

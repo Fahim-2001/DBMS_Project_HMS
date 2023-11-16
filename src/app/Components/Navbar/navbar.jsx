@@ -16,40 +16,15 @@ export default function Navbar() {
       <li>
         <Link
           href=""
-          className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2 shadow-md hover:shadow-xl"
+          className="md:bg-white text-black hover:bg-gray-300 px-3 py-2 my-1 mx-2 shadow-none md:shadow-md md:hover:shadow-xl"
         >
           Disease Information
         </Link>
       </li>
-      <li tabIndex={0}>
-        <details>
-          <summary className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2 shadow-md hover:shadow-xl">
-            Patient Care
-          </summary>
-          <ul className="p-2">
-            <li>
-              <Link
-                href=""
-                className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2"
-              >
-                Submenu 1
-              </Link>
-            </li>
-            <li>
-              <Link
-                href=""
-                className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2"
-              >
-                Submenu 2
-              </Link>
-            </li>
-          </ul>
-        </details>
-      </li>
       <li>
         <Link
           href="/vaccination"
-          className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2 shadow-md hover:shadow-xl"
+          className="md:bg-white text-black hover:bg-gray-300 px-3 py-2 my-1 mx-2 shadow-none md:shadow-md md:hover:shadow-xl"
         >
           Vaccination Program
         </Link>
@@ -57,7 +32,7 @@ export default function Navbar() {
       <li>
         <Link
           href=""
-          className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2 shadow-md hover:shadow-xl"
+          className="md:bg-white text-black hover:bg-gray-300 px-3 py-2 my-1 mx-2 shadow-none md:shadow-md md:hover:shadow-xl"
         >
           Our Exillencies
         </Link>
@@ -65,7 +40,7 @@ export default function Navbar() {
       <li>
         <Link
           href=""
-          className="bg-white text-black hover:bg-base-100 px-3 py-2 my-1 mx-2 shadow-md hover:shadow-xl"
+          className="md:bg-white text-black hover:bg-gray-300 px-3 py-2 my-1 mx-2 shadow-none md:shadow-md md:hover:shadow-xl"
         >
           Contact Us
         </Link>
@@ -75,8 +50,8 @@ export default function Navbar() {
   return (
     <div className="navbar bg-primary shadow-md sticky top-0 z-10">
       <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+        <div className="dropdown mx-2">
+          <label tabIndex={0} className="btn-white lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -127,9 +102,17 @@ export default function Navbar() {
             <div className="dropdown dropdown-bottom dropdown-end">
               <div tabIndex={0} className="avatar placeholder">
                 <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
-                  {
-                    runningUser?.picture ? <img src={runningUser?.picture} alt="Picture of user" /> : <img src={runningUser?.gender=="male" ? "https://cdn-icons-png.flaticon.com/512/5556/5556468.png" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KPUL8FzWe7WpCqb0fIy6Q2uBRhtydqEFeg&usqp=CAU" }/>
-                  }
+                  {runningUser?.picture ? (
+                    <img src={runningUser?.picture} alt="Picture of user" />
+                  ) : (
+                    <img
+                      src={
+                        runningUser?.gender == "male"
+                          ? "https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
+                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KPUL8FzWe7WpCqb0fIy6Q2uBRhtydqEFeg&usqp=CAU"
+                      }
+                    />
+                  )}
                 </div>
               </div>
               <ul

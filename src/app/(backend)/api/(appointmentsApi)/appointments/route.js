@@ -1,15 +1,21 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../../utils/sqlQueries";
+import {
+  SSLCommerzPayment,
+  is_live,
+  store_id,
+  store_passwd,
+} from "@/app/(backend)/utils/sslCommerz";
+
 
 const connection = await pool.getConnection();
+const date = new Date();
 
 // Doctor By ID api
 export async function GET(req) {
   try {
-    const [data] = await connection.query(
-      sqlQueries.appointments.getAll
-    );
+    const [data] = await connection.query(sqlQueries.appointments.getAll);
     connection.release();
     // console.log(data);
     return NextResponse.json(data, { status: 200 });
@@ -18,32 +24,39 @@ export async function GET(req) {
   }
 }
 
-export async function POST(req) {
+export async function POST(req, res) {
   try {
     const patient = await req.json();
-
-    await connection.query(
-      sqlQueries.appointments.postNew,
-      [
-        patient?.patient_name,
-        patient?.patient_age,
-        patient?.patient_contact,
-        patient?.patient_gender,
-        patient?.patient_address,
-        patient?.doc_id,
-        patient?.ref_doctor,
-        patient?.department,
-        patient?.appt_type,
-        patient?.appt_date,
-        patient?.short_description,
-        patient?.fee,
-        patient?.doc_email,
-        patient?.appt_status,
-        patient?.ref_email,
-      ]
-    );
-    return NextResponse.json({ message: "Appointment done!" }, { status: 201 });
+    patient.booking_date = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
+    patient.paid = false;
+    patient.tran_id=null;
+    console.log(patient);
+    
+    await connection.query(sqlQueries.appointments.postNew, [
+      patient?.patient_name,
+      patient?.patient_age,
+      patient?.patient_contact,
+      patient?.patient_gender,
+      patient?.patient_address,
+      patient?.doc_id,
+      patient?.ref_doctor,
+      patient?.department,
+      patient?.appt_type,
+      patient?.appt_date,
+      patient?.short_description,
+      patient?.fee,
+      patient?.doc_email,
+      patient?.appt_status,
+      patient?.ref_email,
+      patient?.paid,
+      patient?.payment_method,
+      patient?.booking_date,
+      patient?.tran_id
+    ]);
+    
+    return NextResponse.json({ message: "Appointment Done" , status:201});
   } catch (error) {
-    NextResponse.json({ message: error.message }, { status: 500 });
+    console.log(error.message);
+    // NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
