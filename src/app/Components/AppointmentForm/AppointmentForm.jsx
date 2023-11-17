@@ -3,7 +3,7 @@ import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { generatePdf } from "./pdfGenerator";
+import { generateAppointmentInvoice } from "./generateAppointmentInvoice";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
 
 const AppointmentForm = ({ doctor }) => {
@@ -23,14 +23,16 @@ const AppointmentForm = ({ doctor }) => {
       // Paitent new properties
       patient["doc_email"] = doctor?.email;
       patient["doc_id"] = doctor?.doc_id;
-      patient["fee"] = 800;
+      patient["appt_fee"] = 800;
       patient["appt_status"] = "Unchecked";
       patient["ref_email"] = runningUser?.email;
       patient.payment_method = paymentType;
+      patient.appt_time= `${doctor?.available_from} - ${doctor?.available_to}`
 
       // console.log(patient);
       let response;
       if (paymentType === "Onsite") {
+        // POST to appointments api.
         response = await fetch("http://localhost:3000/api/appointments", {
           method: "POST",
           headers: {
@@ -39,7 +41,34 @@ const AppointmentForm = ({ doctor }) => {
           body: JSON.stringify(patient),
         });
         router.refresh();
+
+        if (response.ok) {
+          toast.success("Appointment booking successful!", {
+            position: "top-right",
+            autoClose: 500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          toast.warning("Appointment booking failed!", {
+            position: "top-right",
+            autoClose: 500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+        // Invoice Generation
+        generateAppointmentInvoice(patient);
       } else {
+        // POST to orders api.
         response = await fetch("http://localhost:3000/api/orders", {
           method: "POST",
           headers: {
@@ -48,43 +77,14 @@ const AppointmentForm = ({ doctor }) => {
           body: JSON.stringify(patient),
         });
         router.refresh();
+
+        const data = await response.json();
+        console.log(data);
+        if (data.url) {
+          router.replace(data.url);
+        }
       }
-
-      const data = await response.json();
-      console.log(data);
-      if(data.url){
-        router.replace(data.url)
-      }
-
-      // console.log(url.message, url.status)
-
-      if (response.ok) {
-        toast.success("Appointment booking successful!", {
-          position: "top-right",
-          autoClose: 500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.warning("Appointment booking failed!", {
-          position: "top-right",
-          autoClose: 500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-      // Invoice Generation
-      // generatePdf(patient, doctor);
-
-      // formRef.current.reset()
+      formRef.current.reset();
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -212,15 +212,15 @@ const AppointmentForm = ({ doctor }) => {
           </div>
 
           <div>
-            <label className="text-gray-700 " htmlFor="short_description">
+            <label className="text-gray-700 " htmlFor="patient_issue">
               Describe your problem shortly
             </label>
             <textarea
-              id="short_description"
+              id="patient_issue"
               type="text"
               required
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-              {...register("short_description")}
+              {...register("patient_issue")}
             />
           </div>
 

@@ -31,15 +31,16 @@ export async function POST(req, res) {
         order?.department,
         order?.appt_type,
         order?.appt_date,
-        order?.short_description,
-        order?.fee,
+        order?.patient_issue,
+        order?.appt_fee,
         order?.doc_email,
         order?.appt_status,
         order?.ref_email,
         order?.paid,
         order?.payment_method,
         order?.booking_date,
-        tran_id
+        tran_id,
+        order?.appt_time,
       ]);
   
       const data = {

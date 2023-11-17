@@ -1,13 +1,6 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../../utils/sqlQueries";
-import {
-  SSLCommerzPayment,
-  is_live,
-  store_id,
-  store_passwd,
-} from "@/app/(backend)/utils/sslCommerz";
-
 
 const connection = await pool.getConnection();
 const date = new Date();
@@ -43,15 +36,16 @@ export async function POST(req, res) {
       patient?.department,
       patient?.appt_type,
       patient?.appt_date,
-      patient?.short_description,
-      patient?.fee,
+      patient?.patient_issue,
+      patient?.appt_fee,
       patient?.doc_email,
       patient?.appt_status,
       patient?.ref_email,
       patient?.paid,
       patient?.payment_method,
       patient?.booking_date,
-      patient?.tran_id
+      patient?.tran_id,
+      patient?.appt_time
     ]);
     
     return NextResponse.json({ message: "Appointment Done" , status:201});

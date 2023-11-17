@@ -35,7 +35,7 @@ const ReviewSection = () => {
         </h1>
       </div>
       <div className="">
-      <form className="mx-32" onSubmit={handleSubmit(onSubmit)} ref={formRef}>
+      <form className="flex flex-col justify-center items-center" onSubmit={handleSubmit(onSubmit)} ref={formRef}>
       <div className="flex flex-col mb-3">
           <label className="text-gray-700 my-2" htmlFor="name">
             Your Name
@@ -44,7 +44,7 @@ const ReviewSection = () => {
             id="name"
             type="name"
             placeholder="Type here"
-            className="input input-bordered input-md w-full"
+            className="input input-bordered input-md w-[350px] md:w-[700px] "
             {...register("name")}
           />
         </div>
@@ -56,7 +56,7 @@ const ReviewSection = () => {
             id="email"
             type="email"
             placeholder="Type here"
-            className="input input-bordered input-md w-full"
+            className="input input-bordered input-md w-[350px] md:w-[700px] " 
             {...register("email")}
             required
           />
@@ -71,7 +71,7 @@ const ReviewSection = () => {
             rows={30}
             cols={20}
             placeholder="Type here"
-            className="input input-bordered input-md w-full h-[150px]"
+            className="input input-bordered input-md w-[350px] md:w-[700px]  h-[150px]"
             {...register("comment")}
             required
           />

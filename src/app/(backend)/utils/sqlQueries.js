@@ -32,7 +32,7 @@ export const sqlQueries = {
     getByEmailAndId: "SELECT*FROM appointments WHERE ref_email=? AND appt_id=?",
     getByDoctorsEmail: "SELECT * FROM appointments WHERE doc_email=?",
     postNew:
-      "INSERT INTO appointments(patient_name, patient_age,patient_contact, patient_gender, patient_address, doc_id, ref_doctor, department, appt_type,appt_date,patient_issue,appt_fee,doc_email,appt_status,ref_email,paid,payment_method,booking_date,tran_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO appointments(patient_name, patient_age,patient_contact, patient_gender, patient_address, doc_id, ref_doctor, department, appt_type,appt_date,patient_issue,appt_fee,doc_email,appt_status,ref_email,paid,payment_method,booking_date,tran_id,appt_time) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     updateStatusPrescriptionTestPreferenceById:
       "UPDATE appointments SET appt_status=?, prescription=?, test_preferences=? WHERE appt_id=?",
   },

@@ -33,7 +33,7 @@ export const OurLatestTechnologies = () => {
         <div>
           <h1 className='text-center text-3xl lg:text-4xl text-primary font-bold px-2 py-3 my-2 drop-shadow-md'>Our Latest Technologies</h1>
         </div>
-        <div className='mx-[10%] lg:mx-0  grid grid-cols-1 lg:grid-cols-4'>
+        <div className='mx-[10%] lg:mx-0  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-content-center'>
             {
                 images.map(img =>(
                     <img src={img.src} alt={img.altMsg} key={img.id} className='px-1 my-3 w-96 h-72 '/>
