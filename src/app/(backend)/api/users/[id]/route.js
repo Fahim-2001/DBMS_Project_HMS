@@ -16,7 +16,7 @@ export async function GET(req, content) {
         [userId]
       );
       connection.release();
-      return NextResponse.json(user[0], {status:200});
+      return NextResponse.json(user[0] || {}, {status:200});
     }
 
     // Retrieving Data from database

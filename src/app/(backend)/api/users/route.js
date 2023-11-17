@@ -25,20 +25,7 @@ export async function GET(req, res) {
 export async function POST(req) {
   try {
     const user = await req.json();
-
-    // Getting User info to check either account with the requested email exists or not.
-    const userData = await connection.query(
-      sqlQueries.users.getByEmail,
-      [user?.email]
-    );
-    connection.release();
-
-    let existingUser = userData[0][0];
     
-    if (existingUser != undefined && existingUser?.email === user?.email) {
-      return NextResponse.json(existingUser);
-    }
-
     const hashedPass = await bcrypt.hash(user.password, 10);
 
     // Sending Data to Database

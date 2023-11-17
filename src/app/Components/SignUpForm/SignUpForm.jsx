@@ -14,18 +14,20 @@ export const SignUpForm = () => {
   const [gender, setGender] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   // Password Visibility function
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const router = useRouter();
   // Function which complete all actions in Form.
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     try {
+      setLoading(true);
       // Error checking if there is correct information or not
       if (!fullname || !email || !password || !confirmedPassword) {
         setError("Please fill up all the required fields!");
@@ -43,60 +45,42 @@ export const SignUpForm = () => {
 
       // Password Check
       if (password != confirmedPassword) {
-        setError("Confirme Password not matched!");
+        setError("Confirm Password not matched!");
         return;
       }
 
-      // POST method to send user data to db
-      const res = await fetch("api/users", {
+      const existingUser = await fetch(
+        `http://localhost:3000/api/users/${user?.email}`,
+        { cache: "no-store" }
+      ).then((res) => res.json());
+      // console.log(existingUser);
+
+      // Checking whether an account exists or not with this email.
+      if (existingUser?.email === email) {
+        setError("An account exists with this email !");
+        return;
+      }
+
+      // SEND OTP API
+      const otpCredentials = await fetch(`http://localhost:3000/api/send-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
-      });
-      const registrationResponse = await res.json();
+      }).then((res) => res.json());
 
-      // Checking whether an account exists or not with this email.
-      if (registrationResponse?.email === email) {
-        setError("An account exists with this email !");
-        return;
-      }
+      window.localStorage.setItem("user", JSON.stringify(user));
+      window.localStorage.setItem(
+        "verification-credentials",
+        JSON.stringify(otpCredentials)
+      );
 
-      if (res.ok) {
-        form.reset();
-        setError("");
-        await signIn("credentials", {
-          email: email,
-          password: password,
-          redirect: true,
-        });
-
-        toast.success("Registration Successful!", {
-          position: "top-right",
-          autoClose: 10000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.warning("Registration unuccessful!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        return;
-      }
+      router.push("http://localhost:3000/signup/verification");
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -266,12 +250,21 @@ export const SignUpForm = () => {
           </div>
           {error && <span className="text-red-500">{error}</span>}
           <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            >
-              Sign Up
-            </button>
+            {loading ? (
+              <button
+                disabled
+                className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                Sending OTP <span className="loading loading-spinner mx-2 loading-xs"></span>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                Sign Up
+              </button>
+            )}
             <p className="text-sm py-2 text-right">
               Already have an account?{" "}
               <Link

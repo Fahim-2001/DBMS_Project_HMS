@@ -18,7 +18,7 @@ export default function Navbar() {
           href=""
           className="md:bg-white text-black hover:bg-gray-300 px-3 py-2 my-1 mx-2 shadow-none md:shadow-md md:hover:shadow-xl"
         >
-          Disease Information
+          Find Your Things
         </Link>
       </li>
       <li>
