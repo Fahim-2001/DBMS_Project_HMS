@@ -1,5 +1,6 @@
 "use client";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
+import { generateTestsInvoice } from "@/app/utils/generateTestsInvoice";
 import { useRouter } from "next/navigation";
 import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -75,13 +76,17 @@ const LabTestRegForm = () => {
         body: JSON.stringify(labData),
       });
       router.refresh();
-
+       
+      const responseData = await response.json();
+      console.log(responseData?.unique_id)
       if (response.ok) {
         toast.success("Test Registered", {
           position: "top-right",
           autoClose: 1000,
         });
-        formRef.current.reset();
+        generateTestsInvoice(responseData?.unique_id);
+        // formRef.current.reset();
+
       } else {
         console.log("Failed");
       }
@@ -92,8 +97,8 @@ const LabTestRegForm = () => {
       });
     } finally {
       setLoading(false);
-      setNumberOfTests(0);
-      setTextFields([])
+      // setNumberOfTests(0);
+      // setTextFields([])
     }
   };
 

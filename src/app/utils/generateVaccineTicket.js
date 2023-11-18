@@ -118,7 +118,7 @@ export const generateVaccineTicket = (data) => {
   ];
 
   // Add a table with cell padding using jsPDF-AutoTable
-prescription.autoTable({
+autoTable({
   head: [dosesInfo[0]], // Header row
   body: dosesInfo.slice(1), // Data rows
   margin: { top: 100 },

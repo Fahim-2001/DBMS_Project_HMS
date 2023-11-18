@@ -18,7 +18,7 @@ export async function GET(req, content) {
     } else {
       // Lab Report By Id
       const [data] = await connection.query(
-        sqlQueries.labtests.getById,
+        sqlQueries.labtests.getByUniqueId,
         [content.params.slug]
       );
       connection.release();

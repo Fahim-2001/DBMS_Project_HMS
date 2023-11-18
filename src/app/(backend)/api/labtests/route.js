@@ -1,6 +1,7 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../utils/sqlQueries";
+import { generateUniqueCode } from "../../utils/generateUniqueCode";
 
 const connection = await pool.getConnection();
 
@@ -23,6 +24,10 @@ export async function POST(req) {
     // console.log(labtest);
     const tests = JSON.stringify(labtest?.tests);
 
+    const unique_id = generateUniqueCode();
+
+    console.log(labtest, unique_id);
+
     await connection.query(
       sqlQueries.labtests.postNew,
       [
@@ -39,12 +44,13 @@ export async function POST(req) {
         labtest?.advanced_amount,
         labtest?.due_amount,
         labtest?.payment_status,
-        labtest?.report_status
+        labtest?.report_status,
+        unique_id
       ]
     );
     connection.release();
     return NextResponse.json(
-      { message: "Lab Test submission done!" },
+      { message: "Lab Test submission done!", unique_id },
       { status: 201 }
     );
   } catch (error) {

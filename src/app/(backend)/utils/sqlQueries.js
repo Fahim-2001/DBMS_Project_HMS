@@ -49,11 +49,11 @@ export const sqlQueries = {
   },
   labtests: {
     getAll: "SELECT*FROM lab_tests",
-    getById: "SELECT*FROM lab_tests WHERE id=?",
+    getByUniqueId: "SELECT*FROM lab_tests WHERE unique_id=?",
     getByEmail: "SELECT*FROM lab_tests WHERE email=?",
     getByEmailAndId: "SELECT*FROM lab_tests WHERE email=? AND id=?",
     postNew:
-      "INSERT INTO lab_tests(fullname,age,gender,contact,email,number_of_tests, tests,registered_by,registers_email,payable_amount,advanced_amount,due_amount,payment_status,report_status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO lab_tests(fullname,age,gender,contact,email,number_of_tests, tests,registered_by,registers_email,payable_amount,advanced_amount,due_amount,payment_status,report_status,unique_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     updatePaymentStatusById:
       "UPDATE lab_tests SET payment_status=?, due_amount=? WHERE id=?",
     updateReportById:

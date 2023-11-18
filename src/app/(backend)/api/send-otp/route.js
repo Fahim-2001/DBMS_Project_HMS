@@ -1,20 +1,11 @@
 import { NextResponse } from "next/server";
 import bycrypt from "bcryptjs";
 import { transporter } from "../../utils/nodemailer";
-
-// Function To generate OTP
-function generateOTP(length = 6) {
-  const digits = "0123456789";
-  let OTP = "";
-  for (let i = 0; i < length; i++) {
-    OTP += digits[Math.floor(Math.random() * 10)];
-  }
-  return OTP;
-}
+import { generateUniqueCode } from "../../utils/generateUniqueCode";
 
 // Function to create a token with a validity of 10 minutes
 function createToken() {
-  const otpCode = generateOTP();
+  const otpCode = generateUniqueCode();
   const expirationTimeMilliSec = Date.now() + 10 * 60 * 1000;
 
   const date = new Date(expirationTimeMilliSec);
