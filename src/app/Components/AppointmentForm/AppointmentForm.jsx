@@ -3,8 +3,9 @@ import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { generateAppointmentInvoice } from "./generateAppointmentInvoice";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
+import { generateAppointmentInvoice } from "@/app/utils/generateAppointmentInvoice";
+import { generateUniqueCode } from "@/app/(backend)/utils/generateUniqueCode";
 
 const AppointmentForm = ({ doctor }) => {
   const { runningUser } = useContext(UserDataContext);
@@ -19,6 +20,8 @@ const AppointmentForm = ({ doctor }) => {
   const onSubmit = async (patient) => {
     try {
       setLoading(true);
+      // Unique_id
+      const unique_id = generateUniqueCode();
 
       // Paitent new properties
       patient["doc_email"] = doctor?.email;
@@ -27,7 +30,9 @@ const AppointmentForm = ({ doctor }) => {
       patient["appt_status"] = "Unchecked";
       patient["ref_email"] = runningUser?.email;
       patient.payment_method = paymentType;
-      patient.appt_time= `${doctor?.available_from} - ${doctor?.available_to}`
+      patient.appt_time = `${doctor?.available_from} - ${doctor?.available_to}`;
+      patient.unique_id = unique_id;
+      patient.paid=false
 
       // console.log(patient);
       let response;
@@ -53,6 +58,7 @@ const AppointmentForm = ({ doctor }) => {
             progress: undefined,
             theme: "light",
           });
+          formRef.current.reset();
         } else {
           toast.warning("Appointment booking failed!", {
             position: "top-right",
@@ -84,7 +90,6 @@ const AppointmentForm = ({ doctor }) => {
           router.replace(data.url);
         }
       }
-      formRef.current.reset();
     } catch (error) {
       console.log(error.message);
     } finally {

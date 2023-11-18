@@ -1,5 +1,5 @@
 "use client";
-import { generateAppointmentInvoice } from "@/app/Components/AppointmentForm/generateAppointmentInvoice";
+import { generateAppointmentInvoice } from "@/app/utils/generateAppointmentInvoice";
 import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 

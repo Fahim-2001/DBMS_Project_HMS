@@ -15,11 +15,9 @@ const page = () => {
       const docCategory = e.target.document_category.value;
       const query = e.target.query.value;
 
-      console.log(docCategory, "   ", query);
-
       if (docCategory === "Prescription") {
         const appointment = await fetch(
-          `http://localhost:3000/api/appointments/${query}`,
+          `http://localhost:3000/api/appointment-by-uniqueid?uniqueId=${query}`,
           { cache: "no-store" }
         ).then((res) => res.json());
         setDocData(appointment);
@@ -36,9 +34,7 @@ const page = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  console.log(docData);
+  }; 
   return (
     <div className="m-5">
       <form onSubmit={handleSubmit} className="flex">
@@ -54,7 +50,7 @@ const page = () => {
         <input
           type="text"
           name="query"
-          placeholder="Type appointment id for prescription or lab report id for lab report here."
+          placeholder="Type appointment id for prescription or lab report unique id for lab report here."
           className="input input-bordered input-sm w-full"
         />
         <button

@@ -21,7 +21,6 @@ export async function POST(req, res) {
   try {
     const patient = await req.json();
     patient.booking_date = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
-    patient.paid = false;
     patient.tran_id=null;
     console.log(patient);
     
@@ -45,7 +44,8 @@ export async function POST(req, res) {
       patient?.payment_method,
       patient?.booking_date,
       patient?.tran_id,
-      patient?.appt_time
+      patient?.appt_time,
+      patient?.unique_id
     ]);
     
     return NextResponse.json({ message: "Appointment Done" , status:201});

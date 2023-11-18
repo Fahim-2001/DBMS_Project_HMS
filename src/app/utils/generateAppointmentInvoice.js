@@ -63,15 +63,26 @@ export const generateAppointmentInvoice = (patient) => {
     .text(":", 55, 77)
     .setFont("", "normal")
     .text(`${patient?.patient_contact}`, 60, 77);
+
+  // Unique Id
+  doc
+    .setFont("times", "bold")
+    .setFontSize(16)
+    .setTextColor("black")
+    .text("Unique Id ", 10, 85, "left")
+    .text(":", 55, 85)
+    .setFont("", "normal")
+    .text(`${patient?.unique_id}`, 60, 85);
+
   // Cause
   doc
     .setFont("times", "bold")
     .setFontSize(16)
     .setTextColor("black")
-    .text("Issue ", 10, 85, "left")
-    .text(":", 25, 85)
+    .text("Issue ", 10, 93, "left")
+    .text(":", 25, 93)
     .setFont("", "normal")
-    .text(`${patient?.patient_issue}`, 30, 85);
+    .text(`${patient?.patient_issue}`, 30, 93);
 
   // Right Column
   // Doctor ID
@@ -129,14 +140,14 @@ export const generateAppointmentInvoice = (patient) => {
     .setFont("", "normal")
     .text(`${patient?.appt_time}`, 145, 85);
 
-  doc.line(10, 90, 200, 90); // horizontal line
+  doc.line(10, 98, 200, 98); // horizontal line
   // Payment Information
   doc
     .setFont("normal")
     .setFontSize(18)
     .setTextColor("black")
-    .text("Payment Information", 110, 100, "center");
-  doc.line(10, 105, 200, 105); // horizontal line
+    .text("Payment Information", 110, 105, "center");
+  doc.line(10, 108, 200, 108); // horizontal line
 
   // Right Column
   // Fee
