@@ -13,17 +13,16 @@ export async function GET(req, content) {
         [content.params.id]
       );
       connection.release();
-      return NextResponse.json(data, { status: 200 });
+      return NextResponse.json(data || [], { status: 200 });
     } else {
       // Appointment by Appointment Id
       const [data] = await connection.query(sqlQueries.appointments.getById, [
         content.params.id,
       ]);
       connection.release();
-      return NextResponse.json(data[0], { status: 200 });
-    }
 
-    // console.log(data);
+      return NextResponse.json(data[0] || {}, { status: 200 });
+    }
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }

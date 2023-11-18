@@ -6,9 +6,7 @@ export const generatePrescription = async (appt_id) => {
     `http://localhost:3000/api/appointments/${appt_id}}`,
     { cache: "no-store" }
   ).then((res) => res.json());
-  const appt = appointment[0];
 
-  
   // PDF object creation
   const prescription = new jsPDF({
     orientation: "portrait",
@@ -35,7 +33,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Patient Name ", 10, 40, "left")
     .text(":", 32, 40)
     .setFont("", "normal")
-    .text(`${appt?.patient_name}`, 34, 40);
+    .text(`${appointment?.patient_name}`, 34, 40);
 
   // Age
   prescription
@@ -45,7 +43,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Patient Age ", 72, 40, "left")
     .text(":", 90, 40)
     .setFont("", "normal")
-    .text(`${appt?.patient_age} y/o`, 92, 40);
+    .text(`${appointment?.patient_age} y/o`, 92, 40);
 
   // Gender
   prescription
@@ -55,7 +53,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Patient Gender ", 105, 40, "left")
     .text(":", 129, 40)
     .setFont("", "normal")
-    .text(`${appt?.patient_gender}`, 132, 40);
+    .text(`${appointment?.patient_gender}`, 132, 40);
 
   // Contact Number
   prescription
@@ -65,7 +63,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Phone Number ", 145, 40, "left")
     .text(":", 169, 40)
     .setFont("", "normal")
-    .text(`${appt?.patient_contact}`, 172, 40);
+    .text(`${appointment?.patient_contact}`, 172, 40);
 
   // ----------------  Row 2 --------------------
   // Address
@@ -76,7 +74,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Patient Address ", 10, 45, "left")
     .text(":", 35, 45)
     .setFont("", "normal")
-    .text(`${appt?.patient_address}`, 37, 45);
+    .text(`${appointment?.patient_address}`, 37, 45);
 
   // Issue
   prescription
@@ -86,9 +84,9 @@ export const generatePrescription = async (appt_id) => {
     .text("Patient Issue ", 72, 45, "left")
     .text(":", 92, 45)
     .setFont("", "normal")
-    .text(`${appt?.patient_issue}`, 94, 45);
+    .text(`${appointment?.patient_issue}`, 94, 45);
 
-  // Appt Fee
+  // appointment Fee
   prescription
     .setFont("times", "bold")
     .setFontSize(10)
@@ -96,7 +94,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Appointment Fee ", 145, 45, "left")
     .text(":", 173, 45)
     .setFont("", "normal")
-    .text(`${appt?.appt_fee} BDT`, 175, 45);
+    .text(`${appointment?.appt_fee} BDT`, 175, 45);
 
   // ----------------  Row 3 --------------------
   // Appt id
@@ -107,7 +105,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Appointment Id ", 10, 50, "left")
     .text(":", 35, 50)
     .setFont("", "normal")
-    .text(`${appt?.appt_id}`, 40, 50);
+    .text(`${appointment.appt_id}`, 40, 50);
 
   // Appt Type
   prescription
@@ -117,7 +115,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Appointment Type ", 72, 50, "left")
     .text(":", 102, 50)
     .setFont("", "normal")
-    .text(`${appt?.appt_type} y/o`, 105, 50);
+    .text(`${appointment.appt_type} y/o`, 105, 50);
 
   // Appt Date
   prescription
@@ -127,7 +125,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Appointment Date ", 145, 50, "left")
     .text(":", 173, 50)
     .setFont("", "normal")
-    .text(`${appt?.appt_date}`, 175, 50);
+    .text(`${appointment.appt_date}`, 175, 50);
   prescription.line(10, 55, 200, 55); // horizontal line
 
   //-------------------- Prescription Section -------------------
@@ -138,7 +136,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Medicines to take :", 10, 67, "left");
 
   // Medicines
-  const medicines = appt.prescription.split(", ");
+  const medicines = appointment.prescription.split(", ");
   let lineGapMed = 67;
   medicines.map((med) => {
     prescription
@@ -156,7 +154,7 @@ export const generatePrescription = async (appt_id) => {
     .text("Test Preferences :", 110, 67, "left");
 
   // Tests
-  const tests = appt.test_preferences.split(", ");
+  const tests = appointment.test_preferences.split(", ");
   let lineGapTest = 67;
   tests.map((test) => {
     prescription
@@ -171,10 +169,10 @@ export const generatePrescription = async (appt_id) => {
     .setFont("times","bold")
     .setFontSize(10)
     .setTextColor("indigo")
-    .text(`${appt?.ref_doctor}`, 165, 230, "center")
+    .text(`${appointment.ref_doctor}`, 165, 230, "center")
     .text(`MBBS, Dhaka Medical College`, 165, 235, "center")
     .text(`FCPS, School of Medical Science, London`, 165, 240, "center")
-    .text(`${appt?.department}, PHP Hospital`, 165, 245, "center");
+    .text(`${appointment.department}, PHP Hospital`, 165, 245, "center");
 
   prescription.line(10, 265, 200, 265); // horizontal line
   //  ------------------ Data Collection Info -------------------
@@ -221,5 +219,5 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Thank You For Choosing Us", 110, 280, "center");
   // END
-  prescription.save(`${appt?.patient_name}_prescription.pdf`);
+  prescription.save(`${appointment.patient_name}_prescription.pdf`);
 };

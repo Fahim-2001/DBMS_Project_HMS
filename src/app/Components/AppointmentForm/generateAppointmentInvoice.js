@@ -188,7 +188,7 @@ export const generateAppointmentInvoice = (patient) => {
       .text("PAID", 60, 123);
 
     doc.addImage(
-      "https://o.remove.bg/downloads/04a90aee-7f1d-4b1c-999c-c8e6d02eb803/paid-grunge-rubber-stamp-vector-35946478-removebg-preview.png",
+      "https://res.cloudinary.com/dqvsc6e7e/image/upload/v1700311752/phphospital-user-uploads/paid-grunge-rubber-stamp-vector-35946478-removebg-preview_jl1nda.png",
       "PNG",
       75,
       120,

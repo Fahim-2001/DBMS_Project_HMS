@@ -35,16 +35,19 @@ const UploadPrescription = ({ appointment }) => {
           position: "top-right",
           autoClose: 1000,
         });
-        setLoading(false);
+        form.reset();
+        router.back()
       } else {
         toast.warning("Prescription Upload Failed", {
           position: "top-right",
           autoClose: 1000,
         });
-        form.reset();
       }
     } catch (error) {
       console.log(error.message);
+    }
+    finally{
+      setLoading(false);
     }
   };
   return (

@@ -1,6 +1,5 @@
 "use client";
 import { UserDataContext } from "@/app/Contexts/UserDataProvider/UserDataProvider";
-import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { generatePrescription } from "../../../utils/generatePrescription";
 
@@ -18,7 +17,7 @@ const CurrentUsersAppts = () => {
         }
       )
         .then((res) => res.json())
-        .then((data) => setAppointments(data));
+        .then((data) => setAppointments(data || []));
     };
     getAppts();
   }, [runningUser?.email]);
@@ -26,6 +25,7 @@ const CurrentUsersAppts = () => {
   // Appointment Data Fetching sending user's email those are under the email.
   const [id, setId] = useState();
   const [appointment, setAppointment] = useState(null);
+
   const handleSearchById = async (e) => {
     e.preventDefault();
     await fetch(
@@ -69,7 +69,7 @@ const CurrentUsersAppts = () => {
           </svg>
         </button>
       </form>
-      {appointment != null && (
+      {appointment != null &&
         <div className="overflow-x-auto">
           <table className="table table-xs">
             <thead>
@@ -102,19 +102,22 @@ const CurrentUsersAppts = () => {
                   {appointment?.appt_status === "Unchecked" ? (
                     <p>Not Uploaded</p>
                   ) : (
-                    <button
-                      className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
-                      onClick={() => {generatePrescription(appointment?.appt_id); setAppointment(null)}}
-                    >
-                      Download
-                    </button>
+                     <button
+                    className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+                    onClick={() => {
+                      generatePrescription(appointment?.appt_id);
+                      setAppointment(null);
+                    }}
+                  >
+                    Download
+                  </button>
                   )}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-      )}
+      }
       <div className="flex justify-between text-xs font-semibold mr-3">
         <p> Your Lab Reports Table</p>
         <p>Total Count :{appointments?.length}</p>

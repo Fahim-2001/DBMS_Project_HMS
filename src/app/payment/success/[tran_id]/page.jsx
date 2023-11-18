@@ -16,8 +16,6 @@ const PaymentSuccess = ({ params }) => {
         { cache: "no-store" }
       ).then((res) => res.json());
 
-      console.log(appointment);
-
       generateAppointmentInvoice(appointment)
     } catch (error) {
       console.log(error.message);

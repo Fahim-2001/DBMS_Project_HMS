@@ -6,7 +6,7 @@ import { generateLabReport } from "../../../utils/generateLabReport";
 const CurrentUsersLabReports = () => {
   const [labReports, setLabReports] = useState([]);
   const { runningUser } = useContext(UserDataContext);
-  console.log(labReports)
+
   // Client Side Rendering using useEffect from Database
   useEffect(() => {
     const getAllReports = async () => {
@@ -20,14 +20,13 @@ const CurrentUsersLabReports = () => {
     getAllReports();
   }, [runningUser?.email]);
 
-
   // DATA BY PARTICULAR EMAIL WITH  REPORT ID
   const [reportId, setReportId] = useState();
   const [report, setReport] = useState(null);
-  
+
   const handleSearchById = async (e) => {
     e.preventDefault();
-    
+
     // Fetching method with a particular user's both email and report id
     await fetch(
       `http://localhost:3000/api/labtests/${runningUser?.email}/${reportId}`,
@@ -40,43 +39,42 @@ const CurrentUsersLabReports = () => {
 
     e.target.reset();
   };
-  
+
   // Parsing if the report exists otherwise contain null.
-  const tests = JSON.parse(report? report.tests : "null");
-  
-  
+  const tests = JSON.parse(report ? report.tests : "null");
+
   return (
     <div className="text-xs">
-          {/* Search By Report Id Field */}
-          <form className="flex" action="post" onSubmit={handleSearchById}>
-            <input
-              type="text"
-              placeholder="Search here with your report Id"
-              className="input input-bordered input-sm w-full"
-              onChange={(e)=>setReportId(e.target.value)}
+      {/* Search By Report Id Field */}
+      <form className="flex" action="post" onSubmit={handleSearchById}>
+        <input
+          type="text"
+          placeholder="Search here with your report Id"
+          className="input input-bordered input-sm w-full"
+          onChange={(e) => setReportId(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-4 py-1 ml-2 rounded-xl"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
-            <button
-              type="submit"
-              className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-4 py-1 ml-2 rounded-xl"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
-              </svg>
-            </button>
-          </form>
+          </svg>
+        </button>
+      </form>
       {/* Search Result in a table if report is not null */}
-      {report !=null && (
+      {report != null && (
         <div className="overflow-x-auto">
           <table className="table table-xs">
             <thead>
@@ -103,10 +101,10 @@ const CurrentUsersLabReports = () => {
                 <td>{report?.gender}</td>
                 <td>{report?.number_of_tests}</td>
                 <td>
-                {JSON.parse(report?.tests).map((test) => (
-                  <p key={test?.id}>{test.test}</p>
-                ))}
-              </td>
+                  {JSON.parse(report?.tests).map((test) => (
+                    <p key={test?.id}>{test.test}</p>
+                  ))}
+                </td>
                 <td>{report?.payment_status}</td>
                 <td>{report?.payable_amount} BDT</td>
                 <td>{report?.advanced_amount} BDT</td>
@@ -114,7 +112,10 @@ const CurrentUsersLabReports = () => {
                 report?.report_status == "Uploaded" ? (
                   <td>
                     <button
-                      onClick={() => {generateLabReport(report?.id);setReport(null)}}
+                      onClick={() => {
+                        generateLabReport(report?.id);
+                        setReport(null);
+                      }}
                       className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
                     >
                       Download

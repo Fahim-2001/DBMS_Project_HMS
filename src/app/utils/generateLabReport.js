@@ -9,9 +9,6 @@ export const generateLabReport = async (rep_id) => {
     }
   ).then((res) => res.json());
   
-  const rpt = labReport[0];
-
-  console.log(rpt);
   // PDF object creation
   const report = new jsPDF({
     orientation: "portrait",
@@ -37,7 +34,7 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Report Id :", 10, 40, "left")
     .setFont("", "normal")
-    .text(`${rpt?.id}`, 30, 40);
+    .text(`${labReport?.id}`, 30, 40);
 
   // Fullname
   report
@@ -46,7 +43,7 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Name : ", 52, 40, "left")
     .setFont("", "normal")
-    .text(`${rpt?.fullname}`, 65, 40);
+    .text(`${labReport?.fullname}`, 65, 40);
 
   // Gender
   report
@@ -55,7 +52,7 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Gender :", 100, 40, "left")
     .setFont("", "normal")
-    .text(`${rpt?.gender}`, 115, 40);
+    .text(`${labReport?.gender}`, 115, 40);
 
   // Email
   report
@@ -64,7 +61,7 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Email :", 150, 40, "left")
     .setFont("", "normal")
-    .text(`${rpt?.email}`, 164, 40);
+    .text(`${labReport?.email}`, 164, 40);
 
   // ----------------  Row 2 --------------------
   // Age
@@ -74,7 +71,7 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Age : ", 10, 45, "left")
     .setFont("", "normal")
-    .text(`${rpt?.age}`, 23, 45);
+    .text(`${labReport?.age}`, 23, 45);
 
   // Contact
   report
@@ -83,7 +80,7 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Contact : ", 52, 45, "left")
     .setFont("", "normal")
-    .text(`${rpt?.contact}`, 70, 45);
+    .text(`${labReport?.contact}`, 70, 45);
 
   // Test Fee
   report
@@ -92,7 +89,7 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Test Fee :", 100, 45, "left")
     .setFont("", "normal")
-    .text(`${rpt?.payable_amount} BDT`, 115, 45);
+    .text(`${labReport?.payable_amount} BDT`, 115, 45);
 
   // Number Of Tests
   report
@@ -101,7 +98,7 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Number of tests :", 150, 45, "left")
     .setFont("", "normal")
-    .text(`${rpt?.number_of_tests}`, 178, 45);
+    .text(`${labReport?.number_of_tests}`, 178, 45);
 
   report.line(10, 50, 200, 50); // horizontal line
 
@@ -115,8 +112,8 @@ export const generateLabReport = async (rep_id) => {
     .text("Tests :", 10, 57, "left")
     .text("Remarks:",100,57, "left");
 
-  // // tests
-  const tests = JSON.parse(rpt.report);
+  // Tests
+  const tests = JSON.parse(labReport.report);
   console.log(tests)
   let lineGap1 =  57;
   let lineGap2 = 57;
@@ -174,5 +171,5 @@ export const generateLabReport = async (rep_id) => {
     .setTextColor("black")
     .text("Thank You For Choosing Us", 110, 280, "center");
   // END
-  report.save(`${rpt?.fullname}_report.pdf`);
+  report.save(`${labReport?.fullname}_report.pdf`);
 };
