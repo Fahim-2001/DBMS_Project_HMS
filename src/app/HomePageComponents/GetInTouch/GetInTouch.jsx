@@ -1,4 +1,7 @@
+'use client'
 import React from "react";
+import Lottie from "react-lottie-player";
+import LocationAnimation from '../../utils/Location.json'
 
 export const GetInTouch = () => {
   return (
@@ -10,12 +13,12 @@ export const GetInTouch = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 mx-[10%] justify-items-center lg:items-center">
         <div>
-            MAP
+          <Lottie loop  animationData={LocationAnimation} play></Lottie>
         </div>
         <div className="text-right text-xl text-gray-800 font-semibold">
-            <p>Contact : +8801325678923</p>
-            <p>E-mail: hospital@php.health.bd</p>
-            <p>Location : Nayanagar, Baridhara J-Block, Gulshan, Dhaka,</p>
+          <p>Contact : +8801325678923</p>
+          <p>E-mail: hospital@php.health.bd</p>
+          <p>Location : Nayanagar, Baridhara J-Block, Gulshan, Dhaka,</p>
         </div>
       </div>
     </section>
