@@ -48,8 +48,8 @@ export async function POST(req, res) {
         total_amount: 800,
         currency: "BDT",
         tran_id: tran_id, // use unique tran_id for each api call
-        success_url: `http://localhost:3000/api/payment/success/${tran_id}`,
-        fail_url: `http://localhost:3000/api/payment/failed/${tran_id}`,
+        success_url: `${process.env.NEXT_PUBLIC_URL}api/payment/success/${tran_id}`,
+        fail_url: `${process.env.NEXT_PUBLIC_URL}api/payment/failed/${tran_id}`,
         cancel_url: "http://localhost:3030/cancel",
         ipn_url: "http://localhost:3030/ipn",
         shipping_method: "Courier",

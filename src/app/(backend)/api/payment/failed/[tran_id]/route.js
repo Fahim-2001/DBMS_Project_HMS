@@ -12,7 +12,7 @@ export async function POST(req, content) {
     connection.release()
 
     
-    return Response.redirect(`http://localhost:3000/payment/failed/${tran_id}`)
+    return Response.redirect(`${process.env.NEXT_PUBLIC_URL}payment/failed/${tran_id}`)
   } catch (error) {
     console.log(error.message);
   }

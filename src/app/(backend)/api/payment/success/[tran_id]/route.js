@@ -32,7 +32,7 @@ export async function POST(req, content) {
     ]);
     connection.release();
     
-    return Response.redirect(`http://localhost:3000/payment/success/${tran_id}`)
+    return Response.redirect(`${process.env.NEXT_PUBLIC_URL}payment/success/${tran_id}`)
   } catch (error) {
     console.log(error.message);
   }
