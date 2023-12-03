@@ -1,5 +1,5 @@
 "use client";
-import { generateAppointmentInvoice } from "@/app/frontend/utils/generateAppointmentInvoice";
+import { generateAppointmentInvoice } from "@/app/(frontend)/utils/generateAppointmentInvoice";
 import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 

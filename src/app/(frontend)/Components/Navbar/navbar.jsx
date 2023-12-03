@@ -1,6 +1,6 @@
 "use client";
 
-import { UserDataContext } from "@/app/frontend/Contexts/UserDataProvider/UserDataProvider";
+import { UserDataContext } from "@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useContext } from "react";

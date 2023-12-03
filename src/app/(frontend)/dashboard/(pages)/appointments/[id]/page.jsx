@@ -1,4 +1,4 @@
-import UploadPrescription from '@/app/frontend/dashboard/DashboardComponents/UploadPrescription/UploadPrescription'
+import UploadPrescription from '@/app/(frontend)/dashboard/DashboardComponents/UploadPrescription/UploadPrescription'
 import React from 'react'
 
 const page = async({params}) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { vaccineData } from "../vaccineData";
 import styles from "./page.module.css";
-import VaccineForm from "@/app/frontend/Components/VaccineForm/VaccineForm";
+import VaccineForm from "@/app/(frontend)/Components/VaccineForm/VaccineForm";
 
 const page = ({ params }) => {
   const vaccine = vaccineData.find((vac) => {

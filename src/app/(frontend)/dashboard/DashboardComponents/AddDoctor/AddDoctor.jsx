@@ -1,5 +1,5 @@
 "use client";
-import { UserDataContext } from "@/app/frontend/Contexts/UserDataProvider/UserDataProvider";
+import { UserDataContext } from "@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider";
 import { generate } from "generate-password";
 import { useRouter } from "next/navigation";
 import React, { useContext, useRef, useState } from "react";

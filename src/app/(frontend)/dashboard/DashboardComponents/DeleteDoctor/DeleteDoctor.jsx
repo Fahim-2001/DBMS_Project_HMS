@@ -1,5 +1,5 @@
 "use client"
-import { UserDataContext } from '@/app/frontend/Contexts/UserDataProvider/UserDataProvider';
+import { UserDataContext } from '@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useState } from 'react'
 import { toast } from 'react-toastify';

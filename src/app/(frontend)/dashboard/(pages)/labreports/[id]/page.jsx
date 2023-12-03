@@ -1,4 +1,4 @@
-import LabReportForm from "@/app/frontend/dashboard/DashboardComponents/LabReportForm/LabReportForm";
+import LabReportForm from "@/app/(frontend)/dashboard/DashboardComponents/LabReportForm/LabReportForm";
 import React from "react";
 
 const page = async ({ params }) => {

@@ -1,4 +1,4 @@
-import DoctorsForAppointments from "@/app/frontend/Components/DoctorsForAppointments/DoctorsForAppointments";
+import DoctorsForAppointments from "@/app/(frontend)/Components/DoctorsForAppointments/DoctorsForAppointments";
 import Link from "next/link";
 import React from "react";
 

@@ -3,8 +3,8 @@ import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { UserDataContext } from "@/app/frontend/Contexts/UserDataProvider/UserDataProvider";
-import { generateAppointmentInvoice } from "@/app/frontend/utils/generateAppointmentInvoice";
+import { UserDataContext } from "@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider";
+import { generateAppointmentInvoice } from "@/app/(frontend)/utils/generateAppointmentInvoice";
 import { generateUniqueCode } from "@/app/(backend)/utils/generateUniqueCode";
 
 const AppointmentForm = ({ doctor }) => {

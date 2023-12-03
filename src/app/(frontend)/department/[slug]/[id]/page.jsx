@@ -1,4 +1,4 @@
-import AppointmentForm from "@/app/frontend/Components/AppointmentForm/AppointmentForm";
+import AppointmentForm from "@/app/(frontend)/Components/AppointmentForm/AppointmentForm";
 import React from "react";
 
 const SingleDoctorForAppointments = async ({ params }) => {

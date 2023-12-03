@@ -1,4 +1,4 @@
-import ApptsForSingleDoctor from "@/app/frontend/dashboard/DashboardComponents/ApptsForSingleDoctor/ApptsForSingleDoctor";
+import ApptsForSingleDoctor from "@/app/(frontend)/dashboard/DashboardComponents/ApptsForSingleDoctor/ApptsForSingleDoctor";
 import React from "react";
 export const metadata = {
   title: "Doctor's Appointments - PHP Hospital"

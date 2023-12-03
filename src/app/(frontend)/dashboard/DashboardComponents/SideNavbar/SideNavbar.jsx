@@ -1,5 +1,5 @@
 "use client";
-import { UserDataContext } from "@/app/frontend/Contexts/UserDataProvider/UserDataProvider";
+import { UserDataContext } from "@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider";
 import Link from "next/link";
 import React, { useContext } from "react";
 

@@ -1,5 +1,5 @@
 "use client";
-import { UserDataContext } from "@/app/frontend/Contexts/UserDataProvider/UserDataProvider";
+import { UserDataContext } from "@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider";
 import React, { useContext, useEffect, useState } from "react";
 import { generateLabReport } from "../../../utils/generateLabReport";
 

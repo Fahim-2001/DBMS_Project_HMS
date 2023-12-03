@@ -1,6 +1,6 @@
 "use client";
-import { UserDataContext } from "@/app/frontend/Contexts/UserDataProvider/UserDataProvider";
-import { generateVaccineTicket } from "@/app/frontend/utils/generateVaccineTicket";
+import { UserDataContext } from "@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider";
+import { generateVaccineTicket } from "@/app/(frontend)/utils/generateVaccineTicket";
 import { useRouter } from "next/navigation";
 import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";

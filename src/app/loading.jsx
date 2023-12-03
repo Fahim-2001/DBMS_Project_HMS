@@ -1,5 +1,5 @@
 import React from 'react'
-import Loading from './frontend/Components/Loading/Loading'
+import Loading from './(frontend)/Components/Loading/Loading'
 
 const loading = () => {
   return (
