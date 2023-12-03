@@ -2,7 +2,7 @@ import pool from "@/app/(backend)/utils/db";
 import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
-const connection = await pool.getConnection();
+
 export async function PUT(req, content) {
   try {
     const status = await req.json();
@@ -10,10 +10,12 @@ export async function PUT(req, content) {
     // console.log(status);
     // console.log(id)
 
+    const connection = await pool.getConnection();
     await connection.query(sqlQueries.vaccineforms.updateStatusById, [
       status,
       id,
     ]);
+    connection.release()
 
     return NextResponse.json({ message: "Update done!" }, { status: 201 });
   } catch (error) {

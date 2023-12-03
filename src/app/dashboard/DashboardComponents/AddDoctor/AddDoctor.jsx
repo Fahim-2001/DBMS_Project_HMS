@@ -72,7 +72,7 @@ const AddDoctor = () => {
       };
       console.log(user);
 
-      // POST Method : to registers api
+      // POST Method : to user api
       const response2 = await fetch("http://localhost:3000/api/users", {
         method: "POST",
         headers: {
@@ -85,7 +85,7 @@ const AddDoctor = () => {
       if (response.ok && response2.ok) {
         toast.success("Doctor registered!", {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -93,12 +93,12 @@ const AddDoctor = () => {
           progress: undefined,
           theme: "light",
         });
-        setLoading(false);
+        
         formRef.current.reset();
       } else {
         toast.warning("Doctor registration failed!", {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -109,6 +109,8 @@ const AddDoctor = () => {
       }
     } catch (error) {
       console.log(error.message);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -182,6 +184,7 @@ const AddDoctor = () => {
                 <option value="male">Male</option>
               </select>
             </div>
+            
             <div className="my-1">
               <label className="mr-1">Profile Picture</label>
               <br />

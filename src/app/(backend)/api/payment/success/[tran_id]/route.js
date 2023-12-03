@@ -1,11 +1,13 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 
-const connection = await pool.getConnection();
+
 
 export async function GET(req, content) {
   try {
     const tran_id = content.params.tran_id;
+
+    const connection = await pool.getConnection();
     const [data] = await connection.query(
       "SELECT * FROM appointments WHERE tran_id=?",
       [tran_id]
@@ -23,6 +25,7 @@ export async function POST(req, content) {
     const tran_id = content.params.tran_id;
     // console.log(tran_id);
 
+    const connection = await pool.getConnection();
     await connection.query("UPDATE appointments SET paid=? WHERE tran_id=?", [
       true,
       tran_id,

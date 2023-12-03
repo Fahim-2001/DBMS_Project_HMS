@@ -2,10 +2,11 @@ import pool from "@/app/(backend)/utils/db";
 import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
-const connection = await pool.getConnection();
+
 
 export async function GET(req, content) {
   try {
+    const connection = await pool.getConnection();
     // Appointment By Reference Email [email which is used during booking appointment].
     if (content.params.id.includes("@gmail.com")) {
       const [data] = await connection.query(
@@ -33,8 +34,9 @@ export async function PUT(req, content) {
     const body = await req.json();
     const appt_id = content.params.id;
     // console.log(body, appt_id);
-
+    
     // Updates appointment's Status, Prescription (uploaded or not), Test Preferences by Appointment Id
+    const connection = await pool.getConnection();
     await connection.query(
       sqlQueries.appointments.updateStatusPrescriptionTestPreferenceById,
       [body?.appt_status, body?.prescription, body?.test_preferences, appt_id]

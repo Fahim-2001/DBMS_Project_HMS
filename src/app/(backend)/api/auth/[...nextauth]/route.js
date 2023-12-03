@@ -4,7 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 
-const connection = await pool.getConnection();
 
 export const authOption = {
   session: {
@@ -17,10 +16,12 @@ export const authOption = {
           throw new Error("Provide email and password");
         }
         // Getting user by his/her e-mail from database
+        const connection = await pool.getConnection();
         const [data] = await connection.query(sqlQueries.users.getByEmail, [
           credentials.email,
         ]);
         connection.release();
+        
         const user = data[0];
 
         // Verification of email and password.

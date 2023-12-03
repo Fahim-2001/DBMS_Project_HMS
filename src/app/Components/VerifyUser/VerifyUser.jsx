@@ -147,7 +147,7 @@ const VerifyUser = () => {
           We have emailed you an One Time Password.
           <span className="mx-2">Enter that OTP here to verify yourself.</span>
         </p>
-        <p id="countdown"></p>
+        
         <p className="mb-3">
           Didn't you get OTP?
           <span

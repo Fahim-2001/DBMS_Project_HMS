@@ -3,27 +3,23 @@ import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
-const connection = await pool.getConnection();
-
 // User By ID
 export async function GET(req, content) {
   try {
     const userId = content.params.id;
+    const connection = await pool.getConnection();
 
-    if(content.params.id.includes('@gmail.com')){
-      const [user] = await connection.query(
-        sqlQueries.users.getByEmail,
-        [userId]
-      );
+    // USER by EMAIL
+    if (content.params.id.includes("@gmail.com")) {
+      const [user] = await connection.query(sqlQueries.users.getByEmail, [
+        userId,
+      ]);
       connection.release();
-      return NextResponse.json(user[0] || {}, {status:200});
+      return NextResponse.json(user[0] || {}, { status: 200 });
     }
 
     // Retrieving Data from database
-    const [user] = await connection.query(
-      sqlQueries.users.getById,
-      [userId]
-    );
+    const [user] = await connection.query(sqlQueries.users.getById, [userId]);
     connection.release();
 
     // console.log(user);
@@ -37,7 +33,9 @@ export async function PUT(req, content) {
   try {
     const userId = content.params.id;
     const body = await req.json();
-    console.log(body);
+    // console.log(body);
+
+    const connection = await pool.getConnection();
 
     // Users Role Update
     if (body?.userRole != null) {
@@ -45,21 +43,17 @@ export async function PUT(req, content) {
         body?.userRole,
         userId,
       ]);
-      connection.release();
     }
 
     // Password Reset Operation
     if (body.old_pass && body.new_pass) {
-      const [user] = await connection.query(
-        sqlQueries.users.getById,
-        [userId]
-      );
+      const [user] = await connection.query(sqlQueries.users.getById, [userId]);
 
       // Password comparison
-      const didMatched = await bcrypt.compare(body.old_pass, user[0].password);
+      const didMatch = await bcrypt.compare(body.old_pass, user[0].password);
 
       // Sending message if password do not matches.
-      if (!didMatched) {
+      if (!didMatch) {
         return NextResponse.json(
           { message: "Old Password Didn't Matched" },
           { status: 500 }
@@ -69,20 +63,18 @@ export async function PUT(req, content) {
       //New Password Hashing
       const password = await bcrypt.hash(body?.new_pass, 10);
       // Updating password
-      await connection.query(
-        sqlQueries.users.updatePasswordById,
-        [password, userId]
-      );
-      connection.release();
+      await connection.query(sqlQueries.users.updatePasswordById, [
+        password,
+        userId,
+      ]);
     }
 
     // Update Phone Number by Id.
     if (body?.phone_number) {
-      await connection.query(
-        sqlQueries.users.updatePhoneNumberById,
-        [body?.phone_number, userId]
-      );
-      connection.release();
+      await connection.query(sqlQueries.users.updatePhoneNumberById, [
+        body?.phone_number,
+        userId,
+      ]);
     }
 
     // Update Address by Id.
@@ -91,7 +83,6 @@ export async function PUT(req, content) {
         body?.address,
         userId,
       ]);
-      connection.release();
     }
 
     // // Update Profile Picture by Id.
@@ -100,9 +91,9 @@ export async function PUT(req, content) {
         body?.picture,
         userId,
       ]);
-      connection.release();
     }
 
+    connection.release();
     return NextResponse.json({ message: "Update Successful" }, { status: 200 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });

@@ -1,6 +1,5 @@
 import pool from "@/app/(backend)/utils/db";
 
-const connection = await pool.getConnection();
 
 
 export async function POST(req, content) {
@@ -8,6 +7,7 @@ export async function POST(req, content) {
     const tran_id = content.params.tran_id;
     // console.log(tran_id);
 
+    const connection = await pool.getConnection();
     await connection.query('DELETE FROM appointments WHERE tran_id=?',[tran_id]);
     connection.release()
 

@@ -9,7 +9,7 @@ import {
 } from "@/app/(backend)/utils/sslCommerz";
 import { sqlQueries } from "../../utils/sqlQueries";
 
-const connection = await pool.getConnection();
+
 const date = new Date();
 
 export async function POST(req, res) {
@@ -18,7 +18,8 @@ export async function POST(req, res) {
       order.booking_date = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
       const tran_id = Math.random().toString(36).substring(2, 15);
       // console.log(order);
-
+      
+      const connection = await pool.getConnection();
       await connection.query(sqlQueries.appointments.postNew, [
         order?.patient_name,
         order?.patient_age,
@@ -84,6 +85,7 @@ export async function POST(req, res) {
       });
       // console.log("Redirecting to:", GatewayPageURL);
       
+      connection.release()
       return NextResponse.json({ url: GatewayPageURL , status:201});
     } catch (error) {
       console.log(error.message);

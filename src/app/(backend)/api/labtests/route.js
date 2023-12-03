@@ -3,11 +3,12 @@ import { NextResponse } from "next/server";
 import { sqlQueries } from "../../utils/sqlQueries";
 import { generateUniqueCode } from "../../utils/generateUniqueCode";
 
-const connection = await pool.getConnection();
+
 
 // Doctor By ID api
 export async function GET(req) {
   try {
+    const connection = await pool.getConnection();
     const [data] = await connection.query(sqlQueries.labtests.getAll);
     connection.release();
     // console.log("From API ->",data);
@@ -28,6 +29,7 @@ export async function POST(req) {
 
     console.log(labtest, unique_id);
 
+    const connection = await pool.getConnection();
     await connection.query(
       sqlQueries.labtests.postNew,
       [

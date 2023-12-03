@@ -3,13 +3,13 @@ import { generate } from "generate-password";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../utils/sqlQueries";
 
-const connection = await pool.getConnection();
-
 //All Registered Vaccine Info
 export async function GET(req) {
   try {
+    const connection = await pool.getConnection();
     const [data] = await connection.query(sqlQueries.vaccineforms.getAll);
     connection.release();
+
     // console.log(data);
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
@@ -33,12 +33,14 @@ export async function POST(req) {
 
     // Current Date
     const reg_date = `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`;
+
     // This token is generated to identify current request in the next query to generate pdf.
     const token = generate({
       length: 5,
       numbers: true,
     });
 
+    const connection = await pool.getConnection();
     await connection.query(sqlQueries.vaccineforms.postNew, [
       fullname,
       age,
@@ -51,13 +53,13 @@ export async function POST(req) {
       token,
       reg_date,
     ]);
-    connection.release();
 
     const data = await connection.query(sqlQueries.vaccineforms.getByToken, [
       token,
     ]);
     const vaccineInfo = data[0][0];
 
+    connection.release();
     return NextResponse.json(
       vaccineInfo,
       { message: "Vaccine for submission done!" },

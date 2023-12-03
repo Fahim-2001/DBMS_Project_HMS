@@ -2,12 +2,14 @@ import pool from "@/app/(backend)/utils/db";
 import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
-const connection = await pool.getConnection();
+
 function isLowercase(departmentName) {
   return /^[a-z]+$/.test(departmentName);
 }
 export async function GET(req, content) {
   try {
+    const connection = await pool.getConnection();
+
     // Doctors By Department
     if(isLowercase(content.params.slug)){
       const [data] = await connection.query(sqlQueries.doctors.getByDepartment,[content.params.slug])
@@ -42,6 +44,8 @@ export async function PUT(req, content) {
     const doc_id = content.params.slug;
     const body = await req.json();
     // console.log(doc_id, body)
+
+    const connection = await pool.getConnection();
 
     //Phone Number Update
     if (body.phone_number) {

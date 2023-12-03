@@ -2,12 +2,13 @@ import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../utils/sqlQueries";
 
-const connection = await pool.getConnection();
+
 
 // All Reviews get method.
 export async function GET(req, res) {
   try {
     // Retrieving Data from database
+    const connection = await pool.getConnection();
     const [data] = await connection.query(sqlQueries.reviews.getAll);
     connection.release();
 
@@ -27,6 +28,7 @@ export async function POST(req) {
     // console.log(review)
 
     // Sending Data to Database
+    const connection = await pool.getConnection();
     const data = await connection.query(sqlQueries.reviews.postNew, [
       review.name,
       review.email,

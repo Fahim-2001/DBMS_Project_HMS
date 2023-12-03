@@ -2,12 +2,13 @@ import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../../utils/sqlQueries";
 
-const connection = await pool.getConnection();
+
 const date = new Date();
 
 // Doctor By ID api
 export async function GET(req) {
   try {
+    const connection = await pool.getConnection();
     const [data] = await connection.query(sqlQueries.appointments.getAll);
     connection.release();
     // console.log(data);
@@ -23,7 +24,8 @@ export async function POST(req, res) {
     patient.booking_date = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
     patient.tran_id=null;
     console.log(patient);
-    
+
+    const connection = await pool.getConnection();
     await connection.query(sqlQueries.appointments.postNew, [
       patient?.patient_name,
       patient?.patient_age,
@@ -47,6 +49,8 @@ export async function POST(req, res) {
       patient?.appt_time,
       patient?.unique_id
     ]);
+
+    connection.release()
     
     return NextResponse.json({ message: "Appointment Done" , status:201});
   } catch (error) {

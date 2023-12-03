@@ -2,10 +2,10 @@ import pool from "@/app/(backend)/utils/db";
 import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
-const connection = await pool.getConnection();
 
 export async function GET(req, content) {
   try {
+    const connection = await pool.getConnection();
     // Appointment by user's email and appointment id.
     const [data] = await connection.query(
       sqlQueries.appointments.getByEmailAndId,

@@ -3,12 +3,11 @@ import { NextResponse } from "next/server";
 import { sqlQueries } from "../../utils/sqlQueries";
 import bcrypt from "bcryptjs";
 
-const connection = await pool.getConnection();
-
 // All Users
 export async function GET(req, res) {
   try {
     // Retrieving Data from database
+    const connection = await pool.getConnection();
     const [data] = await connection.query(
       sqlQueries.users.getAll
     );
@@ -29,6 +28,7 @@ export async function POST(req) {
     const hashedPass = await bcrypt.hash(user.password, 10);
 
     // Sending Data to Database
+    const connection = await pool.getConnection();
     await connection.query(
       sqlQueries.users.postNew,
       [
@@ -44,6 +44,7 @@ export async function POST(req) {
 
     return NextResponse.json({ message: "User Registered!" }, { status: 201 });
   } catch (error) {
+    console.log(error.message)
     return NextResponse.json(error.message, { status: 500 });
   }
 }
@@ -54,8 +55,10 @@ export async function DELETE(req) {
     const url = new URL(req.url);
     const email = url.searchParams.get("email");
     // console.log("User email : ", email);
-
+    
+    const connection = await pool.getConnection();
     await connection.query(sqlQueries.users.deleteByEmail, [email]);
+    connection.release()
 
     return NextResponse.json(
       { message: "Deletion Successful" },

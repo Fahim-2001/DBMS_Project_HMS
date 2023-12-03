@@ -62,21 +62,45 @@ export const SignUpForm = () => {
       }
 
       // SEND OTP API
-      const otpCredentials = await fetch(`http://localhost:3000/api/send-otp`, {
+      // const otpCredentials = await fetch(`http://localhost:3000/api/send-otp`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(user),
+      // }).then((res) => res.json());
+
+      // window.localStorage.setItem("user", JSON.stringify(user));
+      // window.localStorage.setItem(
+      //   "verification-credentials",
+      //   JSON.stringify(otpCredentials)
+      // );
+
+      // router.push("http://localhost:3000/signup/verification");
+
+      // ------------------Overriding OTP to add dummy  user------------------------//
+      // POST method to send user data to db
+      const res = await fetch("http://localhost:3000/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
-      }).then((res) => res.json());
+      });
+      router.refresh();
+      setError("");
 
-      window.localStorage.setItem("user", JSON.stringify(user));
-      window.localStorage.setItem(
-        "verification-credentials",
-        JSON.stringify(otpCredentials)
-      );
-
-      router.push("http://localhost:3000/signup/verification");
+      if (res.ok) {
+        await signIn("credentials", {
+          email: user?.email,
+          password: user?.password,
+          redirect: false,
+        });
+        window.localStorage.removeItem("user");
+        window.localStorage.removeItem("verification-credentials");
+        router.replace("/");
+      }
+      // -----------------------------------------//
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -255,7 +279,8 @@ export const SignUpForm = () => {
                 disabled
                 className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
-                Sending OTP <span className="loading loading-spinner mx-2 loading-xs"></span>
+                Sending OTP{" "}
+                <span className="loading loading-spinner mx-2 loading-xs"></span>
               </button>
             ) : (
               <button

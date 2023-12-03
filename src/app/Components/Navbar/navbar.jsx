@@ -109,7 +109,7 @@ export default function Navbar() {
                       src={
                         runningUser?.gender == "male"
                           ? "https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
-                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KPUL8FzWe7WpCqb0fIy6Q2uBRhtydqEFeg&usqp=CAU"
+                          : "https://www.svgrepo.com/show/382100/female-avatar-girl-face-woman-user-7.svg"
                       }
                     />
                   )}

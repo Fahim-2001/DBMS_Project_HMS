@@ -2,11 +2,12 @@ import pool from "@/app/(backend)/utils/db";
 import { sqlQueries } from "@/app/(backend)/utils/sqlQueries";
 import { NextResponse } from "next/server";
 
-const connection = await pool.getConnection();
+
 
 // Doctor By ID api
 export async function GET(req, content) {
   try {
+    const connection = await pool.getConnection();
     // Lab Report By Email used during registration
     if (content.params.slug.includes("@gmail.com")) {
       const [data] = await connection.query(

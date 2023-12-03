@@ -2,7 +2,7 @@ import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../../utils/sqlQueries";
 
-const connection = await pool.getConnection();
+
 
 // Doctor By ID api
 export async function GET(req) {
@@ -11,6 +11,7 @@ export async function GET(req) {
     const doctorEmail = url.searchParams.get("doctoremail");
     // console.log(doctorEmail);
 
+    const connection = await pool.getConnection();
     const [data] = await connection.query(
       sqlQueries.appointments.getByDoctorsEmail,
       [doctorEmail]
