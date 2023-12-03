@@ -1,11 +1,11 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Navbar from "./(frontend)/Components/Navbar/navbar";
-import { Footer } from "./(frontend)/Components/Footer/Footer";
+import Navbar from "./frontend/Components/Navbar/navbar";
+import { Footer } from "./frontend/Components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./providers";
-import UserDataProvider from "./(frontend)/Contexts/UserDataProvider/UserDataProvider";
+import UserDataProvider from "./frontend/Contexts/UserDataProvider/UserDataProvider";
 import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
