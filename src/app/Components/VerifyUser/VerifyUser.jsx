@@ -31,7 +31,10 @@ const VerifyUser = () => {
         JSON.stringify(otpCredentials)
       );
 
-      toast.success("OTP sent to your mail.", {position:'top-center', autoClose:500})
+      toast.success("OTP sent to your mail.", {
+        position: "top-center",
+        autoClose: 500,
+      });
       router.refresh();
     } catch (error) {
       console.log(error.message);
@@ -109,37 +112,37 @@ const VerifyUser = () => {
             type="text"
             required
             name="a"
-            className="input input-bordered mx-2 w-12"
+            className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
             required
             name="b"
-            className="input input-bordered mx-2 w-12"
+            className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
             required
             name="c"
-            className="input input-bordered mx-2 w-12"
+            className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
             required
             name="d"
-            className="input input-bordered mx-2 w-12"
+            className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
             required
             name="e"
-            className="input input-bordered mx-2 w-12"
+            className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
             required
             name="f"
-            className="input input-bordered mx-2 w-12"
+            className="input input-bordered font-semibold mx-2 w-12"
           />
         </div>
         {error && <small className="text-red-600 mt-1">{error}</small>}
@@ -147,7 +150,7 @@ const VerifyUser = () => {
           We have emailed you an One Time Password.
           <span className="mx-2">Enter that OTP here to verify yourself.</span>
         </p>
-        
+
         <p className="mb-3">
           Didn't you get OTP?
           <span

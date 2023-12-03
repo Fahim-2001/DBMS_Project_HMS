@@ -28,23 +28,23 @@ export async function POST(req) {
 
     console.log(doctor);
 
-    // const mail = await transporter.sendMail({
-    //   from: process.env.EMAIL,
-    //   to: doctor?.email,
-    //   subject: "Welcome Message",
-    //   text: `Welcome ${doctor?.firstname} to PHP Hospital`,
-    //   html: `
-    //     <h1>Hello ${doctor?.firstname}, cordial welcome to PHP Hospital ❤️</h1>
-    //     <h3>Your Credentials</h3>
-    //     </br>
-    //     <p>Password : ${doctor?.password}</p>
-    //     </br>
-    //     <p><small>Use this password to log into PHP Hospital</small></p>
-    //     <p><small>You can reset this password going to your profile</small></p>
-    //     <h3>Thank You!</h3>
-    //   `,
-    // });
-    // console.log("Successfully sent credentials " + mail.messageId);
+    const mail = await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: doctor?.email,
+      subject: "Welcome Message",
+      text: `Welcome ${doctor?.firstname} to PHP Hospital`,
+      html: `
+        <h1>Hello ${doctor?.firstname}, cordial welcome to PHP Hospital ❤️</h1>
+        <h3>Your Credentials</h3>
+        </br>
+        <p>Password : ${doctor?.password}</p>
+        </br>
+        <p><small>Use this password to log into PHP Hospital</small></p>
+        <p><small>You can reset this password going to your profile</small></p>
+        <h3>Thank You!</h3>
+      `,
+    });
+    console.log("Successfully sent credentials " + mail.messageId);
 
     const connection = await pool.getConnection();
     await connection.query(sqlQueries.doctors.postNew, [

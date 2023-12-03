@@ -62,45 +62,21 @@ export const SignUpForm = () => {
       }
 
       // SEND OTP API
-      // const otpCredentials = await fetch(`http://localhost:3000/api/send-otp`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(user),
-      // }).then((res) => res.json());
-
-      // window.localStorage.setItem("user", JSON.stringify(user));
-      // window.localStorage.setItem(
-      //   "verification-credentials",
-      //   JSON.stringify(otpCredentials)
-      // );
-
-      // router.push("http://localhost:3000/signup/verification");
-
-      // ------------------Overriding OTP to add dummy  user------------------------//
-      // POST method to send user data to db
-      const res = await fetch("http://localhost:3000/api/users", {
+      const otpCredentials = await fetch(`http://localhost:3000/api/send-otp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
-      });
-      router.refresh();
-      setError("");
+      }).then((res) => res.json());
 
-      if (res.ok) {
-        await signIn("credentials", {
-          email: user?.email,
-          password: user?.password,
-          redirect: false,
-        });
-        window.localStorage.removeItem("user");
-        window.localStorage.removeItem("verification-credentials");
-        router.replace("/");
-      }
-      // -----------------------------------------//
+      window.localStorage.setItem("user", JSON.stringify(user));
+      window.localStorage.setItem(
+        "verification-credentials",
+        JSON.stringify(otpCredentials)
+      );
+
+      router.push("http://localhost:3000/signup/verification");
     } catch (error) {
       console.log(error.message);
     } finally {
