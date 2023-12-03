@@ -18,8 +18,6 @@
 # misc
 .DS_Store
 *.pem
-/src/*
-!/src/(backend)/
 
 # debug
 npm-debug.log*
