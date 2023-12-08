@@ -18,13 +18,7 @@
 # misc
 .DS_Store
 *.pem
-/src/*
-src/app/globals.css
-src/app/layout.jsx
-src/app/loading.jsx
-src/app/page.jsx
-src/app/providers.js
-!/src/(backend)/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
