@@ -1,6 +1,7 @@
 import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../utils/sqlQueries";
+import { transporter } from "../../utils/nodemailer";
 // import { transporter } from "../../utils/nodemailer";
 
 
