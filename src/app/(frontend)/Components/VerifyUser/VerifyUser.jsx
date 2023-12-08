@@ -52,7 +52,6 @@ const VerifyUser = () => {
       const verificationCredentials = JSON.parse(
         window.localStorage.getItem("verification-credentials")
       );
-      console.log(user, "\n", verificationCredentials);
 
       const enteredCode =
         e.target.a.value +
