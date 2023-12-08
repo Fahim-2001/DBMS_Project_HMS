@@ -1,8 +1,8 @@
-import Catalogue from '@/app/(frontend)/HomePageComponents/CatalogueForHome/Catalogue'
-import { ChooseUsMessage } from './(frontend)/HomePageComponents/ChooseUsMessage/ChooseUsMessage';
-import { OurLatestTechnologies } from './(frontend)/HomePageComponents/OurLatestTechnologies/OurLatestTechnologies';
-import { GetInTouch } from './(frontend)/HomePageComponents/GetInTouch/GetInTouch';
-import ReviewSection from './(frontend)/HomePageComponents/ReviewSection/ReviewSection';
+import Catalogue from '@/app/FRONTEND/HomePageComponents/CatalogueForHome/Catalogue'
+import { ChooseUsMessage } from './FRONTEND/HomePageComponents/ChooseUsMessage/ChooseUsMessage';
+import { OurLatestTechnologies } from './FRONTEND/HomePageComponents/OurLatestTechnologies/OurLatestTechnologies';
+import { GetInTouch } from './FRONTEND/HomePageComponents/GetInTouch/GetInTouch';
+import ReviewSection from './FRONTEND/HomePageComponents/ReviewSection/ReviewSection';
 export default function Home() {
   
   return (
