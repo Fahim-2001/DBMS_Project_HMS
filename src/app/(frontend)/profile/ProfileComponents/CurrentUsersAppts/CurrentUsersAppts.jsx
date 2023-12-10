@@ -2,10 +2,12 @@
 import { UserDataContext } from "@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider";
 import React, { useContext, useEffect, useState } from "react";
 import { generatePrescription } from "../../../utils/generatePrescription";
+import { useRouter } from "next/navigation";
 
 const CurrentUsersAppts = () => {
+  const router = useRouter()
   const { runningUser } = useContext(UserDataContext);
-  const [appointments, setAppointments] = useState();
+  const [appointments, setAppointments] = useState([]);
 
   // Appointment Data Fetching sending user's email those are under the email.
   useEffect(() => {
@@ -17,7 +19,7 @@ const CurrentUsersAppts = () => {
         }
       )
         .then((res) => res.json())
-        .then((data) => setAppointments(data || []));
+        .then((data) => setAppointments(data));
     };
     getAppts();
   }, [runningUser?.email]);
@@ -39,6 +41,7 @@ const CurrentUsersAppts = () => {
 
     e.target.reset();
   };
+
   return (
     <div>
       {/* Search By Report Id Field */}
@@ -69,7 +72,7 @@ const CurrentUsersAppts = () => {
           </svg>
         </button>
       </form>
-      {appointment != null &&
+      {appointment != null && (
         <div className="overflow-x-auto">
           <table className="table table-xs">
             <thead>
@@ -102,25 +105,46 @@ const CurrentUsersAppts = () => {
                   {appointment?.appt_status === "Unchecked" ? (
                     <p>Not Uploaded</p>
                   ) : (
-                     <button
-                    className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
-                    onClick={() => {
-                      generatePrescription(appointment?.appt_id);
-                      setAppointment(null);
-                    }}
-                  >
-                    Download
-                  </button>
+                    <button
+                      className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+                      onClick={() => {
+                        generatePrescription(appointment?.appt_id);
+                        setAppointment(null);
+                      }}
+                    >
+                      Download
+                    </button>
                   )}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-      }
+      )}
       <div className="flex justify-between text-xs font-semibold mr-3">
         <p> Your Lab Reports Table</p>
-        <p>Total Count :{appointments?.length}</p>
+        <div className="flex gap-2 items-center">
+          <p>Total Count :{appointments?.length}</p>
+          <svg
+            fill="#000000"
+            width="18px"
+            height="18px"
+            viewBox="0 0 32 32"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            onClick={()=>router.refresh()}
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path d="M0 16q0-2.784 1.088-5.312t2.912-4.384 4.384-2.912 5.344-1.088q2.784 0 5.312 1.088t4.384 2.912 2.912 4.384 1.088 5.312h2.304q0.736 0 1.28 0.416t0.8 1.024 0.16 1.28-0.64 1.184l-4.576 4.576q-0.672 0.672-1.6 0.672t-1.632-0.672l-4.576-4.576q-0.512-0.512-0.608-1.184t0.128-1.28 0.8-1.024 1.312-0.416h2.272q0-2.464-1.216-4.576t-3.328-3.328-4.576-1.216-4.608 1.216-3.328 3.328-1.216 4.576 1.216 4.608 3.328 3.328 4.608 1.216q1.728 0 3.36-0.64l3.424 3.392q-3.136 1.824-6.784 1.824-2.816 0-5.344-1.088t-4.384-2.912-2.912-4.384-1.088-5.344z"></path>
+            </g>
+          </svg>
+        </div>
       </div>
       <div className="overflow-x-auto">
         <table className="table table-xs">

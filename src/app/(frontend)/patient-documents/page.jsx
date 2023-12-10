@@ -50,7 +50,7 @@ const page = () => {
         <input
           type="text"
           name="query"
-          placeholder="Type appointment id for prescription or lab report unique id for lab report here."
+          placeholder="Type appointment unique id for prescription / lab report unique id for lab report here."
           className="input input-bordered input-sm w-full"
         />
         <button

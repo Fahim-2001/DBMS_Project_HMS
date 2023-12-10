@@ -6,14 +6,14 @@ const ShowDoctors = async () => {
   const doctors = await fetch(`${process.env.NEXT_PUBLIC_URL}api/doctors`, {
     cache: "no-store",
   }).then((res) => res.json());
-//   console.log(doctors);
+  //   console.log(doctors);
 
   return (
     <div className="overflow-x-auto">
-        <div className="flex justify-between text-xs font-semibold mr-3">
-          <p>Doctors Table</p>
-          <p>Total Count :{doctors.length}</p>
-        </div>
+      <div className="flex justify-between text-xs font-semibold mr-3">
+        <p>Doctors Table</p>
+        <p>Total Count :{doctors?.length}</p>
+      </div>
       <table className="table table-xs">
         <thead>
           <tr>
@@ -23,7 +23,7 @@ const ShowDoctors = async () => {
             <th>Gender</th>
             <th>Speciality</th>
             <th>Registered In</th>
-            <th>Role</th>
+            <th>Available</th>
           </tr>
         </thead>
         <tbody>
@@ -35,7 +35,9 @@ const ShowDoctors = async () => {
               <td>{doctor?.gender}</td>
               <td>{doctor?.speciality}</td>
               <td>{doctor?.createdAt}</td>
-              <td>{doctor?.role}</td>
+              <td>
+                {doctor?.available_from} to {doctor?.available_to}
+              </td>
               <td>
                 <DeleteDoctor doctor={doctor} />
               </td>
@@ -50,7 +52,7 @@ const ShowDoctors = async () => {
             <th>Gender</th>
             <th>Speciality</th>
             <th>Registered In</th>
-            <th>Role</th>
+            <th>Available</th>
           </tr>
         </tfoot>
       </table>

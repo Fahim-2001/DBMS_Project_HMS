@@ -17,13 +17,16 @@ const VerifyUser = () => {
       const user = JSON.parse(window.localStorage.getItem("user"));
 
       //   Request for new OTP [POST]
-      const otpCredentials = await fetch(`${process.env.NEXT_PUBLIC_URL}api/send-otp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }).then((res) => res.json());
+      const otpCredentials = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}api/send-otp`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      ).then((res) => res.json());
 
       //   Saving new credentials into localstorage
       window.localStorage.setItem(
@@ -109,36 +112,42 @@ const VerifyUser = () => {
         <div className="flex justify-center">
           <input
             type="text"
+            maxLength={1}
             required
             name="a"
             className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
+            maxLength={1}
             required
             name="b"
             className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
+            maxLength={1}
             required
             name="c"
             className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
+            maxLength={1}
             required
             name="d"
             className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
+            maxLength={1}
             required
             name="e"
             className="input input-bordered font-semibold mx-2 w-12"
           />
           <input
             type="text"
+            maxLength={1}
             required
             name="f"
             className="input input-bordered font-semibold mx-2 w-12"

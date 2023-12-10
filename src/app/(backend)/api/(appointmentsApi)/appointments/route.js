@@ -2,7 +2,6 @@ import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../../utils/sqlQueries";
 
-
 const date = new Date();
 
 // Doctor By ID api
@@ -12,7 +11,7 @@ export async function GET(req) {
     const [data] = await connection.query(sqlQueries.appointments.getAll);
     connection.release();
     // console.log(data);
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json(data || [], { status: 200 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }
@@ -22,7 +21,7 @@ export async function POST(req, res) {
   try {
     const patient = await req.json();
     patient.booking_date = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
-    patient.tran_id=null;
+    patient.tran_id = null;
     console.log(patient);
 
     const connection = await pool.getConnection();
@@ -47,14 +46,14 @@ export async function POST(req, res) {
       patient?.booking_date,
       patient?.tran_id,
       patient?.appt_time,
-      patient?.unique_id
+      patient?.unique_id,
     ]);
 
-    connection.release()
-    
-    return NextResponse.json({ message: "Appointment Done" , status:201});
+    connection.release();
+
+    return NextResponse.json({ message: "Appointment Done", status: 201 });
   } catch (error) {
     console.log(error.message);
-    // NextResponse.json({ message: error.message }, { status: 500 });
+    NextResponse.json({ message: error.message }, { status: 500 });
   }
 }

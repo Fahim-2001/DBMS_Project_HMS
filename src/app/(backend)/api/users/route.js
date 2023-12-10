@@ -14,7 +14,7 @@ export async function GET(req, res) {
     connection.release();
 
     // console.log(data);
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json(data || [], { status: 200 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }
