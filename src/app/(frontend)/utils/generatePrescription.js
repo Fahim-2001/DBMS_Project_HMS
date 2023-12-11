@@ -32,7 +32,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Patient Name ", 10, 40, "left")
     .text(":", 32, 40)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment?.patient_name}`, 34, 40);
 
   // Age
@@ -42,7 +42,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Patient Age ", 72, 40, "left")
     .text(":", 90, 40)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment?.patient_age} y/o`, 92, 40);
 
   // Gender
@@ -52,7 +52,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Patient Gender ", 105, 40, "left")
     .text(":", 129, 40)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment?.patient_gender}`, 132, 40);
 
   // Contact Number
@@ -62,7 +62,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Phone Number ", 145, 40, "left")
     .text(":", 169, 40)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment?.patient_contact}`, 172, 40);
 
   // ----------------  Row 2 --------------------
@@ -73,7 +73,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Patient Address ", 10, 45, "left")
     .text(":", 35, 45)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment?.patient_address}`, 37, 45);
 
   // Issue
@@ -83,7 +83,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Patient Issue ", 72, 45, "left")
     .text(":", 92, 45)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment?.patient_issue}`, 94, 45);
 
   // appointment Fee
@@ -93,7 +93,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Appointment Fee ", 145, 45, "left")
     .text(":", 173, 45)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment?.appt_fee} BDT`, 175, 45);
 
   // ----------------  Row 3 --------------------
@@ -104,7 +104,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Appointment Id ", 10, 50, "left")
     .text(":", 35, 50)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment.appt_id}`, 40, 50);
 
   // Appt Type
@@ -114,7 +114,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Appointment Type ", 72, 50, "left")
     .text(":", 102, 50)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment.appt_type} y/o`, 105, 50);
 
   // Appt Date
@@ -124,7 +124,7 @@ export const generatePrescription = async (appt_id) => {
     .setTextColor("black")
     .text("Appointment Date ", 145, 50, "left")
     .text(":", 173, 50)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${appointment.appt_date}`, 175, 50);
   prescription.line(10, 55, 200, 55); // horizontal line
 
@@ -182,7 +182,7 @@ export const generatePrescription = async (appt_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Created by : ", 10, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`PHP HMS Software`, 30, 270);
   // Collection date
   prescription
@@ -190,7 +190,7 @@ export const generatePrescription = async (appt_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Collection Date : ", 90, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
       115,
@@ -202,7 +202,7 @@ export const generatePrescription = async (appt_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Collection Time : ", 155, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().toLocaleString([], {
         hour: "2-digit",

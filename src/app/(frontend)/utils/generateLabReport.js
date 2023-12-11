@@ -33,7 +33,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Report Id :", 10, 40, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${labReport?.id}`, 30, 40);
 
   // Fullname
@@ -42,7 +42,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Name : ", 52, 40, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${labReport?.fullname}`, 65, 40);
 
   // Gender
@@ -51,7 +51,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Gender :", 100, 40, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${labReport?.gender}`, 115, 40);
 
   // Email
@@ -60,7 +60,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Email :", 150, 40, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${labReport?.email}`, 164, 40);
 
   // ----------------  Row 2 --------------------
@@ -70,7 +70,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Age : ", 10, 45, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${labReport?.age}`, 23, 45);
 
   // Contact
@@ -79,7 +79,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Contact : ", 52, 45, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${labReport?.contact}`, 70, 45);
 
   // Test Fee
@@ -88,7 +88,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Test Fee :", 100, 45, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${labReport?.payable_amount} BDT`, 115, 45);
 
   // Number Of Tests
@@ -97,7 +97,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Number of tests :", 150, 45, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${labReport?.number_of_tests}`, 178, 45);
 
   report.line(10, 50, 200, 50); // horizontal line
@@ -134,7 +134,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Created by : ", 10, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`PHP HMS Software`, 30, 270);
   // Collection date
   report
@@ -142,7 +142,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Collection Date : ", 90, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
       115,
@@ -154,7 +154,7 @@ export const generateLabReport = async (rep_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Collection Time : ", 155, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().toLocaleString([], {
         hour: "2-digit",

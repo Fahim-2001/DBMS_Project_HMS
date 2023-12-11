@@ -44,26 +44,26 @@ export const generateTestsInvoice = async (unique_id) => {
   const row1Yaxis = 50;
   // Token
   testInvoice
-    .setFont("", "bold")
+    .setFont("times", "bold")
     .setFontSize(14)
     .text("Token :", 10, row1Yaxis, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${testInfo?.unique_id}`, 28, row1Yaxis, "left");
 
   // Number Of Tests
   testInvoice
-    .setFont("", "bold")
+    .setFont("times", "bold")
     .setFontSize(14)
     .text("Number Of Tests :", 80, row1Yaxis, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${testInfo?.number_of_tests}`, 120, row1Yaxis, "left");
 
   // Registration Date
   testInvoice
-    .setFont("", "bold")
+    .setFont("times", "bold")
     .setFontSize(14)
     .text("Registration Date :", 155, row1Yaxis, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
       200,
@@ -75,45 +75,45 @@ export const generateTestsInvoice = async (unique_id) => {
   const row2Yaxis = 60;
   // Name
   testInvoice
-    .setFont("", "bold")
+    .setFont("times", "bold")
     .setFontSize(14)
     .text("Name :", 10, row2Yaxis, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${testInfo.fullname}`, 28, row2Yaxis, "left");
 
   // Gender
   testInvoice
-    .setFont("", "bold")
+    .setFont("times", "bold")
     .setFontSize(14)
     .text("Gender :", 80, row2Yaxis, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${testInfo.gender}`, 100, row2Yaxis, "left");
 
   // Age
   testInvoice
-    .setFont("", "bold")
+    .setFont("times", "bold")
     .setFontSize(14)
     .text("Age :", 155, row2Yaxis, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${testInfo.age}`, 170, row2Yaxis, "left");
 
   // Contact
   testInvoice
-    .setFont("", "bold")
+    .setFont("times", "bold")
     .setFontSize(14)
     .text("Contact :", 230, row2Yaxis, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${testInfo.contact}`, 250, row2Yaxis, "left");
 
   testInvoice.line(0, 70, 300, 70); // horizontal line
   // --------------- ROW 3 ----------------------
   testInvoice
-    .setFont("", "bold")
+    .setFont("times", "bold")
     .setFontSize(14)
     .text("Tests Information :", 10, 80, "left");
 
   // Test Informations in Table
-  const tests = JSON.parse(testInfo?.tests || "");
+  const tests = JSON.parse(testInfo?.tests || "times");
   console.log(tests);
   const tableKeys = [["Test Id", "Test Name", "Price"]];
 
@@ -124,11 +124,11 @@ export const generateTestsInvoice = async (unique_id) => {
     totalCost += test?.price;
   });
 
-  tableKeys.push(["", "Total Amount", totalCost + " BDT"]);
-  tableKeys.push(["", "Paid Amount", testInfo?.advanced_amount + " BDT"]);
+  tableKeys.push(["times", "Total Amount", totalCost + " BDT"]);
+  tableKeys.push(["times", "Paid Amount", testInfo?.advanced_amount + " BDT"]);
 
   if (testInfo?.due_amount) {
-    tableKeys.push(["", "Due Amount", testInfo?.due_amount + " BDT"]);
+    tableKeys.push(["times", "Due Amount", testInfo?.due_amount + " BDT"]);
     // Due Seal
     testInvoice.addImage(
       "https://res.cloudinary.com/dqvsc6e7e/image/upload/v1700330437/phphospital-user-uploads/payment-due-text-red-grungy-round-rubber-stamp-vintage-219540081-removebg-preview_q1pbcl.png",
@@ -163,7 +163,7 @@ export const generateTestsInvoice = async (unique_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Created by : ", 10, 200, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`PHP HMS Software`, 30, 200);
 
   // Collection date
@@ -172,7 +172,7 @@ export const generateTestsInvoice = async (unique_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Collection Date : ", 140, 200, "center")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
       155,
@@ -185,7 +185,7 @@ export const generateTestsInvoice = async (unique_id) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Collection Time : ", 273, 200, "right")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().toLocaleString([], {
         hour: "2-digit",

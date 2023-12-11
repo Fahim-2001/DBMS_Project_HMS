@@ -25,7 +25,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Patient Name ", 10, 45, "left")
     .text(":", 55, 45)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.patient_name}`, 60, 45);
   // Age
   doc
@@ -34,7 +34,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Patient Age ", 10, 53, "left")
     .text(":", 55, 53)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.patient_age}`, 60, 53);
   // Gender
   doc
@@ -43,7 +43,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Patient Gender ", 10, 61, "left")
     .text(":", 55, 61)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.patient_gender}`, 60, 61);
   // Address
   doc
@@ -52,7 +52,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Address ", 10, 69, "left")
     .text(":", 55, 69)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.patient_address}`, 60, 69);
   //Contact
   doc
@@ -61,7 +61,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Contact ", 10, 77, "left")
     .text(":", 55, 77)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.patient_contact}`, 60, 77);
 
   // Unique Id
@@ -71,7 +71,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Unique Id ", 10, 85, "left")
     .text(":", 55, 85)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.unique_id}`, 60, 85);
 
   // Cause
@@ -81,7 +81,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Issue ", 10, 93, "left")
     .text(":", 25, 93)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.patient_issue}`, 30, 93);
 
   // Right Column
@@ -92,7 +92,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Doctor Id", 110, 45, "left")
     .text(":", 140, 45)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.doc_id}`, 145, 45);
   // Ref Doctor
   doc
@@ -101,7 +101,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Ref Doctor ", 110, 53, "left")
     .text(":", 140, 53)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.ref_doctor}`, 145, 53);
   // Department
   doc
@@ -110,7 +110,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Department ", 110, 61, "left")
     .text(":", 140, 61)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.department}`, 145, 61);
   // Appointment Type
   doc
@@ -119,7 +119,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Appt. Type ", 110, 69, "left")
     .text(":", 140, 69)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.appt_type}`, 145, 69);
   // Date
   doc
@@ -128,7 +128,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Appt. Date ", 110, 77, "left")
     .text(":", 140, 77)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.appt_date}`, 145, 77);
   // Availability
   doc
@@ -137,7 +137,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Appt. Time ", 110, 85, "left")
     .text(":", 140, 85)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.appt_time}`, 145, 85);
 
   doc.line(10, 98, 200, 98); // horizontal line
@@ -157,7 +157,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setTextColor("black")
     .text("Payable Fee ", 10, 115, "left")
     .text(":", 55, 115)
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`${patient?.appt_fee} BDT`, 60, 115);
 
   // Payment Status
@@ -168,7 +168,7 @@ export const generateAppointmentInvoice = (patient) => {
       .setTextColor("black")
       .text("Payment Status ", 10, 123, "left")
       .text(":", 55, 123)
-      .setFont("", "normal")
+      .setFont("times", "normal")
       .text("DUE", 60, 123);
 
     // Payment Instructions
@@ -195,7 +195,7 @@ export const generateAppointmentInvoice = (patient) => {
       .setTextColor("black")
       .text("Payment Status ", 10, 123, "left")
       .text(":", 55, 123)
-      .setFont("", "normal")
+      .setFont("times", "normal")
       .text("PAID", 60, 123);
 
     doc.addImage(
@@ -249,7 +249,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Created by : ", 10, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(`PHP HMS Software`, 30, 270);
   // Collection date
   doc
@@ -257,7 +257,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Collection Date : ", 90, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
       115,
@@ -269,7 +269,7 @@ export const generateAppointmentInvoice = (patient) => {
     .setFontSize(10)
     .setTextColor("black")
     .text("Collection Time : ", 155, 270, "left")
-    .setFont("", "normal")
+    .setFont("times", "normal")
     .text(
       `${new Date().toLocaleString([], {
         hour: "2-digit",
