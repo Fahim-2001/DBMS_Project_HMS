@@ -105,7 +105,7 @@ export const generateTestsInvoice = async (unique_id) => {
     .setFont("", "normal")
     .text(`${testInfo.contact}`, 250, row2Yaxis, "left");
 
-    testInvoice.line(0, 70, 300, 70); // horizontal line
+  testInvoice.line(0, 70, 300, 70); // horizontal line
   // --------------- ROW 3 ----------------------
   testInvoice
     .setFont("", "bold")
@@ -138,7 +138,7 @@ export const generateTestsInvoice = async (unique_id) => {
       40,
       40
     );
-  }else{
+  } else {
     testInvoice.addImage(
       "https://res.cloudinary.com/dqvsc6e7e/image/upload/v1700311752/phphospital-user-uploads/paid-grunge-rubber-stamp-vector-35946478-removebg-preview_jl1nda.png",
       "PNG",
@@ -155,8 +155,6 @@ export const generateTestsInvoice = async (unique_id) => {
     body: tableKeys.slice(1), // Data rows
     margin: { top: 85 },
   });
-
-
 
   // -------------------------- ROW 3 ----------------------------
   // Collection Data
@@ -197,5 +195,5 @@ export const generateTestsInvoice = async (unique_id) => {
       200
     );
 
-  testInvoice.save("vaccine ticket.pdf");
+  testInvoice.save(`${testInfo.fullname} Test Invoice.pdf`);
 };

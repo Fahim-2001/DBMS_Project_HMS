@@ -1,5 +1,5 @@
-import Loading from "@/app/(frontend)/Components/Loading/Loading";
 import React from "react";
+import Loading from "../Components/Loading/Loading";
 
 const loading = () => {
   return (

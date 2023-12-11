@@ -13,7 +13,7 @@ export async function GET(req) {
     connection.release();
     // console.log("From API ->",data);
 
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json(data || [], { status: 200 });
   } catch (error) {
     return NextResponse.json(error.message, { status: 500 });
   }
@@ -27,7 +27,7 @@ export async function POST(req) {
 
     const unique_id = generateUniqueCode();
 
-    console.log(labtest, unique_id);
+    // console.log(labtest, unique_id);
 
     const connection = await pool.getConnection();
     await connection.query(

@@ -189,7 +189,7 @@ const SideNavbar = () => {
           className="text-sm hover:bg-gray-300 flex items-center px-10 py-1 mx-1 my-2 rounded-md shadow-md md:shadow-none md:mx-0"
           href={"/dashboard/labreports"}
         >
-          Lab Reports
+          <img width="24" height="24" src="https://img.icons8.com/ios/50/health-graph.png" alt="health-graph"/><p className="ml-2">Lab Reports</p>
         </Link>
       )}
     </>

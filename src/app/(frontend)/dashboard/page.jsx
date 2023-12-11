@@ -1,8 +1,9 @@
 import React from 'react'
+import DisplayStats from './DashboardComponents/DisplayStats/DisplayStats'
 
 const Dashboard = () => {
   return (
-    <div>This is Dashboard</div>
+    <div><DisplayStats/></div>
   )
 }
 

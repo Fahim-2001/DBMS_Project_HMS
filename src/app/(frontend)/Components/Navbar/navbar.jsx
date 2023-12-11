@@ -83,7 +83,7 @@ export default function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
-      <div className="navbar-end mr-2" title="User Profile">
+      <div className="navbar-end mr-2 flex items-center">
         {session?.data?.user ? (
           <>
             {

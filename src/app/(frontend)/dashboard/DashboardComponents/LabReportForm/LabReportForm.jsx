@@ -44,7 +44,7 @@ const LabReportForm = ({ labTestRequest }) => {
         reports,
       };
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}api/labtests/${labTestRequest?.id}`,
+        `${process.env.NEXT_PUBLIC_URL}api/labtests/${labTestRequest?.unique_id}`,
         {
           method: "PUT",
           body: JSON.stringify(updateBody),
@@ -55,13 +55,13 @@ const LabReportForm = ({ labTestRequest }) => {
       if (response.ok) {
         toast.success("Report Uploaded", {
           position: "top-right",
-          autoClose: 1000,
+          autoClose: 500,
         });
         reports = [];
       } else {
         toast.warning("Report Upload Failed", {
           position: "top-right",
-          autoClose: 1000,
+          autoClose: 500,
         });
       }
     } catch (error) {

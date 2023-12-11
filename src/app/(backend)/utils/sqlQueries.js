@@ -54,9 +54,9 @@ export const sqlQueries = {
     getByEmailAndId: "SELECT*FROM lab_tests WHERE email=? AND id=?",
     postNew:
       "INSERT INTO lab_tests(fullname,age,gender,contact,email,number_of_tests, tests,registered_by,registers_email,payable_amount,advanced_amount,due_amount,payment_status,report_status,unique_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-    updatePaymentStatusById:
-      "UPDATE lab_tests SET payment_status=?, due_amount=? WHERE id=?",
-    updateReportById:
-      "UPDATE lab_tests SET report_status=?, report=? WHERE id=?",
+    updatePaymentStatusByUniqueId:
+      "UPDATE lab_tests SET payment_status=?, due_amount=? WHERE unique_id=?",
+    updateReportByUniqueId:
+      "UPDATE lab_tests SET report_status=?, report=? WHERE unique_id=?",
   },
 };

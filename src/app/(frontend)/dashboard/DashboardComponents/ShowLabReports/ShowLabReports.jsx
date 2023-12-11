@@ -5,6 +5,8 @@ const ShowLabReports = async () => {
   const labTestRequests = await fetch(`${process.env.NEXT_PUBLIC_URL}api/labtests`, {
     cache: "no-store",
   }).then((res) => res.json());
+
+  // console.log(labTestRequests)
   return (
     <div>
       <div className="text-xs">
@@ -50,7 +52,7 @@ const ShowLabReports = async () => {
                   
                   {request?.report_status ==="On Process" ? <td>
                     <Link
-                      href={`/dashboard/labreports/${request?.id}`}
+                      href={`/dashboard/labreports/${request?.unique_id}`}
                       className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
                     >
                       Upload
