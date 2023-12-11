@@ -5,7 +5,7 @@ import { generatePrescription } from "../../../utils/generatePrescription";
 import { useRouter } from "next/navigation";
 
 const CurrentUsersAppts = () => {
-  const router = useRouter()
+  const router = useRouter();
   const { runningUser } = useContext(UserDataContext);
   const [appointments, setAppointments] = useState([]);
 
@@ -122,7 +122,7 @@ const CurrentUsersAppts = () => {
         </div>
       )}
       <div className="flex justify-between text-xs font-semibold mr-3">
-        <p> Your Lab Reports Table</p>
+        <p> Your Booked Appointments</p>
         <div className="flex gap-2 items-center">
           <p>Total Count :{appointments?.length}</p>
           <svg
@@ -132,7 +132,7 @@ const CurrentUsersAppts = () => {
             viewBox="0 0 32 32"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
-            onClick={()=>router.refresh()}
+            onClick={() => router.refresh()}
           >
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g
@@ -170,10 +170,7 @@ const CurrentUsersAppts = () => {
                 <td>{appt?.patient_gender}</td>
                 <td>{appt?.appt_date}</td>
                 <td>{appt?.patient_issue}</td>
-                {(runningUser?.userRole === "super-admin" ||
-                  runningUser?.userRole === "admin") && (
-                  <td>{appt?.ref_doctor}</td>
-                )}
+                <td>{appt?.ref_doctor}</td>
                 <td>{appt?.appt_status}</td>
                 <td>
                   {appt?.appt_status === "Unchecked" ? (
