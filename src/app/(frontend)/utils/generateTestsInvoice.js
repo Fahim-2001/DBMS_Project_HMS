@@ -6,7 +6,6 @@ export const generateTestsInvoice = async (unique_id) => {
     `${process.env.NEXT_PUBLIC_URL}api/labtests/${unique_id}`,
     { cache: "no-store" }
   ).then((res) => res.json());
-  console.log(testInfo);
 
   const testInvoice = new jsPDF({
     orientation: "landscape",
@@ -124,11 +123,11 @@ export const generateTestsInvoice = async (unique_id) => {
     totalCost += test?.price;
   });
 
-  tableKeys.push(["times", "Total Amount", totalCost + " BDT"]);
-  tableKeys.push(["times", "Paid Amount", testInfo?.advanced_amount + " BDT"]);
+  tableKeys.push(["", "Total Amount", totalCost + " BDT"]);
+  tableKeys.push(["", "Paid Amount", testInfo?.advanced_amount + " BDT"]);
 
   if (testInfo?.due_amount) {
-    tableKeys.push(["times", "Due Amount", testInfo?.due_amount + " BDT"]);
+    tableKeys.push(["", "Due Amount", testInfo?.due_amount + " BDT"]);
     // Due Seal
     testInvoice.addImage(
       "https://res.cloudinary.com/dqvsc6e7e/image/upload/v1700330437/phphospital-user-uploads/payment-due-text-red-grungy-round-rubber-stamp-vintage-219540081-removebg-preview_q1pbcl.png",

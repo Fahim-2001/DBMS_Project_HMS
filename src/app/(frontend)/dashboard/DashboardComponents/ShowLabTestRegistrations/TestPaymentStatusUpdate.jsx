@@ -19,7 +19,7 @@ const TestPaymentStatusUpdate = ({ request }) => {
       console.log(data)
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}api/labtests/${request?.id}`,
+        `${process.env.NEXT_PUBLIC_URL}api/labtests/${request?.unique_id}`,
         {
           method: "PUT",
           body: JSON.stringify(data),

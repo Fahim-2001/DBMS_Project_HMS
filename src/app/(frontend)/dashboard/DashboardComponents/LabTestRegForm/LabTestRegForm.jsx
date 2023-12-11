@@ -78,23 +78,23 @@ const LabTestRegForm = () => {
       router.refresh();
        
       const responseData = await response.json();
-      console.log(responseData?.unique_id)
+      // console.log(responseData?.unique_id)
       if (response.ok) {
         toast.success("Test Registered", {
           position: "top-right",
-          autoClose: 1000,
+          autoClose: 500,
         });
         generateTestsInvoice(responseData?.unique_id);
         // formRef.current.reset();
 
       } else {
-        console.log("Failed");
+        toast.warning("Test Registration Failed", {
+          position: "top-right",
+          autoClose: 500,
+        });
       }
     } catch (error) {
-      toast.warning("Test Registration Failed", {
-        position: "top-right",
-        autoClose: 1000,
-      });
+      console.log(error.message)
     } finally {
       setLoading(false);
       // setNumberOfTests(0);
