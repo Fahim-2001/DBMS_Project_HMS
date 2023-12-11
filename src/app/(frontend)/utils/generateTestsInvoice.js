@@ -65,7 +65,7 @@ export const generateTestsInvoice = async (unique_id) => {
     .text("Registration Date :", 155, row1Yaxis, "left")
     .setFont("times", "normal")
     .text(
-      `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
+      `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`,
       200,
       row1Yaxis,
       "left"
@@ -174,7 +174,7 @@ export const generateTestsInvoice = async (unique_id) => {
     .text("Collection Date : ", 140, 200, "center")
     .setFont("times", "normal")
     .text(
-      `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
+      `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`,
       155,
       200
     );

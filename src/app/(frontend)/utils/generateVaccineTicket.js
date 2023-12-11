@@ -3,18 +3,18 @@ import autoTable from 'jspdf-autotable'
 
 export const generateVaccineTicket = (data) => {
   // PDF object creation
-  const prescription = new jsPDF({
+  const ticket = new jsPDF({
     orientation: "landscape",
   });
 
   // Heading
 
   // Column 1 - Name
-  prescription.setFont("bold");
-  prescription.setFontSize(30);
-  prescription.setTextColor(0, 150, 255);
-  prescription.text("PHP Hospital", 10, 20, "left");
-  prescription
+  ticket.setFont("bold");
+  ticket.setFontSize(30);
+  ticket.setTextColor(0, 150, 255);
+  ticket.text("PHP Hospital", 10, 20, "left");
+  ticket
     .setFont("normal")
     .setFontSize(18)
     .setTextColor("black")
@@ -22,7 +22,7 @@ export const generateVaccineTicket = (data) => {
 
   // Column 2 - Address
   const addressLineGap = 15;
-  prescription
+  ticket
     .setFontSize(12)
     .text("Contact : +8801325678923", 290, addressLineGap + 5, "right")
     .text("E-mail: hospital@php.health.bd", 290, addressLineGap + 10, "right")
@@ -33,13 +33,13 @@ export const generateVaccineTicket = (data) => {
       "right"
     );
 
-  prescription.line(0, 40, 300, 40); // horizontal line
+  ticket.line(0, 40, 300, 40); // horizontal line
 
   //Vaccine Takers Info
   // --------------- ROW 1 ----------------------
   const row1Yaxis = 50;
   // Token
-  prescription
+  ticket
     .setFont("times", "bold")
     .setFontSize(14)
     .text("Token :", 10, row1Yaxis, "left")
@@ -47,7 +47,7 @@ export const generateVaccineTicket = (data) => {
     .text(`${data.token}`, 28, row1Yaxis, "left");
 
   // Vaccine Name
-  prescription
+  ticket
     .setFont("times", "bold")
     .setFontSize(14)
     .text("Vaccine :", 80, row1Yaxis, "left")
@@ -55,7 +55,7 @@ export const generateVaccineTicket = (data) => {
     .text(`${data.vaccine_name}`, 100, row1Yaxis, "left");
 
   // Registration Date
-  prescription
+  ticket
     .setFont("times", "bold")
     .setFontSize(14)
     .text("Registration Date :", 155, row1Yaxis, "left")
@@ -64,7 +64,7 @@ export const generateVaccineTicket = (data) => {
 
   // Number Of Doses
   const doses = 2;
-  prescription
+  ticket
     .setFont("times", "bold")
     .setFontSize(14)
     .text("Number of Doses :", 230, row1Yaxis, "left")
@@ -74,7 +74,7 @@ export const generateVaccineTicket = (data) => {
   // --------------- ROW 2 ----------------------
   const row2Yaxis = 60;
   // Name
-  prescription
+  ticket
     .setFont("times", "bold")
     .setFontSize(14)
     .text("Name :", 10, row2Yaxis, "left")
@@ -82,7 +82,7 @@ export const generateVaccineTicket = (data) => {
     .text(`${data.fullname}`, 28, row2Yaxis, "left");
 
   // Gender
-  prescription
+  ticket
     .setFont("times", "bold")
     .setFontSize(14)
     .text("Gender :", 80, row2Yaxis, "left")
@@ -90,7 +90,7 @@ export const generateVaccineTicket = (data) => {
     .text(`${data.gender}`, 100, row2Yaxis, "left");
 
   // Age
-  prescription
+  ticket
     .setFont("times", "bold")
     .setFontSize(14)
     .text("Age :", 155, row2Yaxis, "left")
@@ -98,7 +98,7 @@ export const generateVaccineTicket = (data) => {
     .text(`${data.age}`, 170, row2Yaxis, "left");
 
   // Contact
-  prescription
+  ticket
     .setFont("times", "bold")
     .setFontSize(14)
     .text("Contact :", 230, row2Yaxis, "left")
@@ -106,19 +106,19 @@ export const generateVaccineTicket = (data) => {
     .text(`${data.contact}`, 250, row2Yaxis, "left");
 
   // --------------- ROW 2 ----------------------
-  prescription
+  ticket
   .setFont("times", "bold")
   .setFontSize(14)
   .text("Vaccine Information :", 10, 90, "left");
   
   const dosesInfo = [
     ['Dose No', 'Date', 'Signature'],
-    ['1', '13/11/2024', ''],
+    ['1', '', ''],
     ['2', '', ''],
   ];
 
   // Add a table with cell padding using jsPDF-AutoTable
-autoTable({
+ticket.autoTable( {
   head: [dosesInfo[0]], // Header row
   body: dosesInfo.slice(1), // Data rows
   margin: { top: 100 },
@@ -126,7 +126,7 @@ autoTable({
 
 // --------------- ROW 3 -----------------------
 // Collection Data
-prescription
+ticket
 .setFont("times")
 .setFontSize(10)
 .setTextColor("black")
@@ -135,20 +135,20 @@ prescription
 .text(`PHP HMS Software`, 30, 200);
 
 // Collection date
-prescription
+ticket
 .setFont("times",'bold')
 .setFontSize(10)
 .setTextColor("black")
 .text("Collection Date : ", 140, 200, "center")
 .setFont("times", "normal")
 .text(
-  `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
+  `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`,
   155,
   200
 );
 
 // Collection time
-prescription
+ticket
 .setFont("times","bold")
 .setFontSize(10)
 .setTextColor("black")
@@ -164,5 +164,5 @@ prescription
 );
 
 
-  prescription.save("vaccine ticket.pdf");
+  ticket.save("vaccine ticket.pdf");
 };

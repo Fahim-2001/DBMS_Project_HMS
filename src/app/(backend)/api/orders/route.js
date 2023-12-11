@@ -15,7 +15,7 @@ const date = new Date();
 export async function POST(req, res) {
     try {
       const order = await req.json();
-      order.booking_date = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
+      order.booking_date = `${date.getDate()}/${new Date().getMonth()+1}/${date.getFullYear()}`;
       const tran_id = Math.random().toString(36).substring(2, 15);
       // console.log(order);
       

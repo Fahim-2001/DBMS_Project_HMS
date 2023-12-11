@@ -20,7 +20,7 @@ export async function GET(req) {
 export async function POST(req, res) {
   try {
     const patient = await req.json();
-    patient.booking_date = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
+    patient.booking_date = `${date.getDate()}/${new Date().getMonth()+1}/${date.getFullYear()}`;
     patient.tran_id = null;
     console.log(patient);
 

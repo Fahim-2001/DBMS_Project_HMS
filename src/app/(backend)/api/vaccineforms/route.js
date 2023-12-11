@@ -32,7 +32,7 @@ export async function POST(req) {
     } = await req.json();
 
     // Current Date
-    const reg_date = `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`;
+    const reg_date = `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`;
 
     // This token is generated to identify current request in the next query to generate pdf.
     const token = generate({

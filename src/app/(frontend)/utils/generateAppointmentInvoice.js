@@ -259,7 +259,7 @@ export const generateAppointmentInvoice = (patient) => {
     .text("Collection Date : ", 90, 270, "left")
     .setFont("times", "normal")
     .text(
-      `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
+      `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`,
       115,
       270
     );
