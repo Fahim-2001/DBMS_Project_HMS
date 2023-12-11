@@ -2,10 +2,12 @@
 import { UserDataContext } from "@/app/(frontend)/Contexts/UserDataProvider/UserDataProvider";
 import React, { useContext, useEffect, useState } from "react";
 import { generateLabReport } from "../../../utils/generateLabReport";
+import { useRouter } from "next/navigation";
 
 const CurrentUsersLabReports = () => {
   const [labReports, setLabReports] = useState([]);
   const { runningUser } = useContext(UserDataContext);
+  const router = useRouter()
 
   // Client Side Rendering using useEffect from Database
   useEffect(() => {
