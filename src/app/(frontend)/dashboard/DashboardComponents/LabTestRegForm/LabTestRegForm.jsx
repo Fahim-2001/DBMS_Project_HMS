@@ -94,11 +94,11 @@ const LabTestRegForm = () => {
         });
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message)  
     } finally {
       setLoading(false);
-      // setNumberOfTests(0);
-      // setTextFields([])
+      setNumberOfTests(0);
+      setTextFields([])
     }
   };
 
