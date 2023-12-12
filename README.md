@@ -1,4 +1,4 @@
-Introducing you [PHP-Hospital](https://php-hospital-dev.vercel.app/).
+## Introducing you [PHP-Hospital](https://php-hospital-dev.vercel.app/).
 
 A Hospital website with management dashboard which is a [Next.js](https://nextjs.org/) + [MySQL](https://www.mysql.com/) practice project. I have learned both NextJs and SQL using MySQL doing this project.
 
@@ -19,7 +19,8 @@ A Hospital website with management dashboard which is a [Next.js](https://nextjs
 5. Invoice, PDF Generation
 6. Image management through Cloudinary
 7. Vercel Deployment
-8. Database Hosting
+8. MySQL and MySQL database
+9. Database Hosting
 
 ## Challenges I have faced during this project:
 1. Implementing nextJS api method.
@@ -48,12 +49,12 @@ A Hospital website with management dashboard which is a [Next.js](https://nextjs
 
 ## Description
 This practise projects shows up a Hospital with management system. There are 6 roles and their accesses are distributed according to their Role Priority. 
--> A Super Admin has the power to add Doctors in the system, delete doctor, Approve or Promoting user to other roles, delete users, see appointments status, update vaccine status, register lab tests of an user.
--> An Admin has all the accesses of Super Admin despite updating Vaccine status and Lab Test Registration.
--> A Receptionist can register lab tests for users and provides invoice of registration.
--> A Lab Attendant can Update Vaccine Status, Upload Lab Reports.
--> A Doctor can check Appointments and Upload Prescriptions for patients.
--> A general user has no access to the Dashboard or Management System, he or she can only take facility of Taking Appointments of Doctors, Vaccine Registration, Profile Editing, Reviewing. Moreover a general user can find his/her documents (Prescriptions and Lab Reports) in profile section.
+1. A Super Admin has the power to add Doctors in the system, delete doctor, Approve or Promoting user to other roles, delete users, see appointments status, update vaccine status, register lab tests of an user.
+2. An Admin has all the accesses of Super Admin despite updating Vaccine status and Lab Test Registration.
+3. A Receptionist can register lab tests for users and provides invoice of registration.
+4. A Lab Attendant can Update Vaccine Status, Upload Lab Reports.
+5. A Doctor can check Appointments and Upload Prescriptions for patients.
+6. A general user has no access to the Dashboard or Management System, he or she can only take facility of Taking Appointments of Doctors, Vaccine Registration, Profile Editing, Reviewing. Moreover a general user can find his/her documents (Prescriptions and Lab Reports) in profile section.
 
 In Doctor registering section, after completing Doctor's registration system sends an email with credential to the email(Valid Email) with which Super Admin or Admin registered the doctor.
 While registering a user the system sends OTP to verify the user.
