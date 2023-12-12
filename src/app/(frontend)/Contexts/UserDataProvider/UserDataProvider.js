@@ -1,7 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
 import React, { createContext } from "react";
-import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 
 export const UserDataContext = createContext();

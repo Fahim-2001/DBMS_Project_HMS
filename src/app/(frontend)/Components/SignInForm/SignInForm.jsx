@@ -3,8 +3,10 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const SignInForm = () => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(null);
   const [error, setError] = useState("");
@@ -35,6 +37,35 @@ const SignInForm = () => {
       router.replace("/");
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}api/forgot-password`,
+        {
+          method: "PUT",
+          body: JSON.stringify(email),
+        }
+      );
+
+      if (res.ok) {
+        toast.success(`We have sent you an email with new password`, {
+          autoClose: 1000,
+          position: "top-center",
+        });
+      } else {
+        toast.warning("Please check email you entered!", {
+          autoClose: 1000,
+          position: "top-center",
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,9 +106,16 @@ const SignInForm = () => {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="flex justify-between text-sm font-medium leading-6 text-gray-900"
             >
-              Password
+              <span>Password</span>
+              {loading ? (
+                <span className="loading loading-spinner loading-xs text-primary"></span>
+              ) : (
+                <span className="text-primary" onClick={handleForgotPassword}>
+                  Forgot Password?
+                </span>
+              )}
             </label>
 
             <div className="mt-2">

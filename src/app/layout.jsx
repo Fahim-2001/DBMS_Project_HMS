@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Anek_Bangla, Inter } from "next/font/google";
 import Navbar from "./(frontend)/Components/Navbar/navbar";
 import { Footer } from "./(frontend)/Components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
@@ -8,7 +8,7 @@ import { AuthProvider } from "./providers";
 import UserDataProvider from "./(frontend)/Contexts/UserDataProvider/UserDataProvider";
 import NextTopLoader from "nextjs-toploader";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Anek_Bangla({subsets:["bengali"]});
 
 export const metadata = {
   title: "PHP Hospital",

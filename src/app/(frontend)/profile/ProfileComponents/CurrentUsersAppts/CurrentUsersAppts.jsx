@@ -48,7 +48,7 @@ const CurrentUsersAppts = () => {
       <form className="flex" action="post" onSubmit={handleSearchById}>
         <input
           type="text"
-          placeholder="Search here with your report Id"
+          placeholder="Search here with your appointment Id"
           className="input input-bordered input-sm w-full"
           onChange={(e) => setId(e.target.value)}
         />

@@ -83,22 +83,17 @@ export default function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
-      <div className="navbar-end mr-2 flex items-center">
+      <div className="navbar-end mr-2 items-center">
         {session?.data?.user ? (
-          <>
-            {
-              <div>
-                <p className="mx-2 text-md font-semibold font-serif text-white ">
-                  {runningUser?.fullname || session?.data?.user?.name}
-                </p>
-                {runningUser?.userRole !== "user" && (
-                  <p className="text-white text-xs text-right">
-                    {runningUser?.userRole}
-                  </p>
-                )}
-              </div>
-            }
-
+          <div className="flex items-center">
+            <div className="mx-2">
+              <p className="text-md font-semibold text-white">
+                {runningUser?.fullname || session?.data?.user?.name}
+              </p>
+              <p className="text-white text-xs">
+                {runningUser?.userRole !== "user" && runningUser?.userRole}
+              </p>
+            </div>
             <div className="dropdown dropdown-bottom dropdown-end">
               <div tabIndex={0} className="avatar placeholder">
                 <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
@@ -136,7 +131,7 @@ export default function Navbar() {
                 </li>
               </ul>
             </div>
-          </>
+          </div>
         ) : (
           <Link
             href={"/signin"}

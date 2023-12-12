@@ -59,4 +59,7 @@ export const sqlQueries = {
     updateReportByUniqueId:
       "UPDATE lab_tests SET report_status=?, report=? WHERE unique_id=?",
   },
+  forgotPassword:{
+    updatePasswordByEmail: 'UPDATE users SET password=? WHERE email=?'
+  }
 };

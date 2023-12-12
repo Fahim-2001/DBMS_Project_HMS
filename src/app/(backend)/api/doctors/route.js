@@ -2,9 +2,6 @@ import pool from "@/app/(backend)/utils/db";
 import { NextResponse } from "next/server";
 import { sqlQueries } from "../../utils/sqlQueries";
 import { transporter } from "../../utils/nodemailer";
-// import { transporter } from "../../utils/nodemailer";
-
-
 
 // All doctors information method.
 export async function GET(req, res) {
@@ -45,7 +42,7 @@ export async function POST(req) {
         <h3>Thank You!</h3>
       `,
     });
-    console.log("Successfully sent credentials " + mail.messageId);
+    // console.log("Successfully sent credentials " + mail.messageId);
 
     const connection = await pool.getConnection();
     await connection.query(sqlQueries.doctors.postNew, [
