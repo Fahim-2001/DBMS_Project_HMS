@@ -63,11 +63,11 @@ const DoctorsForAppointments = ({ props, doctor }) => {
         <div className="flex justify-end mt-4">
           <Link
             href={`/department/${props?.slug}/${doctor?.doc_id}`}
-            className="text-lg font-medium text-blue-600 "
+            className="text-lg font-medium text-blue-600 hover:text-blue-800"
             tabindex="0"
             role="link"
           >
-            Book Appointment {"->"}
+            <p>Book Appointment</p>
           </Link>
         </div>
       </div>
