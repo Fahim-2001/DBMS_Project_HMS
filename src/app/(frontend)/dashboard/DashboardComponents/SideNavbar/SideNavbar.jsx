@@ -13,8 +13,8 @@ const SideNavbar = () => {
         href={"/dashboard/doctors"}
       >
         <svg
-          width="25px"
-          height="25px"
+          width="24px"
+          height="24px"
           viewBox="0 0 48 48"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +61,8 @@ const SideNavbar = () => {
         href={"/dashboard/users"}
       >
         <svg
-          width="25px"
-          height="25px"
+          width="24px"
+          height="24px"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -125,8 +125,8 @@ const SideNavbar = () => {
         >
           <svg
             fill="#000000"
-            width="25px"
-            height="25px"
+            width="24px"
+            height="24px"
             viewBox="0 0 24 24"
             data-name="Layer 1"
             id="Layer_1"

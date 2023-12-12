@@ -136,7 +136,7 @@ const DoctorsProfileEditorForm = ({ doctor }) => {
               disabled
               className="flex justify-center items-center mx-1 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[10px] py-[4px] rounded-xl"
             >
-              <span>Update</span>
+              <span className="mr-2">Updating</span>
               <span className="loading loading-spinner loading-xs px-2 "></span>
             </button>
           ) : (

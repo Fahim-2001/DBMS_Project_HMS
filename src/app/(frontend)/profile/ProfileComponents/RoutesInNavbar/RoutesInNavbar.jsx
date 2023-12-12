@@ -8,27 +8,70 @@ const RoutesInNavbar = ({ runningUser }) => {
       <li className="text-sm md:hover:bg-gray-300  py-1 md:py-2">
         {runningUser?.userRole === "doctor" ? (
           <Link
-            className="px-3"
+            className="px-3 flex items-center"
             href={"/profile/doctorsappointments"}
           >
-            Your Appointments
+            <svg
+              fill="#000000"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              data-name="Layer 1"
+              id="Layer_1"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <title></title>
+                <path d="M18,5V3a1,1,0,0,0-2,0V5H8V3A1,1,0,0,0,6,3V5H2V21H22V5Zm2,14H4V7H20Zm-7-9H11v2h2Zm4,0H15v2h2ZM9,14H7v2H9Zm4,0H11v2h2Z"></path>
+              </g>
+            </svg>
+            <span className="ml-2">Your Appointments</span>
           </Link>
         ) : (
           <Link
-            className="px-3"
+            className="px-3 flex items-center"
             href={"/profile/yourappointments"}
           >
-            Your Booked Appointments
+            <svg
+              fill="#000000"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              data-name="Layer 1"
+              id="Layer_1"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <title></title>
+                <path d="M18,5V3a1,1,0,0,0-2,0V5H8V3A1,1,0,0,0,6,3V5H2V21H22V5Zm2,14H4V7H20Zm-7-9H11v2h2Zm4,0H15v2h2ZM9,14H7v2H9Zm4,0H11v2h2Z"></path>
+              </g>
+            </svg>
+            <span className="ml-2">Your Booked Appointments</span>
           </Link>
         )}
       </li>
       <li className="text-sm md:hover:bg-gray-300 py-1 md:py-2">
         {runningUser?.userRole !== "doctor" && (
-          <Link
-            className="px-3"
-            href={"/profile/labreports"}
-          >
-            Your Lab Reports
+          <Link className="px-3 flex items-center" href={"/profile/labreports"}>
+            <img
+              width="24"
+              height="24"
+              src="https://img.icons8.com/ios/50/health-graph.png"
+              alt="health-graph"
+            />
+            <span className="ml-2">Your Lab Reports</span>
           </Link>
         )}
       </li>

@@ -42,7 +42,7 @@ const UpdateVaccineStatus = ({ req }) => {
             <option value="Pending">Pending</option>
           </select>
           <button
-            className="mx-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+            className="mx-2 my-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
             onClick={updateStatus}
           >
             {loading ? (
