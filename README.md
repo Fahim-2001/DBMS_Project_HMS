@@ -18,9 +18,11 @@ A Hospital website with management dashboard which is a [Next.js](https://nextjs
 4. Content Mangement System. Content Management by the authorized roles.
 5. Invoice, PDF Generation
 6. Image management through Cloudinary
-7. Vercel Deployment
-8. MySQL and MySQL database
-9. Database Hosting
+7. Payment System
+8. Vercel Deployment
+9. MySQL and MySQL database
+10. Database Hosting.
+
 
 ## Challenges I have faced during this project:
 1. Implementing nextJS api method.
