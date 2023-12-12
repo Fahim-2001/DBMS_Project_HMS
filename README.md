@@ -59,5 +59,8 @@ In Doctor registering section, after completing Doctor's registration system sen
 While registering a user the system sends OTP to verify the user.
 An user may not register in the system but can take appointment of doctors, vaccine registration, find it's documents in 'Find Your Things'. But to keep track of user's documents I prefer to register as an user into the system.
 
+## Demo
+Live Link: [PHP-Hospital](https://php-hospital-dev.vercel.app/)
+
 ## Deployment
-I have deployed my project into [Vercel](https://vercel.com/) and hosted database into [Aviens](https://aiven.io/) for free plan. This platform needs no card requirements.
+I have deployed my project into [Vercel](https://vercel.com/) and hosted database into [Avien](https://aiven.io/) for free plan. This platform needs no card requirements.
