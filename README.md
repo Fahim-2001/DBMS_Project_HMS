@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Introducing you [PHP-Hospital](https://php-hospital-dev.vercel.app/).
 
-## Getting Started
+A Hospital website with management dashboard which is a [Next.js](https://nextjs.org/) + [MySQL](https://www.mysql.com/) practice project. I have learned both NextJs and SQL using MySQL doing this project.
 
-First, run the development server:
+## Technologies, Component Libraries and Packeges I have used:
+1. NextJs (ReactJS fullstack framework)
+2. [NodeJS](https://nodejs.org/en) (For backend)
+3. [DaisyUI](https://daisyui.com/) (For Frontend Design)
+4. [NextAuth.js](https://next-auth.js.org/) (For Authentication and Authorization)
+5. [Nodemailer](https://nodemailer.com/)
+6. [SSLCommerz](https://sslcommerz.com/) (For Payment)
+7. [jsPDF](http://raw.githack.com/MrRio/jsPDF/master/docs/index.html) (To create invoices)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Things I have learned through this project:
+1. Server Side Rendering (SSR) & Client Side Rendering (CSR).
+2. NextJS fullstack facility at one platform.
+3. Role Based Authorization
+4. Content Mangement System. Content Management by the authorized roles.
+5. Invoice, PDF Generation
+6. Image management through Cloudinary
+7. Vercel Deployment
+8. Database Hosting
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Challenges I have faced during this project:
+1. Implementing nextJS api method.
+2. Invoices, PDFs generation.
+3. MySQL database hosting.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Features
+1. User Registration
+2. Role based authorization
+3. Appointment Booking
+4. Doctor Registration
+5. Registration for vaccination
+6. Delete User
+7. Update Role
+9. Lab Test Registration
+10. Lab Report Upload
+11. Presription By Doctor
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Roles in the project:
+1. Super Admin
+2. Admin
+3. Receptionist
+4. Lab Attendant
+5. Doctor
+6. User
 
-## Learn More
+## Description
+This practise projects shows up a Hospital with management system. There are 6 roles and their accesses are distributed according to their Role Priority. 
+-> A Super Admin has the power to add Doctors in the system, delete doctor, Approve or Promoting user to other roles, delete users, see appointments status, update vaccine status, register lab tests of an user.
+-> An Admin has all the accesses of Super Admin despite updating Vaccine status and Lab Test Registration.
+-> A Receptionist can register lab tests for users and provides invoice of registration.
+-> A Lab Attendant can Update Vaccine Status, Upload Lab Reports.
+-> A Doctor can check Appointments and Upload Prescriptions for patients.
+-> A general user has no access to the Dashboard or Management System, he or she can only take facility of Taking Appointments of Doctors, Vaccine Registration, Profile Editing, Reviewing. Moreover a general user can find his/her documents (Prescriptions and Lab Reports) in profile section.
 
-To learn more about Next.js, take a look at the following resources:
+In Doctor registering section, after completing Doctor's registration system sends an email with credential to the email(Valid Email) with which Super Admin or Admin registered the doctor.
+While registering a user the system sends OTP to verify the user.
+An user may not register in the system but can take appointment of doctors, vaccine registration, find it's documents in 'Find Your Things'. But to keep track of user's documents I prefer to register as an user into the system.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Deployment
+I have deployed my project into [Vercel](https://vercel.com/) and hosted database into [Aviens](https://aiven.io/) for free plan. This platform needs no card requirements.
