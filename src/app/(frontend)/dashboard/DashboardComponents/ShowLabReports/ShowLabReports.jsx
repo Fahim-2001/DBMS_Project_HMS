@@ -50,10 +50,10 @@ const ShowLabReports = async () => {
                   <td>{request?.payable_amount}</td>
                   <td>{request?.advanced_amount}</td>
                   
-                  {request?.report_status ==="On Process" ? <td>
+                  {request?.report_status ==="On Process" ? <td className="py-2">
                     <Link
                       href={`/dashboard/labreports/${request?.unique_id}`}
-                      className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
+                      className="bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[1px] rounded-xl"
                     >
                       Upload
                     </Link>
