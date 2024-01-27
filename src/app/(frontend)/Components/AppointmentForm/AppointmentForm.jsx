@@ -85,7 +85,7 @@ const AppointmentForm = ({ doctor }) => {
         router.refresh();
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         if (data.url) {
           router.replace(data.url);
         }

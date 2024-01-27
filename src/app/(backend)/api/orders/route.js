@@ -57,7 +57,7 @@ export async function POST(req, res) {
         product_category: "health",
         product_profile: "general",
         cus_name: order?.patient_name,
-        cus_email: order?.ref_email,
+        cus_email: order?.ref_email || "noemail@gmail.com",
         cus_add1: "Dhaka",
         cus_add2: "Dhaka",
         cus_city: "Dhaka",
