@@ -7,14 +7,12 @@ import { generatePrescription } from "../utils/generatePrescription";
 const page = () => {
   const [docData, setDocData] = useState({});
   const [loading, setLoading] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
       const docCategory = e.target.document_category.value;
       const query = e.target.query.value;
-
       if (docCategory === "Prescription") {
         const appointment = await fetch(
           `${process.env.NEXT_PUBLIC_URL}api/appointment-by-uniqueid?uniqueId=${query}`,
@@ -116,7 +114,7 @@ const page = () => {
                   <td>
                     <button
                       onClick={() => {
-                        generateLabReport(docData?.id);
+                        generateLabReport(docData?.unique_id);
                       }}
                       className="mx-1 mb-2 bg-primary hover:bg-secondary text-white font-semibold px-[8px] py-[3px] rounded-xl"
                     >

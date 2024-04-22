@@ -49,6 +49,36 @@ A Hospital website with management dashboard which is a [Next.js](https://nextjs
 5. Doctor
 6. User
 
+## Roles Credentials:
+#### Administrative:
+Super Admin - fahim@gmail.com
+Admin - ruhani@gmail.com
+Receptionist - tamanna@gmail.com
+Lab Attendant - rakib@gmail.com
+
+Password for all the given roles :
+1234
+
+#### Doctors:
+1. Emergency Medicine :
+    Name: Dr. Khaled,
+    Email: khaled.doct@gmail.com,
+    Pass: eSyFo7iR
+2. Neurology :
+    Name: Dr. Hania,
+    Email: hania.doct@gmail.com,
+    Pass: gCw9gRuP
+3. Radiology :
+    Name: Dr. Asma,
+    Email: asma.doct@gmail.com,
+    Pass: zjOjWNuu
+4. Cardiology :
+    Name: Dr. Ismail,
+    Email: ismail.doct@gmail.com,
+    Pass: KLddkj5f
+
+[N.B: These emails are all dummy for testing purpose]
+
 ## Description
 This practise projects shows up a Hospital with management system. There are 6 roles and their accesses are distributed according to their Role Priority. 
 1. A Super Admin has the power to add Doctors in the system, delete doctor, Approve or Promoting user to other roles, delete users, see appointments status, update vaccine status, register lab tests of an user.

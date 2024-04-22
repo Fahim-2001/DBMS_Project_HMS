@@ -3,12 +3,11 @@ import jsPDF from "jspdf";
 export const generateLabReport = async (rep_id) => {
   // Report data fetching
   const labReport = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}api/labtests/${rep_id}}`,
+    `${process.env.NEXT_PUBLIC_URL}api/labtests/${rep_id}`,
     {
       cache: "no-store",
     }
   ).then((res) => res.json());
-  
   // PDF object creation
   const report = new jsPDF({
     orientation: "portrait",
@@ -114,7 +113,6 @@ export const generateLabReport = async (rep_id) => {
 
   // Tests
   const tests = JSON.parse(labReport.report);
-  console.log(tests)
   let lineGap1 =  57;
   let lineGap2 = 57;
   tests.map((test) => {
